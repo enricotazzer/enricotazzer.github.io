@@ -13,7 +13,7 @@ layout: default
                     {% assign read_time = words | divided_by: 200 | plus: 1 %}
                     <span class="meta">
                         Posted by
-                        <a href="{{ '/about.html' | relative_url }}">{{ site.author }}</a>
+                        <a href="{{ '/about/' | relative_url }}">{{ site.author }}</a>
                         on {{ page.date | date: "%d %B %Y" }}
                         &middot; {{ read_time }} min read
                     </span>
