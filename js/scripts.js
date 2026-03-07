@@ -93,4 +93,25 @@ window.addEventListener('DOMContentLoaded', () => {
         });
     }
 
+    // ── Smooth page-exit transition ───────────────────────────────────────────
+    // Intercept all same-origin internal links and fade out before navigating
+    document.querySelectorAll('a[href]').forEach(link => {
+        const href = link.getAttribute('href');
+        if (
+            !href ||
+            href.startsWith('#') ||
+            href.startsWith('mailto:') ||
+            href.startsWith('javascript:') ||
+            link.hasAttribute('target') ||        // opens in new tab
+            link.origin !== location.origin        // external link
+        ) return;
+
+        link.addEventListener('click', e => {
+            e.preventDefault();
+            const dest = link.href;
+            document.body.classList.add('page-leaving');
+            setTimeout(() => { location.href = dest; }, 185);
+        });
+    });
+
 });

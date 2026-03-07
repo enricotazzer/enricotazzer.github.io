@@ -8,22 +8,51 @@
   top: 0;
   left: 0;
   width: 0%;
-  height: 3px;
+  height: 4px;
   background: linear-gradient(90deg, #0085A1, #00c8e8);
-  z-index: 10000;
-  border-radius: 0 2px 2px 0;
-  transition: width 0.08s linear;
+  z-index: 99999;
+  border-radius: 0 3px 3px 0;
+  box-shadow: 0 0 8px rgba(0, 133, 161, 0.6);
+  transition: width 0.1s linear;
   pointer-events: none;
 }
 
 /* ── Page load fade-in ─────────────────────────────────────── */
+/*
+  IMPORTANT: We animate opacity only on <body>.
+  If we animate transform on <body>, it becomes the containing block for
+  position:fixed children (like #reading-progress), breaking their placement.
+  The slide-up is applied to top-level content wrappers only.
+*/
 body {
-  animation: pageFadeIn 0.45s ease both;
+  animation: pageFadeIn 0.4s ease both;
 }
 
 @keyframes pageFadeIn {
-  from { opacity: 0; transform: translateY(6px); }
-  to   { opacity: 1; transform: translateY(0);   }
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+/* Slide-up applied to direct body children, NOT body itself */
+body > nav#mainNav,
+body > header.masthead,
+body > .container,
+body > article,
+body > main,
+body > footer {
+  animation: contentSlideIn 0.5s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+@keyframes contentSlideIn {
+  from { transform: translateY(8px); }
+  to   { transform: none; }
+}
+
+/* ── Page exit fade (used by scripts.js before navigating) ─── */
+body.page-leaving {
+  opacity: 0 !important;
+  animation: none !important;
+  transition: opacity 0.18s ease !important;
 }
 
 /* ── Hero entrance animation ───────────────────────────────── */
@@ -165,13 +194,18 @@ html.dark-mode body {
   color: #e2e2e2;
 }
 
-html.dark-mode #mainNav {
-  background-color: #1a1a1a !important;
+/* Desktop: keep navbar transparent at top, only go solid when scrolled */
+@media (min-width: 992px) {
+  html.dark-mode #mainNav.is-fixed {
+    background-color: rgba(18, 18, 18, 0.97) !important;
+    border-bottom-color: #272727 !important;
+  }
 }
-
-html.dark-mode #mainNav.is-fixed {
-  background-color: rgba(20, 20, 20, 0.96) !important;
-  border-bottom-color: #272727 !important;
+/* Mobile: always show solid dark navbar */
+@media (max-width: 991px) {
+  html.dark-mode #mainNav {
+    background-color: #1a1a1a !important;
+  }
 }
 
 html.dark-mode #mainNav .navbar-nav > li.nav-item > a.nav-link,
