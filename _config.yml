@@ -1,5 +1,12 @@
+title: BrainNotBraining
+description: Cool stuff about computer science and AI
+author: Enrico Tazzer
+url: "https://enricotazzer.github.io"
+baseurl: ""
+
+# Build
+markdown: kramdown
+permalink: /posts/:title/
+
 plugins:
   - jekyll-feed
-title: Enrico Tazzer Blog
-description: Blog news
-author: Enrico Tazzer

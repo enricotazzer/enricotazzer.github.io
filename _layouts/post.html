@@ -1,0 +1,47 @@
+---
+layout: default
+---
+<!-- Post Header -->
+<header class="masthead" style="background-image: url('{{ page.image }}')">
+    <div class="container position-relative px-4 px-lg-5">
+        <div class="row gx-4 gx-lg-5 justify-content-center">
+            <div class="col-md-10 col-lg-8 col-xl-7">
+                <div class="post-heading">
+                    <h1>{{ page.title }}</h1>
+                    {% if page.subtitle %}<h2 class="subheading">{{ page.subtitle }}</h2>{% endif %}
+                    <span class="meta">
+                        Posted by
+                        <a href="{{ '/about.html' | relative_url }}">{{ site.author }}</a>
+                        on {{ page.date | date: "%d %B %Y" }}
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+<!-- Post Content -->
+<article class="mb-4">
+    <div class="container px-4 px-lg-5">
+        <div class="row gx-4 gx-lg-5 justify-content-center">
+            <div class="col-md-10 col-lg-8 col-xl-7">
+                {{ content }}
+
+                <!-- Prev / Next navigation -->
+                <hr class="my-4" />
+                <div class="d-flex justify-content-between flex-wrap gap-2">
+                    {% if page.previous.url %}
+                    <a href="{{ page.previous.url | relative_url }}" class="btn btn-sm btn-outline-secondary">
+                        &larr; {{ page.previous.title }}
+                    </a>
+                    {% else %}<span></span>{% endif %}
+                    {% if page.next.url %}
+                    <a href="{{ page.next.url | relative_url }}" class="btn btn-sm btn-outline-secondary">
+                        {{ page.next.title }} &rarr;
+                    </a>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+</article>
