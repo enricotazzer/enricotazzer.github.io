@@ -114,4 +114,53 @@ window.addEventListener('DOMContentLoaded', () => {
         });
     });
 
+    // ── Back to top ───────────────────────────────────────────────────────────
+    const backToTop = document.getElementById('back-to-top');
+    if (backToTop) {
+        window.addEventListener('scroll', () => {
+            backToTop.classList.toggle('visible', window.scrollY > 400);
+        }, { passive: true });
+        backToTop.addEventListener('click', () => {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+    }
+
+    // ── Tag filtering (posts.html) ────────────────────────────────────────────
+    const tagFilterBtns = document.querySelectorAll('.tag-filter-btn');
+    if (tagFilterBtns.length > 0) {
+        const filterPosts = (filter) => {
+            document.querySelectorAll('.post-item[data-tags]').forEach(item => {
+                if (filter === 'all') {
+                    item.classList.remove('hidden');
+                } else {
+                    const tags = item.dataset.tags.split(',').map(t => t.trim());
+                    item.classList.toggle('hidden', !tags.includes(filter));
+                }
+            });
+            // Hide HRs adjacent to hidden items
+            document.querySelectorAll('hr.my-4').forEach(hr => {
+                const prev = hr.previousElementSibling;
+                const next = hr.nextElementSibling;
+                const prevHidden = prev && prev.classList.contains('post-item') && prev.classList.contains('hidden');
+                const nextHidden = next && next.classList.contains('post-item') && next.classList.contains('hidden');
+                hr.style.display = (prevHidden || nextHidden) ? 'none' : '';
+            });
+        };
+
+        tagFilterBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                tagFilterBtns.forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                filterPosts(btn.dataset.filter);
+            });
+        });
+
+        // Auto-activate filter from URL hash (e.g. /posts.html#ai)
+        const hash = window.location.hash.replace('#', '').toLowerCase();
+        if (hash) {
+            const target = document.querySelector(`.tag-filter-btn[data-filter="${hash}"]`);
+            if (target) target.click();
+        }
+    }
+
 });

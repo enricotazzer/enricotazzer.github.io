@@ -4,6 +4,7 @@ title: "Rischi dell'AI nell'ambito sanitario"
 subtitle: "Illustrazione e discussione delle problematiche e dei rischi di tali strumenti"
 date: 2025-03-05
 image: /assets/img/shutterstock_635324807.jpg.webp
+tags: [AI, Medicine, Ethics]
 ---
 
 L'integrazione dell'AI nell'health care ha il potenziale di trasformare l'industria, ma solleva anche delle preoccupazioni etiche, normative e di sicurezza. Dopo aver visto numerosi benefici possibili negli scorsi articoli, ora ci concentreremo delle problematiche e sui rischi che possono portare questi strumenti nell'industria.

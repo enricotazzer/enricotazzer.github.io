@@ -9,11 +9,19 @@ layout: default
                 <div class="post-heading">
                     <h1>{{ page.title }}</h1>
                     {% if page.subtitle %}<h2 class="subheading">{{ page.subtitle }}</h2>{% endif %}
+                    {% assign words = content | number_of_words %}
+                    {% assign read_time = words | divided_by: 200 | plus: 1 %}
                     <span class="meta">
                         Posted by
                         <a href="{{ '/about.html' | relative_url }}">{{ site.author }}</a>
                         on {{ page.date | date: "%d %B %Y" }}
+                        &middot; {{ read_time }} min read
                     </span>
+                    {% if page.tags %}
+                    <div class="post-tags mt-2">
+                        {% for tag in page.tags %}<span class="tag-pill">{{ tag }}</span>{% endfor %}
+                    </div>
+                    {% endif %}
                 </div>
             </div>
         </div>

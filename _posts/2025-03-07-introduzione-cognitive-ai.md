@@ -4,6 +4,7 @@ title: "Introduzione alla Cognitive AI"
 subtitle: "E se i computer pensassero?"
 date: 2025-03-07
 image: /assets/img/AI-Procurement.jpg
+tags: [AI, Cognitive]
 ---
 
 <blockquote class="blockquote">

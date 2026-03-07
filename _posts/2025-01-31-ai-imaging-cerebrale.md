@@ -6,6 +6,7 @@ date: 2025-01-31
 image: /assets/img/diagnostic-medical-imaging-social.png
 source_url: "https://pmc.ncbi.nlm.nih.gov/articles/PMC10047107/"
 source_label: "Artificial Intelligence in Brain Tumor Imaging"
+tags: [AI, Medicine, Imaging]
 ---
 
 ## Introduzione

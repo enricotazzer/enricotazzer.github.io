@@ -4,6 +4,7 @@ title: "Introduzione all'AI nella medicina"
 subtitle: "Alla scoperta di questo vasto campo applicativo e le sue potenzialità"
 date: 2025-01-28
 image: /assets/img/AI-in-Medicine.png
+tags: [AI, Medicine]
 ---
 
 Nel corso degli ultimi anni l'enorme sviluppo della tecnologia, in particolare nel campo dell'hardware, e l'esplosione dei big data, hanno reso possibile l'utilizzo di strumenti di Artificial Intelligence (AI), che per essere efficaci hanno necessità di grandi quantità di dati e risorse computazionali elevati.

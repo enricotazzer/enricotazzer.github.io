@@ -14,21 +14,60 @@ title: Articles
         </div>
     </div>
 </header>
+<!-- Tag filter bar -->
+{% assign all_tags = "" | split: "" %}
+{% for post in site.posts %}
+  {% for tag in post.tags %}
+    {% unless all_tags contains tag %}
+      {% assign all_tags = all_tags | push: tag %}
+    {% endunless %}
+  {% endfor %}
+{% endfor %}
+{% if all_tags.size > 0 %}
+<div class="container px-4 px-lg-5 mt-3">
+    <div class="row gx-4 gx-lg-5 justify-content-center">
+        <div class="col-md-10 col-lg-8 col-xl-7">
+            <div class="tag-filter-bar" id="tag-filter-bar">
+                <button class="tag-filter-btn active" data-filter="all">All</button>
+                {% for tag in all_tags %}
+                <button class="tag-filter-btn" data-filter="{{ tag | downcase }}">{{ tag }}</button>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</div>
+{% endif %}
 <!-- Main Content -->
 <div class="container px-4 px-lg-5">
     <div class="row gx-4 gx-lg-5 justify-content-center">
         <div class="col-md-10 col-lg-8 col-xl-7">
             {% for post in site.posts %}
-            <div class="post-preview">
-                <a href="{{ post.url }}">
-                    <h2 class="post-title">{{ post.title }}</h2>
-                    {% if post.subtitle %}<h3 class="post-subtitle">{{ post.subtitle }}</h3>{% endif %}
-                </a>
-                <p class="post-meta">
-                    Posted by
-                    <a href="/about.html">{{ site.author }}</a>
-                    on {{ post.date | date: "%d %B %Y" }}
-                </p>
+            {% assign words = post.content | number_of_words %}
+            {% assign read_time = words | divided_by: 200 | plus: 1 %}
+            <div class="post-item" data-tags="{{ post.tags | join: ',' | downcase }}">
+                <div class="post-preview">
+                    {% if post.image %}
+                    <a href="{{ post.url }}" class="post-thumb" tabindex="-1" aria-hidden="true">
+                        <img src="{{ post.image }}" alt="" loading="lazy" />
+                    </a>
+                    {% endif %}
+                    <div class="post-preview-body">
+                        <a href="{{ post.url }}">
+                            <h2 class="post-title">{{ post.title }}</h2>
+                            {% if post.subtitle %}<h3 class="post-subtitle">{{ post.subtitle }}</h3>{% endif %}
+                        </a>
+                        <p class="post-meta">
+                            Posted by <a href="/about.html">{{ site.author }}</a>
+                            on {{ post.date | date: "%d %B %Y" }}
+                            &middot; {{ read_time }} min read
+                        </p>
+                        {% if post.tags %}
+                        <div class="post-tags">
+                            {% for tag in post.tags %}<span class="tag-pill" data-tag="{{ tag | downcase }}">{{ tag }}</span>{% endfor %}
+                        </div>
+                        {% endif %}
+                    </div>
+                </div>
             </div>
             {% unless forloop.last %}<hr class="my-4" />{% endunless %}
             {% endfor %}

@@ -282,3 +282,227 @@ footer,
 a {
   transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
 }
+
+/* =========================================================
+   NEW FEATURES — added in pass 2
+   ========================================================= */
+
+/* ── Hero parallax ─────────────────────────────────────────── */
+header.masthead {
+  background-attachment: fixed;
+}
+@media (max-width: 768px) {
+  header.masthead {
+    background-attachment: scroll; /* mobile: fixed causes clipping on iOS */
+  }
+}
+
+/* ── Typography upgrade ────────────────────────────────────── */
+article p,
+main p {
+  line-height: 1.85;
+  font-size: 1.05rem;
+  letter-spacing: 0.008em;
+}
+
+article h2 {
+  margin-top: 2.4rem;
+  margin-bottom: 0.8rem;
+  letter-spacing: -0.015em;
+}
+
+article h3 {
+  margin-top: 1.8rem;
+  letter-spacing: -0.01em;
+}
+
+/* ── Post card: flex layout with thumbnail ─────────────────── */
+.post-preview {
+  display: flex;
+  align-items: flex-start;
+  gap: 1.2rem;
+}
+
+.post-preview-body {
+  flex: 1;
+  min-width: 0;
+}
+
+.post-thumb {
+  flex-shrink: 0;
+  display: block;
+  width: 120px;
+  height: 80px;
+  border-radius: 6px;
+  overflow: hidden;
+}
+
+.post-thumb img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.35s ease;
+}
+
+.post-preview:hover .post-thumb img {
+  transform: scale(1.06);
+}
+
+.post-item.hidden {
+  display: none;
+}
+
+@media (max-width: 576px) {
+  .post-preview {
+    flex-direction: column;
+  }
+  .post-thumb {
+    width: 100%;
+    height: 160px;
+  }
+}
+
+/* ── Tag pills ────────────────────────────────────────────── */
+.tag-pill {
+  display: inline-block;
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  padding: 0.14rem 0.55rem;
+  border-radius: 20px;
+  background: rgba(0, 133, 161, 0.1);
+  color: #0085A1;
+  border: 1px solid rgba(0, 133, 161, 0.3);
+  margin-right: 0.3rem;
+  cursor: default;
+  transition: background 0.18s, color 0.18s;
+  text-decoration: none;
+}
+
+a.tag-pill {
+  cursor: pointer;
+}
+
+a.tag-pill:hover,
+span.tag-pill:hover {
+  background: #0085A1;
+  color: #fff;
+  text-decoration: none;
+}
+
+.post-tags {
+  margin-top: 0.45rem;
+}
+
+/* ── Tag filter bar (posts.html) ──────────────────────────── */
+.tag-filter-bar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+  padding: 0.75rem 0 1rem;
+}
+
+.tag-filter-btn {
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  padding: 0.22rem 0.75rem;
+  border-radius: 20px;
+  background: transparent;
+  color: #666;
+  border: 1.5px solid #ccc;
+  cursor: pointer;
+  transition: background 0.18s, color 0.18s, border-color 0.18s;
+}
+
+.tag-filter-btn:hover,
+.tag-filter-btn.active {
+  background: #0085A1;
+  color: #fff;
+  border-color: #0085A1;
+}
+
+/* ── Active nav link ──────────────────────────────────────── */
+#mainNav .navbar-nav > li.nav-item > a.nav-link.active {
+  color: #0085A1 !important;
+}
+
+#mainNav .navbar-nav > li.nav-item > a.nav-link.active::after {
+  left: 0.75rem;
+  right: 0.75rem;
+}
+
+/* ── Back-to-top button ───────────────────────────────────── */
+#back-to-top {
+  position: fixed;
+  bottom: 1.8rem;
+  right: 1.8rem;
+  width: 44px;
+  height: 44px;
+  background: #0085A1;
+  color: #fff;
+  border: none;
+  border-radius: 50%;
+  font-size: 1.3rem;
+  line-height: 1;
+  cursor: pointer;
+  opacity: 0;
+  transform: translateY(12px);
+  transition: opacity 0.25s ease, transform 0.25s ease, background 0.2s;
+  z-index: 9998;
+  box-shadow: 0 4px 18px rgba(0, 133, 161, 0.4);
+  pointer-events: none;
+}
+
+#back-to-top.visible {
+  opacity: 1;
+  transform: translateY(0);
+  pointer-events: auto;
+}
+
+#back-to-top:hover {
+  background: #006b80;
+}
+
+/* ── Dark mode additions for new features ─────────────────── */
+html.dark-mode .tag-pill {
+  background: rgba(0, 200, 232, 0.1);
+  color: #00c8e8;
+  border-color: rgba(0, 200, 232, 0.3);
+}
+
+html.dark-mode a.tag-pill:hover,
+html.dark-mode span.tag-pill:hover {
+  background: #00c8e8;
+  color: #111;
+}
+
+html.dark-mode .tag-filter-btn {
+  color: #aaa;
+  border-color: #333;
+}
+
+html.dark-mode .tag-filter-btn:hover,
+html.dark-mode .tag-filter-btn.active {
+  background: #00c8e8;
+  color: #111;
+  border-color: #00c8e8;
+}
+
+html.dark-mode #back-to-top {
+  background: #00c8e8;
+  color: #111;
+  box-shadow: 0 4px 18px rgba(0, 200, 232, 0.35);
+}
+
+html.dark-mode #back-to-top:hover {
+  background: #00a8c6;
+}
+
+html.dark-mode #mainNav .navbar-nav > li.nav-item > a.nav-link.active {
+  color: #00c8e8 !important;
+}
+
