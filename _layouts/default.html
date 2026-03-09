@@ -24,8 +24,6 @@
     <link href="{{ '/css/modern.css' | relative_url }}" rel="stylesheet" />
     <!-- Prevent dark-mode FOUC -->
     <script>if(localStorage.getItem('darkMode')==='on'||localStorage.getItem('darkMode')===null&&window.matchMedia('(prefers-color-scheme: dark)').matches)document.documentElement.classList.add('dark-mode');</script>
-    <!-- RSS -->
-    <link rel="alternate" type="application/atom+xml" title="{{ site.title }}" href="{{ '/feed.xml' | relative_url }}" />
 </head>
 <body>
     <!-- Reading progress bar -->
@@ -43,7 +41,6 @@
                     <li class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4{% if page.url contains 'about' %} active{% endif %}" href="{{ '/about/' | relative_url }}">About</a></li>
                     <li class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4{% if page.url contains 'posts' %} active{% endif %}" href="{{ '/posts/' | relative_url }}">Articles</a></li>
                     <li class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4{% if page.url contains 'projects' %} active{% endif %}" href="{{ '/projects/' | relative_url }}">Projects</a></li>
-                    <li class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4" href="{{ '/feed.xml' | relative_url }}" target="_blank">RSS</a></li>
                 </ul>
                 <button id="dark-mode-toggle" aria-label="Toggle dark mode">◑ Dark</button>
             </div>
