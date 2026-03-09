@@ -51,30 +51,35 @@
     {{ content }}
 
     <!-- Footer -->
-    <footer class="border-top">
+    <footer class="site-footer">
         <div class="container px-4 px-lg-5">
-            <div class="row gx-4 gx-lg-5 justify-content-center">
-                <div class="col-md-10 col-lg-8 col-xl-7">
-                    <ul class="list-inline text-center">
-                        <li class="list-inline-item">
-                            <a href="https://www.linkedin.com/in/enrico-tazzer-a43483340/">
-                                <span class="fa-stack fa-lg">
-                                    <i class="fas fa-circle fa-stack-2x"></i>
-                                    <i class="fab fa-linkedin fa-stack-1x fa-inverse"></i>
-                                </span>
-                            </a>
-                        </li>
-                        <li class="list-inline-item">
-                            <a href="https://github.com/enricotazzer">
-                                <span class="fa-stack fa-lg">
-                                    <i class="fas fa-circle fa-stack-2x"></i>
-                                    <i class="fab fa-github fa-stack-1x fa-inverse"></i>
-                                </span>
-                            </a>
-                        </li>
-                    </ul>
-                    <div class="small text-center text-muted fst-italic">Copyright &copy; {{ site.author }} {{ site.time | date: '%Y' }}</div>
+            <div class="row gx-5 gy-4 justify-content-center">
+                <!-- Brand -->
+                <div class="col-md-4 col-lg-3">
+                    <p class="footer-brand">BrainNotBraining</p>
+                    <p class="footer-tagline">Writing about AI, medicine &amp; the tech shaping tomorrow.</p>
                 </div>
+                <!-- Quick links -->
+                <div class="col-md-3 col-lg-2">
+                    <p class="footer-heading">Navigation</p>
+                    <ul class="footer-links">
+                        <li><a href="{{ '/' | relative_url }}">Home</a></li>
+                        <li><a href="{{ '/about/' | relative_url }}">About</a></li>
+                        <li><a href="{{ '/posts/' | relative_url }}">Articles</a></li>
+                        <li><a href="{{ '/projects/' | relative_url }}">Projects</a></li>
+                    </ul>
+                </div>
+                <!-- Social -->
+                <div class="col-md-3 col-lg-2">
+                    <p class="footer-heading">Find me on</p>
+                    <div class="footer-social">
+                        <a href="https://www.linkedin.com/in/enrico-tazzer-a43483340/" aria-label="LinkedIn" target="_blank"><i class="fab fa-linkedin-in"></i></a>
+                        <a href="https://github.com/enricotazzer" aria-label="GitHub" target="_blank"><i class="fab fa-github"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                &copy; {{ site.time | date: '%Y' }} {{ site.author }} &mdash; Built with Jekyll &amp; hosted on GitHub Pages
             </div>
         </div>
     </footer>
