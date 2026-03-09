@@ -43,20 +43,25 @@ window.addEventListener('DOMContentLoaded', () => {
         updateProgress();
     }
 
-    // ── Scroll-reveal (Intersection Observer) ────────────────────────────────
-    // Auto-tag elements that should animate in
-    document.querySelectorAll('.post-preview').forEach(el => el.classList.add('reveal'));
+    // ── Scroll-reveal — Apple-style ────────────────────────────────────────────
+    // Tag each post card (.post-item) so the whole card animates in as a unit
+    document.querySelectorAll('.post-item').forEach(el => el.classList.add('reveal'));
 
     const revealEls = document.querySelectorAll('.reveal');
     if (revealEls.length > 0) {
         const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
+            // Collect all entries that just became visible in this callback tick
+            const visible = entries.filter(e => e.isIntersecting);
+            visible.forEach((entry, i) => {
+                // Stagger items in the same viewport batch (Apple-style cascade);
+                // single items scrolled in one-by-one get no extra delay.
+                const delay = visible.length > 1 ? i * 130 : 0;
+                setTimeout(() => {
                     entry.target.classList.add('is-visible');
-                    observer.unobserve(entry.target);
-                }
+                }, delay);
+                observer.unobserve(entry.target);
             });
-        }, { threshold: 0.08, rootMargin: '0px 0px -30px 0px' });
+        }, { threshold: 0.07, rootMargin: '0px 0px -48px 0px' });
 
         revealEls.forEach(el => observer.observe(el));
     }
