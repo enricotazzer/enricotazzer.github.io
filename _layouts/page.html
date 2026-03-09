@@ -2,7 +2,7 @@
 layout: default
 ---
 <!-- Page Header -->
-<header class="masthead" style="background-image: url('{{ page.image }}')">
+<header class="masthead {{ page.hero_class }}"{% unless page.hero_class %} style="background-image: url('{{ page.image }}')"{% endunless %}>
     <div class="container position-relative px-4 px-lg-5">
         <div class="row gx-4 gx-lg-5 justify-content-center">
             <div class="col-md-10 col-lg-8 col-xl-7">
@@ -19,7 +19,7 @@ layout: default
 <main class="mb-4">
     <div class="container px-4 px-lg-5">
         <div class="row gx-4 gx-lg-5 justify-content-center">
-            <div class="col-md-10 col-lg-8 col-xl-7">
+            <div class="col-md-10 col-lg-8 col-xl-7 page-content-body">
                 {{ content }}
             </div>
         </div>

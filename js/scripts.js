@@ -46,6 +46,8 @@ window.addEventListener('DOMContentLoaded', () => {
     // ── Scroll-reveal — Apple-style ────────────────────────────────────────────
     // Tag each post card (.post-item) so the whole card animates in as a unit
     document.querySelectorAll('.post-item').forEach(el => el.classList.add('reveal'));
+    // Tag paragraphs and headings in page-content bodies (about, article pages)
+    document.querySelectorAll('.page-content-body > p, .page-content-body > h2, .page-content-body > h3').forEach(el => el.classList.add('reveal'));
 
     const revealEls = document.querySelectorAll('.reveal');
     if (revealEls.length > 0) {
