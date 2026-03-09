@@ -515,3 +515,92 @@ html.dark-mode #mainNav .navbar-nav > li.nav-item > a.nav-link.active {
   color: #00c8e8 !important;
 }
 
+/* ==========================================================
+   HERO / MASTHEAD — overlay & background improvements
+   ========================================================== */
+
+/*
+  Replace the flat '#212529 at 50% opacity' overlay (::before) with
+  a diagonal gradient that ties into the brand teal palette.
+  Using opacity:1 + rgba() values gives much finer control than
+  the theme's single opacity knob.
+*/
+
+/* ── Default overlay — all mastheads ──────────────────────── */
+header.masthead::before {
+  background: linear-gradient(
+    145deg,
+    rgba(0, 0, 0, 0.78) 0%,
+    rgba(0, 50, 62, 0.62) 55%,
+    rgba(0, 133, 161, 0.38) 100%
+  ) !important;
+  opacity: 1 !important;
+}
+
+/*
+  Home (.site-heading): more dramatic — the large full-screen header
+  benefits from a stronger gradient so the big white title pops.
+*/
+header.masthead:has(.site-heading)::before {
+  background: linear-gradient(
+    155deg,
+    rgba(0, 0, 0, 0.82) 0%,
+    rgba(0, 40, 50, 0.68) 50%,
+    rgba(0, 133, 161, 0.44) 100%
+  ) !important;
+}
+
+/*
+  Article posts (.post-heading): lighter — lets more of the unique
+  article cover image show through since these photos are purpose-picked.
+*/
+header.masthead:has(.post-heading)::before {
+  background: linear-gradient(
+    155deg,
+    rgba(0, 0, 0, 0.70) 0%,
+    rgba(0, 50, 62, 0.50) 55%,
+    rgba(0, 133, 161, 0.28) 100%
+  ) !important;
+}
+
+/* ── Text shadow for readability against busy / bright images ─ */
+header.masthead .site-heading h1,
+header.masthead .page-heading h1,
+header.masthead .post-heading h1 {
+  text-shadow: 0 2px 16px rgba(0, 0, 0, 0.55);
+}
+
+header.masthead .site-heading .subheading,
+header.masthead .page-heading .subheading,
+header.masthead .post-heading .subheading,
+header.masthead .post-heading .meta {
+  text-shadow: 0 1px 10px rgba(0, 0, 0, 0.50);
+}
+
+/* ── Bottom-edge dissolve — hero fades into page content ───── */
+header.masthead {
+  position: relative;
+}
+
+/* Lift inner content above the ::after fade layer */
+header.masthead > .container {
+  position: relative;
+  z-index: 2;
+}
+
+header.masthead::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 4.5rem;
+  background: linear-gradient(to bottom, transparent, rgba(255, 255, 255, 0.07));
+  pointer-events: none;
+  z-index: 1;
+}
+
+html.dark-mode header.masthead::after {
+  background: linear-gradient(to bottom, transparent, rgba(17, 17, 17, 0.4));
+}
+
