@@ -884,7 +884,8 @@ html.dark-mode header.masthead.home-hero::after {
    PAGE HERO — posts / about / projects (shorter, same aesthetic)
    ========================================================== */
 header.masthead.page-hero {
-  min-height: 52vh;
+  /* Full viewport height — same as home hero */
+  min-height: 100vh;
   padding-top: 0 !important;
   padding-bottom: 0 !important;
   margin-bottom: 0 !important;
@@ -911,21 +912,21 @@ header.masthead.page-hero::before {
 }
 
 header.masthead.page-hero::after {
-  height: 10rem !important;
+  height: 18rem !important;
   background: linear-gradient(
     to bottom,
     transparent 0%,
-    rgba(7, 19, 29, 0.45) 55%,
+    rgba(7, 19, 29, 0.45) 50%,
     #fff 100%
   ) !important;
 }
 
 html.dark-mode header.masthead.page-hero::after {
-  height: 10rem !important;
+  height: 18rem !important;
   background: linear-gradient(
     to bottom,
     transparent 0%,
-    rgba(7, 19, 29, 0.65) 55%,
+    rgba(7, 19, 29, 0.60) 50%,
     #111 100%
   ) !important;
 }

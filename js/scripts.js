@@ -52,17 +52,23 @@ window.addEventListener('DOMContentLoaded', () => {
     const revealEls = document.querySelectorAll('.reveal');
     if (revealEls.length > 0) {
         const observer = new IntersectionObserver((entries) => {
-            // Collect all entries that just became visible in this callback tick
+            // ── Entering viewport (scroll down) ─────────────────────────────
             const visible = entries.filter(e => e.isIntersecting);
             visible.forEach((entry, i) => {
-                // Stagger items in the same viewport batch (Apple-style cascade);
-                // single items scrolled in one-by-one get no extra delay.
+                // Apple-style stagger when multiple items enter at once
                 const delay = visible.length > 1 ? i * 130 : 0;
                 setTimeout(() => {
                     entry.target.classList.add('is-visible');
                 }, delay);
-                observer.unobserve(entry.target);
             });
+
+            // ── Leaving viewport (scroll up) ─────────────────────────────────
+            // Only hide elements that exit from the BOTTOM (i.e. you scrolled
+            // back up past them). Elements that have scrolled ABOVE the viewport
+            // stay visible so reading long pages feels natural.
+            entries
+                .filter(e => !e.isIntersecting && e.boundingClientRect.top > 0)
+                .forEach(entry => entry.target.classList.remove('is-visible'));
         }, { threshold: 0.07, rootMargin: '0px 0px -48px 0px' });
 
         revealEls.forEach(el => observer.observe(el));
