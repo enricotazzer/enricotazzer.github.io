@@ -118,7 +118,7 @@ layout: page
       statusEl.textContent = '';
 
       contentEl.querySelectorAll('p, h1, h2, h3, h4, li, blockquote, pre').forEach((element) => {
-        element.classList.add('reveal');
+        element.classList.add('is-visible');
       });
     } catch (error) {
       statusEl.textContent = `Unable to load README. ${error.message}. Check repo/branch/path and ensure it is public.`;
