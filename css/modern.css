@@ -1027,29 +1027,54 @@ html.dark-mode header.masthead.page-hero::after {
 }
 
 .github-readme-cta {
+  position: relative;
+  overflow: hidden;
   display: inline-flex;
   align-items: center;
   gap: 0.55rem;
-  padding: 0.72rem 1.2rem;
+  padding: 0.78rem 1.28rem;
   border-radius: 999px;
-  border: 1px solid #0085A1;
-  background: linear-gradient(135deg, rgba(0, 133, 161, 0.12), rgba(0, 200, 232, 0.18));
-  color: #006b80;
+  border: 1px solid rgba(0, 133, 161, 0.55);
+  background: linear-gradient(135deg, rgba(0, 133, 161, 0.18), rgba(0, 200, 232, 0.24));
+  box-shadow: 0 6px 18px rgba(0, 133, 161, 0.18), inset 0 1px 0 rgba(255, 255, 255, 0.45);
+  color: #005f72;
   font-weight: 700;
   letter-spacing: 0.02em;
   text-decoration: none;
-  transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+  transition: transform 0.22s ease, box-shadow 0.22s ease, background 0.22s ease, border-color 0.22s ease;
+}
+
+.github-readme-cta::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: -35%;
+  width: 32%;
+  background: linear-gradient(115deg, transparent 0%, rgba(255, 255, 255, 0.55) 50%, transparent 100%);
+  transform: skewX(-18deg);
+  transition: left 0.55s ease;
 }
 
 .github-readme-cta:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 8px 20px rgba(0, 133, 161, 0.25);
-  color: #005565;
+  transform: translateY(-3px) scale(1.01);
+  box-shadow: 0 12px 28px rgba(0, 133, 161, 0.28), inset 0 1px 0 rgba(255, 255, 255, 0.52);
+  border-color: rgba(0, 133, 161, 0.8);
+  color: #004a59;
   text-decoration: none;
 }
 
+.github-readme-cta:hover::before {
+  left: 108%;
+}
+
 .github-readme-cta i {
-  font-size: 1rem;
+  font-size: 1.03rem;
+  transition: transform 0.22s ease;
+}
+
+.github-readme-cta:hover i {
+  transform: rotate(-5deg) scale(1.08);
 }
 
 @media (max-width: 992px) {
@@ -1078,13 +1103,15 @@ html.dark-mode .github-readme-content pre {
 }
 
 html.dark-mode .github-readme-cta {
-  border-color: #00c8e8;
-  background: linear-gradient(135deg, rgba(0, 200, 232, 0.16), rgba(0, 133, 161, 0.24));
+  border-color: rgba(0, 200, 232, 0.58);
+  background: linear-gradient(135deg, rgba(0, 200, 232, 0.21), rgba(0, 133, 161, 0.34));
+  box-shadow: 0 8px 24px rgba(0, 200, 232, 0.2), inset 0 1px 0 rgba(255, 255, 255, 0.22);
   color: #9fefff;
 }
 
 html.dark-mode .github-readme-cta:hover {
   color: #c9f7ff;
-  box-shadow: 0 8px 24px rgba(0, 200, 232, 0.25);
+  border-color: rgba(0, 200, 232, 0.85);
+  box-shadow: 0 12px 30px rgba(0, 200, 232, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.28);
 }
 
