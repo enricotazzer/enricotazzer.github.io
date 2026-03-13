@@ -1,0 +1,142 @@
+---
+layout: page
+---
+
+<div class="github-readme-controls">
+  <form id="readme-form" class="github-readme-form" autocomplete="off">
+    <input id="repo-input" type="text" placeholder="owner/repo (e.g. enricotazzer/enricotazzer.github.io)" />
+    <input id="branch-input" type="text" placeholder="branch (default: main)" />
+    <input id="path-input" type="text" placeholder="path (default: README.md)" />
+    <button type="submit" class="hero-cta">Load README</button>
+  </form>
+  <p class="post-meta" id="readme-meta"></p>
+</div>
+
+<div id="readme-status" class="post-meta"></div>
+<article id="readme-content" class="github-readme-content"></article>
+
+<div
+  id="readme-config"
+  data-default-repo="{{ page.github_repo | default: 'enricotazzer/enricotazzer.github.io' | escape }}"
+  data-default-branch="{{ page.github_branch | default: 'main' | escape }}"
+  data-default-path="{{ page.github_readme_path | default: 'README.md' | escape }}"
+  data-show-controls="{{ page.readme_show_controls | default: true }}"
+  hidden
+></div>
+
+<script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/dompurify@3.1.7/dist/purify.min.js"></script>
+<script>
+(function () {
+  const configEl = document.getElementById('readme-config');
+  const defaultRepo = (configEl?.dataset.defaultRepo || 'enricotazzer/enricotazzer.github.io').trim();
+  const defaultBranch = (configEl?.dataset.defaultBranch || 'main').trim();
+  const defaultPath = (configEl?.dataset.defaultPath || 'README.md').trim();
+  const showControls = (configEl?.dataset.showControls || 'true') === 'true';
+
+  const repoInput = document.getElementById('repo-input');
+  const branchInput = document.getElementById('branch-input');
+  const pathInput = document.getElementById('path-input');
+  const form = document.getElementById('readme-form');
+  const controlsWrap = document.querySelector('.github-readme-controls');
+  const statusEl = document.getElementById('readme-status');
+  const contentEl = document.getElementById('readme-content');
+  const metaEl = document.getElementById('readme-meta');
+
+  const params = new URLSearchParams(window.location.search);
+  const repo = params.get('repo') || defaultRepo;
+  const branch = params.get('branch') || defaultBranch;
+  const path = params.get('path') || defaultPath;
+
+  if (!showControls && controlsWrap) {
+    controlsWrap.style.display = 'none';
+  }
+
+  repoInput.value = repo;
+  branchInput.value = branch;
+  pathInput.value = path;
+
+  const encodePath = (value) => value.split('/').map(encodeURIComponent).join('/');
+
+  const toRawUrl = (repoValue, branchValue, pathValue) =>
+    `https://raw.githubusercontent.com/${repoValue}/${encodeURIComponent(branchValue)}/${encodePath(pathValue)}`;
+
+  const toBlobBase = (repoValue, branchValue) =>
+    `https://github.com/${repoValue}/blob/${encodeURIComponent(branchValue)}/`;
+
+  const toRawBase = (repoValue, branchValue) =>
+    `https://raw.githubusercontent.com/${repoValue}/${encodeURIComponent(branchValue)}/`;
+
+  const absolutizeGithubLinks = (root, repoValue, branchValue) => {
+    const blobBase = toBlobBase(repoValue, branchValue);
+    const rawBase = toRawBase(repoValue, branchValue);
+
+    root.querySelectorAll('a[href]').forEach((link) => {
+      const href = link.getAttribute('href') || '';
+      if (!href || href.startsWith('#') || /^https?:\/\//i.test(href) || href.startsWith('mailto:')) return;
+      link.href = blobBase + href.replace(/^\.\//, '');
+      link.target = '_blank';
+      link.rel = 'noopener noreferrer';
+    });
+
+    root.querySelectorAll('img[src]').forEach((img) => {
+      const src = img.getAttribute('src') || '';
+      if (!src || /^https?:\/\//i.test(src) || src.startsWith('data:')) return;
+      img.src = rawBase + src.replace(/^\.\//, '');
+      img.loading = 'lazy';
+    });
+  };
+
+  const renderReadme = async (repoValue, branchValue, pathValue) => {
+    const rawUrl = toRawUrl(repoValue, branchValue, pathValue);
+    statusEl.textContent = 'Loading README…';
+    contentEl.innerHTML = '';
+    metaEl.textContent = '';
+
+    try {
+      const response = await fetch(rawUrl);
+      if (!response.ok) {
+        throw new Error(`GitHub responded with ${response.status}`);
+      }
+
+      const markdown = await response.text();
+      const html = marked.parse(markdown, { gfm: true, breaks: false });
+      const clean = DOMPurify.sanitize(html);
+      contentEl.innerHTML = clean;
+      absolutizeGithubLinks(contentEl, repoValue, branchValue);
+
+      statusEl.textContent = '';
+      metaEl.innerHTML = `Loaded from <a href="https://github.com/${repoValue}" target="_blank" rel="noopener noreferrer">${repoValue}</a> · ${branchValue} · ${pathValue}`;
+
+      contentEl.querySelectorAll('p, h1, h2, h3, h4, li, blockquote, pre').forEach((element) => {
+        element.classList.add('reveal');
+      });
+
+      if (showControls) {
+        const newQuery = `?repo=${encodeURIComponent(repoValue)}&branch=${encodeURIComponent(branchValue)}&path=${encodeURIComponent(pathValue)}`;
+        if (window.location.search !== newQuery) {
+          history.replaceState(null, '', `${window.location.pathname}${newQuery}`);
+        }
+      }
+    } catch (error) {
+      statusEl.textContent = `Unable to load README. ${error.message}. Check repo/branch/path and ensure it is public.`;
+    }
+  };
+
+  form.addEventListener('submit', (event) => {
+    event.preventDefault();
+    const nextRepo = repoInput.value.trim();
+    const nextBranch = branchInput.value.trim() || defaultBranch;
+    const nextPath = pathInput.value.trim() || defaultPath;
+
+    if (!/^[^\s\/]+\/[^\s\/]+$/.test(nextRepo)) {
+      statusEl.textContent = 'Repository format must be owner/repo.';
+      return;
+    }
+
+    renderReadme(nextRepo, nextBranch, nextPath);
+  });
+
+  renderReadme(repo, branch, path);
+})();
+</script>

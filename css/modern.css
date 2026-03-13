@@ -957,3 +957,91 @@ html.dark-mode header.masthead.page-hero::after {
   ) !important;
 }
 
+/* ── GitHub README page ──────────────────────────────────── */
+.github-readme-controls {
+  margin-bottom: 1.25rem;
+}
+
+.github-readme-form {
+  display: grid;
+  grid-template-columns: 1.6fr 0.9fr 1fr auto;
+  gap: 0.55rem;
+  align-items: center;
+}
+
+.github-readme-form input {
+  width: 100%;
+  border: 1px solid #d7e0e5;
+  border-radius: 10px;
+  padding: 0.55rem 0.75rem;
+  font-size: 0.9rem;
+  background: #fff;
+}
+
+.github-readme-form .hero-cta {
+  margin-top: 0;
+  justify-content: center;
+  padding: 0.58rem 1.15rem;
+  border-color: #0085A1;
+  color: #0085A1 !important;
+  background: rgba(0, 133, 161, 0.08);
+}
+
+.github-readme-form .hero-cta:hover {
+  background: rgba(0, 133, 161, 0.16);
+  color: #0085A1 !important;
+}
+
+#readme-status {
+  margin-bottom: 0.75rem;
+}
+
+.github-readme-content {
+  border: 1px solid #e4eaed;
+  border-radius: 12px;
+  padding: 1.25rem 1.3rem;
+  background: #fff;
+}
+
+.github-readme-content img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 8px;
+}
+
+.github-readme-content pre {
+  overflow-x: auto;
+  border-radius: 8px;
+  padding: 0.85rem;
+  background: #f6f8fa;
+}
+
+.github-readme-content code {
+  font-size: 0.88em;
+}
+
+@media (max-width: 992px) {
+  .github-readme-form {
+    grid-template-columns: 1fr;
+  }
+
+  .github-readme-form .hero-cta {
+    width: 100%;
+  }
+}
+
+html.dark-mode .github-readme-form input {
+  background: #151515;
+  border-color: #2a2a2a;
+  color: #ddd;
+}
+
+html.dark-mode .github-readme-content {
+  background: #161616;
+  border-color: #2a2a2a;
+}
+
+html.dark-mode .github-readme-content pre {
+  background: #0f0f0f;
+}
+
