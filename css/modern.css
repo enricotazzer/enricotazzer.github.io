@@ -1020,6 +1020,38 @@ html.dark-mode header.masthead.page-hero::after {
   font-size: 0.88em;
 }
 
+.github-readme-cta-wrap {
+  display: flex;
+  justify-content: center;
+  margin-top: 1.15rem;
+}
+
+.github-readme-cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.55rem;
+  padding: 0.72rem 1.2rem;
+  border-radius: 999px;
+  border: 1px solid #0085A1;
+  background: linear-gradient(135deg, rgba(0, 133, 161, 0.12), rgba(0, 200, 232, 0.18));
+  color: #006b80;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  text-decoration: none;
+  transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+}
+
+.github-readme-cta:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(0, 133, 161, 0.25);
+  color: #005565;
+  text-decoration: none;
+}
+
+.github-readme-cta i {
+  font-size: 1rem;
+}
+
 @media (max-width: 992px) {
   .github-readme-form {
     grid-template-columns: 1fr;
@@ -1043,5 +1075,16 @@ html.dark-mode .github-readme-content {
 
 html.dark-mode .github-readme-content pre {
   background: #0f0f0f;
+}
+
+html.dark-mode .github-readme-cta {
+  border-color: #00c8e8;
+  background: linear-gradient(135deg, rgba(0, 200, 232, 0.16), rgba(0, 133, 161, 0.24));
+  color: #9fefff;
+}
+
+html.dark-mode .github-readme-cta:hover {
+  color: #c9f7ff;
+  box-shadow: 0 8px 24px rgba(0, 200, 232, 0.25);
 }
 

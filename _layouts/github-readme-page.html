@@ -4,6 +4,12 @@ layout: page
 
 <div id="readme-status" class="post-meta"></div>
 <article id="readme-content" class="github-readme-content"></article>
+<div class="github-readme-cta-wrap">
+  <a id="readme-repo-link" class="github-readme-cta" href="#" target="_blank" rel="noopener noreferrer" aria-label="Open GitHub repository">
+    <i class="fab fa-github" aria-hidden="true"></i>
+    <span>Click here for the GitHub repo</span>
+  </a>
+</div>
 
 <div
   id="readme-config"
@@ -24,6 +30,11 @@ layout: page
 
   const statusEl = document.getElementById('readme-status');
   const contentEl = document.getElementById('readme-content');
+  const repoLinkEl = document.getElementById('readme-repo-link');
+
+  if (repoLinkEl) {
+    repoLinkEl.href = `https://github.com/${defaultRepo}`;
+  }
 
   const encodePath = (value) => value.split('/').map(encodeURIComponent).join('/');
 
