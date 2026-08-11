@@ -2,117 +2,122 @@
 <html lang="en">
     <head>
         <meta charset="utf-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
-        <meta name="description" content="" />
-        <meta name="author" content="" />
-        <title>BrainNotBraining</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <meta name="description" content="Projects and portfolio of Enrico Tazzer" />
+        <meta name="author" content="Enrico Tazzer" />
+        <title>Projects — BrainNotBraining</title>
+        <link rel="canonical" href="https://enricotazzer.github.io/projects.html" />
+        <meta property="og:type" content="website" />
+        <meta property="og:site_name" content="BrainNotBraining" />
+        <meta property="og:title" content="Projects — BrainNotBraining" />
+        <meta property="og:description" content="Projects and portfolio of Enrico Tazzer" />
+        <meta property="og:url" content="https://enricotazzer.github.io/projects.html" />
+        <meta property="og:image" content="https://enricotazzer.github.io/assets/img/AI-in-Medicine.png" />
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content="Projects — BrainNotBraining" />
+        <meta name="twitter:description" content="Projects and portfolio of Enrico Tazzer" />
+        <meta name="twitter:image" content="https://enricotazzer.github.io/assets/img/AI-in-Medicine.png" />
         <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
-        <!-- Font Awesome icons (free version)-->
         <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
-        <!-- Google fonts-->
-        <link href="https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic" rel="stylesheet" type="text/css" />
-        <link href="https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800" rel="stylesheet" type="text/css" />
-        <!-- Core theme CSS (includes Bootstrap)-->
-        <link href="css/styles.css" rel="stylesheet" />
+        <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet" />
+        <link href="css/site.css" rel="stylesheet" />
         <link rel="alternate" type="application/atom+xml" title="Enrico Tazzer Blog" href="/feed.xml">
     </head>
     <body>
-        <!-- Navigation-->
-        <nav class="navbar navbar-expand-lg navbar-light" id="mainNav">
-            <div class="container px-4 px-lg-5">
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
-                    Menu
-                    <i class="fas fa-bars"></i>
-                </button>
-                <div class="collapse navbar-collapse" id="navbarResponsive">
-                    <ul class="navbar-nav ms-auto py-4 py-lg-0">
-                        <li class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4" href="index.html">Home</a></li>
-                        <li class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4" href="about.html">About</a></li>
-                        <li class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4" href="posts.html">Articles</a></li>
-                        <li class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4" href="projects.html">Projects</a></li>
-                        <li class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4" href="feed.xml" target="_blank">RSS</a></li>
-                    </ul>
-                </div>
+        <header class="site-nav" id="siteNav">
+            <div class="container nav-inner">
+                <a class="nav-logo" href="index.html">BrainNotBraining</a>
+                <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="navMenu" aria-label="Toggle navigation"><i class="fas fa-bars"></i></button>
+                <nav class="nav-menu" id="navMenu">
+                    <a class="nav-link" href="index.html">Home</a>
+                    <a class="nav-link" href="posts.html">Articles</a>
+                    <a class="nav-link" href="projects.html" aria-current="page">Projects</a>
+                    <a class="nav-link" href="about.html">About</a>
+                    <a class="btn btn-primary btn-sm" href="#contact">Contact me</a>
+                </nav>
             </div>
-        </nav>
-
-        <!-- Page Header-->
-        <header class="masthead" style="background-image: url('assets/img/360_F_705562152_WFSrWPNw6TqrxQ3MJzWzaZ1oeH3jLtUu.jpg')">
-            <div class="container position-relative px-4 px-lg-5">
-                <div class="row gx-4 gx-lg-5 justify-content-center">
-                    <div class="col-md-10 col-lg-8 col-xl-7">
-                        <div class="site-heading">
-                            <h1>Projects</h1>
-                            <h2 class="subheading">Here you can find all the projects I've worked on</h2>
+        </header>
+        <section class="page-header">
+            <div class="hero-glow"></div>
+            <div class="container">
+                <h1 class="page-title reveal">Projects</h1>
+                <p class="page-sub reveal reveal-delay-1">Here you can find all the projects I've worked on</p>
+            </div>
+        </section>
+        <section class="section">
+            <div class="container">
+                <div class="now-panel reveal">
+                    <div class="now-panel-label">Currently Working On</div>
+                    <h2 class="now-panel-title">Master's Thesis — MLLM for Opportunistic Findings</h2>
+                    <p class="now-panel-desc">Researching multimodal large language models to detect opportunistic findings (incidental but clinically relevant signals) in radiology reports and imaging.</p>
+                    <span class="status-badge status-badge--progress">In Progress</span>
+                    <h2 class="now-panel-title" style="margin-top: 1.5rem;">Chest X-Ray Assistant</h2>
+                    <p class="now-panel-desc">Building an AI assistant to support interpretation of chest X-rays.</p>
+                    <span class="status-badge status-badge--progress">In Progress</span>
+                </div>
+                <div class="card-grid">
+                    <div class="card reveal">
+                        <img class="card-img" src="assets/img/post-sample-image.jpg" alt="NBA Analysis" loading="lazy" />
+                        <div class="card-body">
+                            <h3 class="card-title">NBA Analysis</h3>
+                            <p class="card-desc">Progetto di analisi delle principali statistiche del basket americano per l'esame di Data Science</p>
+                            <div class="card-tags">
+                                <span class="tech-tag">Python</span>
+                                <span class="tech-tag">Pandas</span>
+                                <span class="tech-tag">Data Viz</span>
+                            </div>
+                            <div class="card-footer">
+                                <span class="status-badge status-badge--completed">Completed</span>
+                                <a class="card-link" href="https://github.com/enricotazzer/nba_analysis" target="_blank" rel="noopener">View on GitHub &rarr;</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card reveal reveal-delay-1">
+                        <img class="card-img" src="assets/img/diagnostic-medical-imaging-social.png" alt="Italian Medical Reports Encoding" loading="lazy" />
+                        <div class="card-body">
+                            <h3 class="card-title">Italian Medical Reports Encoding</h3>
+                            <p class="card-desc">Progetto di tesi triennale riguardo la codifica di referti medici utilizzando modelli NLP</p>
+                            <div class="card-tags">
+                                <span class="tech-tag">Python</span>
+                                <span class="tech-tag">NLP</span>
+                                <span class="tech-tag">Transformers</span>
+                            </div>
+                            <div class="card-footer">
+                                <span class="status-badge status-badge--completed">Completed</span>
+                                <a class="card-link" href="https://github.com/enricotazzer/italian-medical-reports-encoding" target="_blank" rel="noopener">View on GitHub &rarr;</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card reveal reveal-delay-2">
+                        <img class="card-img" src="assets/img/AI-in-Medicine.png" alt="Brain Tumor Classifier" loading="lazy" />
+                        <div class="card-body">
+                            <h3 class="card-title">Brain Tumor Classifier</h3>
+                            <p class="card-desc">Semplice classificatore di tumori cerebrali</p>
+                            <div class="card-tags">
+                                <span class="tech-tag">Python</span>
+                                <span class="tech-tag">CNN</span>
+                                <span class="tech-tag">PyTorch</span>
+                            </div>
+                            <div class="card-footer">
+                                <span class="status-badge status-badge--completed">Completed</span>
+                                <a class="card-link" href="https://github.com/enricotazzer/brain_tumor_classifier" target="_blank" rel="noopener">View on GitHub &rarr;</a>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </header>
-        <!-- Main Content-->
-        <div class="container px-4 px-lg-5">
-            <div class="row gx-4 gx-lg-5 justify-content-center">
-                <div class="col-md-10 col-lg-8 col-xl-7">
-                    <div class="post-preview">
-                        <a href="https://github.com/enricotazzer/nba_analysis">
-                            <h2 class="post-title">NBA Analysis</h2>
-                            <h3 class="post-subtitle">Progetto di analisi delle principali statistiche del basket americano per l'esame di Data Science</h3>
-                        </a>
-                    </div>
-                    <!-- Divider-->
-                    <hr class="my-4" />
-                    <!-- Post preview-->
-                    <div class="post-preview">
-                        <a href="https://github.com/enricotazzer/italian-medical-reports-encoding">
-                            <h2 class="post-title">Italian Medical Reports Encoding</h2>
-                            <h3 class="post-subtitle">Progetto di tesi triennale riguardo la codifica di referti medici utilizzando modelli NLP</h3>
-                        </a>
-                
-                    </div>
-                    <!-- Divider-->
-                    <hr class="my-4" />
-                    <!-- Post preview-->
-                    <div class="post-preview">
-                        <a href="https://github.com/enricotazzer/brain_tumor_classifier">
-                            <h2 class="post-title">Brain Tumor Classifier</h2>
-                            <h3 class="post-subtitle">Semplice classificatore di tumori cerebrali</h3>
-                        </a>
-                    </div>
-                </div>
-                <p></p>
-                <!--<div class="d-flex justify-content-end mb-4"><a class="btn btn-primary text-uppercase" href="#!">Older Posts →</a></div>-->
+        </section>
+        <footer class="site-footer" id="contact">
+            <div class="container">
+                <p class="footer-tagline">Let's build something that matters.</p>
+                <ul class="footer-socials">
+                    <li><a href="https://www.linkedin.com/in/enrico-tazzer-a43483340/" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a></li>
+                    <li><a href="https://github.com/enricotazzer" aria-label="GitHub"><i class="fab fa-github"></i></a></li>
+                    <li><a href="feed.xml" target="_blank" aria-label="RSS feed"><i class="fas fa-rss"></i></a></li>
+                </ul>
+                <p class="footer-copy">Copyright &copy; Enrico Tazzer 2024-2025</p>
             </div>
-        </div>
-        <!-- Footer-->
-        <footer class="border-top">
-            <div class="container px-4 px-lg-5">
-                <div class="row gx-4 gx-lg-5 justify-content-center">
-                    <div class="col-md-10 col-lg-8 col-xl-7">
-                        <ul class="list-inline text-center">
-                            <li class="list-inline-item">
-                                <a href="https://www.linkedin.com/in/enrico-tazzer-a43483340/">
-                                    <span class="fa-stack fa-lg">
-                                        <i class="fas fa-circle fa-stack-2x"></i>
-                                        <i class="fab fa-linkedin fa-stack-1x fa-inverse"></i>
-                                    </span>
-                                </a>
-                            </li>
-                            <li class="list-inline-item">
-                                <a href="https://github.com/enricotazzer">
-                                    <span class="fa-stack fa-lg">
-                                        <i class="fas fa-circle fa-stack-2x"></i>
-                                        <i class="fab fa-github fa-stack-1x fa-inverse"></i>
-                                    </span>
-                                </a>
-                            </li>
-                        </ul>
-                        <div class="small text-center text-muted fst-italic">Copyright &copy; Enrico Tazzer 2024-2025</div>
-                    </div>
-                </div>
-            </div>
-        </footer><!-- Bootstrap core JS-->
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
-        <!-- Core theme JS-->
+        </footer>
         <script src="js/scripts.js"></script>
     </body>
 </html>

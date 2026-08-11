@@ -1,29 +1,59 @@
-/*!
-* Start Bootstrap - Clean Blog v6.0.9 (https://startbootstrap.com/theme/clean-blog)
-* Copyright 2013-2023 Start Bootstrap
-* Licensed under MIT (https://github.com/StartBootstrap/startbootstrap-clean-blog/blob/master/LICENSE)
-*/
+/*
+ * Site scripts — dark portfolio theme (vanilla JS, no dependencies).
+ */
 window.addEventListener('DOMContentLoaded', () => {
-    let scrollPos = 0;
-    const mainNav = document.getElementById('mainNav');
-    const headerHeight = mainNav.clientHeight;
-    window.addEventListener('scroll', function() {
-        const currentTop = document.body.getBoundingClientRect().top * -1;
-        if ( currentTop < scrollPos) {
-            // Scrolling Up
-            if (currentTop > 0 && mainNav.classList.contains('is-fixed')) {
-                mainNav.classList.add('is-visible');
+    const siteNav = document.querySelector('.site-nav');
+    const navToggle = document.querySelector('.nav-toggle');
+    const navMenu = document.querySelector('.nav-menu');
+
+    // Mobile nav toggle
+    if (siteNav && navToggle) {
+        navToggle.addEventListener('click', () => {
+            const isOpen = siteNav.classList.toggle('nav-open');
+            navToggle.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+        });
+    }
+
+    // Close the menu when a menu link is clicked (useful for same-page anchors)
+    if (siteNav && navMenu) {
+        navMenu.querySelectorAll('a').forEach((link) => {
+            link.addEventListener('click', () => {
+                siteNav.classList.remove('nav-open');
+                if (navToggle) {
+                    navToggle.setAttribute('aria-expanded', 'false');
+                }
+            });
+        });
+    }
+
+    // Nav scrolled state
+    if (siteNav) {
+        const updateNavScrolled = () => {
+            if (window.scrollY > 8) {
+                siteNav.classList.add('nav-scrolled');
             } else {
-                console.log(123);
-                mainNav.classList.remove('is-visible', 'is-fixed');
+                siteNav.classList.remove('nav-scrolled');
             }
+        };
+        window.addEventListener('scroll', updateNavScrolled, { passive: true });
+        updateNavScrolled();
+    }
+
+    // Scroll reveal
+    const revealEls = document.querySelectorAll('.reveal');
+    if (revealEls.length) {
+        if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+            revealEls.forEach((el) => el.classList.add('reveal--visible'));
         } else {
-            // Scrolling Down
-            mainNav.classList.remove(['is-visible']);
-            if (currentTop > headerHeight && !mainNav.classList.contains('is-fixed')) {
-                mainNav.classList.add('is-fixed');
-            }
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach((entry) => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('reveal--visible');
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, { threshold: 0.15 });
+            revealEls.forEach((el) => observer.observe(el));
         }
-        scrollPos = currentTop;
-    });
-})
+    }
+});
