@@ -56,4 +56,21 @@ window.addEventListener('DOMContentLoaded', () => {
             revealEls.forEach((el) => observer.observe(el));
         }
     }
+
+    // Portfolio filter tabs
+    const filterTabs = document.querySelectorAll('.filter-tab');
+    const filterableCards = document.querySelectorAll('.filterable-grid .card');
+    if (filterTabs.length && filterableCards.length) {
+        filterTabs.forEach((tab) => {
+            tab.addEventListener('click', () => {
+                filterTabs.forEach((t) => t.classList.remove('is-active'));
+                tab.classList.add('is-active');
+                const filter = tab.getAttribute('data-filter');
+                filterableCards.forEach((card) => {
+                    const show = filter === 'all' || card.getAttribute('data-category') === filter;
+                    card.style.display = show ? '' : 'none';
+                });
+            });
+        });
+    }
 });
