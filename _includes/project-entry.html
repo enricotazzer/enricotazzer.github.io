@@ -1,0 +1,30 @@
+{%- comment -%}
+  A project on /projects/. With a key_result the aside shows it and the links
+  sit under the summary; without one the links take the aside.
+{%- endcomment -%}
+{%- assign p = include.project -%}
+<article class="project project--{{ p.status }}" id="{{ p.id }}">
+  <div class="project__main">
+    <div class="project__head">
+      <h3 class="project__title">{{ p.title }}</h3>
+      {% include status-chip.html status=p.status %}
+      {% if p.since %}<span class="project__period">{{ p.since }} – {{ p.until | default: "oggi" }}</span>{% endif %}
+    </div>
+    <p class="project__summary">{{ p.summary }}</p>
+    {% if p.phase %}{% include meter.html phase=p.phase %}{% endif %}
+    {% if p.stack %}<p class="project__stack">{{ p.stack }}</p>{% endif %}
+    {% if p.key_result %}{% include project-links.html project=p %}{% endif %}
+  </div>
+  <div class="project__aside">
+    {%- if p.key_result %}
+    <div class="key-result">
+      <p class="key-result__label">Risultato chiave</p>
+      <p class="key-result__value">{{ p.key_result.value }}</p>
+      <p class="key-result__text">{{ p.key_result.text }}</p>
+      <p class="key-result__source">Fonte: {{ p.key_result.source }}</p>
+    </div>
+    {%- else %}
+    {% include project-links.html project=p stacked=true %}
+    {%- endif %}
+  </div>
+</article>

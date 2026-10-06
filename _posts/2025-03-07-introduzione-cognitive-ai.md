@@ -48,7 +48,7 @@ La capacità di comprendere il contesto è essenziale per garantire risposte app
 
 La memoria consente al sistema di emulare la capacità di memoria umana (conservare e ricordare informazioni passate), conservando informazioni rilevanti dalle interazioni passate, evitando ridondanze e migliorando la coerenza delle conversazioni. Questo è fondamentale per strumenti come ChatGPT, che devono mantenere il filo del discorso e contestualizzare ogni nuova richiesta.
 
-<img class="img-fluid" src="/assets/img/cognitive architecture.jpeg" alt="Cognitive AI architecture" />
+<img class="img-fluid" src="/assets/img/cognitive-architecture.jpeg" alt="Cognitive AI architecture" />
 <span class="caption text-muted">Cognitive AI architecture.</span>
 
 ##### Il vero valore della Cognitive AI: l'apprendimento costante

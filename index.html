@@ -1,58 +1,35 @@
 ---
 layout: default
 ---
-<!-- Page Header -->
-<header class="masthead home-hero">
-    <div class="container position-relative px-4 px-lg-5">
-        <div class="row gx-4 gx-lg-5 justify-content-center">
-            <div class="col-md-10 col-lg-8 col-xl-7">
-                <div class="site-heading">
-                    <h1>BrainNotBraining</h1>
-                    <span class="subheading">Writing about AI, medicine &amp; the technology shaping tomorrow</span>
-                    <a href="/posts/" class="hero-cta">Explore Articles <i class="fas fa-arrow-right"></i></a>
-                </div>
-            </div>
-        </div>
-    </div>
-</header>
-<!-- Main Content -->
-<div class="container px-4 px-lg-5">
-    <div class="row gx-4 gx-lg-5 justify-content-center">
-        <div class="col-md-10 col-lg-8 col-xl-7">
-            {% for post in site.posts limit:5 %}
-            {% assign words = post.content | number_of_words %}
-            {% assign read_time = words | divided_by: 200 | plus: 1 %}
-            <div class="post-item">
-                <div class="post-preview">
-                    {% if post.image %}
-                    <a href="{{ post.url }}" class="post-thumb" tabindex="-1" aria-hidden="true">
-                        <img src="{{ post.image }}" alt="" loading="lazy" />
-                    </a>
-                    {% endif %}
-                    <div class="post-preview-body">
-                        <a href="{{ post.url }}">
-                            <h2 class="post-title">{{ post.title }}</h2>
-                            {% if post.subtitle %}<h3 class="post-subtitle">{{ post.subtitle }}</h3>{% endif %}
-                        </a>
-                        <p class="post-meta">
-                            Posted by <a href="/about/">{{ site.author }}</a>
-                            on {{ post.date | date: "%d %B %Y" }}
-                            &middot; {{ read_time }} min read
-                        </p>
-                        {% if post.tags %}
-                        <div class="post-tags">
-                            {% for tag in post.tags %}<a href="/posts/#{{ tag | downcase }}" class="tag-pill">{{ tag }}</a>{% endfor %}
-                        </div>
-                        {% endif %}
-                    </div>
-                </div>
-            </div>
-            {% unless forloop.last %}<hr class="my-4" />{% endunless %}
-            {% endfor %}
+{%- assign ongoing = site.data.projects | where: "status", "in_corso" -%}
+<div class="container">
+  <section class="intro">
+    <p class="kicker">Quaderno di ricerca · dal {{ site.posts.last.date | date: "%Y" }}</p>
+    <h1 class="intro__title">Appunti su AI, medicina e la tecnologia che sta arrivando.</h1>
+    <p class="dek">Scritti da Enrico Tazzer, studente della doppia laurea magistrale in Artificial Intelligence and Cybersecurity tra Udine e Klagenfurt. Qui trovi gli articoli e lo stato dei progetti, con i risultati, anche quando sono negativi.</p>
+  </section>
 
-            <div class="text-center mt-4">
-                <a href="/posts/" class="home-posts-cta">View all articles <i class="fas fa-arrow-right"></i></a>
-            </div>
-        </div>
-    </div>
+  <div class="home-grid">
+    <section class="home-latest" aria-labelledby="latest-title">
+      <div class="section-head">
+        <h2 id="latest-title">Ultimi articoli</h2>
+        <a href="{{ '/posts/' | relative_url }}">Tutti gli articoli →</a>
+      </div>
+      {% for post in site.posts limit: 5 %}
+      {% include post-entry.html post=post date_style="iso" tag_links=true %}
+      {% endfor %}
+    </section>
+
+    {% if ongoing.size > 0 %}
+    <aside class="home-projects" aria-labelledby="ongoing-title">
+      <div class="section-head">
+        <h2 id="ongoing-title">Progetti in corso</h2>
+        <a href="{{ '/projects/' | relative_url }}">Tutti →</a>
+      </div>
+      {% for p in ongoing %}
+      {% include project-compact.html project=p %}
+      {% endfor %}
+    </aside>
+    {% endif %}
+  </div>
 </div>

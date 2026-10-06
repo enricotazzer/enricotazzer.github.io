@@ -1,10 +1,13 @@
 ---
+# Template for a project page that shows a repo's README live from GitHub.
+# Copy it into projects/<id>.html, fill the keys, remove `published`, and add
+# a matching entry (same id) to _data/projects.yml.
+published: false
 layout: github-readme-page
-title: Repo README
-heading: "Repository README"
-subheading: "Live README rendered from GitHub"
-hero_class: page-hero hero-projects
-permalink: /repo-readme-template/
+title: Repository
+description: One-line description for search engines and link previews.
+permalink: /projects/repository/
+project_id: repository
 github_repo: owner/repository
 github_branch: main
 github_readme_path: README.md

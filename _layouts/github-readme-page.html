@@ -1,14 +1,48 @@
 ---
-layout: page
+layout: default
 ---
+{%- comment -%}
+  A project page whose body is the repo's README, fetched in the browser.
+  Front matter: github_repo, github_branch, github_readme_path, permalink,
+  and project_id to pull the header (status, period, meter, stack) from
+  _data/projects.yml.
+{%- endcomment -%}
+{%- assign project = site.data.projects | where: "id", page.project_id | first -%}
+{%- assign heading = project.title | default: page.heading | default: page.title -%}
+<div class="container">
+  <header class="page-head">
+    <nav class="breadcrumb" aria-label="Percorso">
+      <a href="{{ '/projects/' | relative_url }}">Progetti</a>
+      <span aria-hidden="true">/</span>
+      <span>{{ heading }}</span>
+    </nav>
+    <div class="project-heading">
+      <h1 class="page-title">{{ heading }}</h1>
+      {% if project %}{% include status-chip.html status=project.status %}{% endif %}
+    </div>
+    {%- assign dek = project.summary | default: page.subheading -%}
+    {% if dek %}<p class="dek">{{ dek }}</p>{% endif %}
 
-<div id="readme-status" class="post-meta"></div>
-<article id="readme-content" class="github-readme-content"></article>
-<div class="github-readme-cta-wrap">
-  <a id="readme-repo-link" class="github-readme-cta" href="#" target="_blank" rel="noopener noreferrer" aria-label="Open GitHub repository">
-    <i class="fab fa-github" aria-hidden="true"></i>
-    <span>Click here for the GitHub repo</span>
-  </a>
+    {% if project %}
+    <dl class="facts">
+      {% if project.since %}<div><dt>Periodo</dt><dd class="mono">{{ project.since }} – {{ project.until | default: "oggi" }}</dd></div>{% endif %}
+      {% if project.phase %}<div class="facts__wide"><dt>Stato</dt><dd>{% include meter.html phase=project.phase %}</dd></div>{% endif %}
+      {% if project.stack %}<div class="facts__stack"><dt>Stack</dt><dd>{{ project.stack }}</dd></div>{% endif %}
+      {% if project.demo %}<div><dt>Demo</dt><dd><a href="{{ project.demo }}">Apri la demo ↗</a></dd></div>{% endif %}
+      <div><dt>Repository</dt><dd><a href="https://github.com/{{ page.github_repo }}">{{ page.github_repo }} ↗</a></dd></div>
+    </dl>
+    {% endif %}
+  </header>
+
+  <div class="section-head">
+    <h2>README</h2>
+    <p class="section-head__meta">letto in tempo reale da GitHub · {{ page.github_branch | default: "main" }} / {{ page.github_readme_path | default: "README.md" }}</p>
+  </div>
+  <div id="readme-status" class="readme-status" role="status"></div>
+  <article id="readme-content" class="prose readme" lang="en"></article>
+  <p class="readme-cta">
+    <a id="readme-repo-link" class="btn" href="https://github.com/{{ page.github_repo }}">Apri il repository su GitHub ↗</a>
+  </p>
 </div>
 
 <div
@@ -116,7 +150,7 @@ layout: page
   };
 
   const renderReadme = async (repoValue, branchValue, pathValue) => {
-    statusEl.textContent = 'Loading README…';
+    statusEl.textContent = 'Caricamento del README…';
     contentEl.innerHTML = '';
 
     try {
@@ -127,12 +161,8 @@ layout: page
       absolutizeGithubLinks(contentEl, repoValue, branch, path);
 
       statusEl.textContent = '';
-
-      contentEl.querySelectorAll('p, h1, h2, h3, h4, li, blockquote, pre').forEach((element) => {
-        element.classList.add('is-visible');
-      });
     } catch (error) {
-      statusEl.textContent = `Unable to load README. ${error.message}. Check repo/branch/path and ensure it is public.`;
+      statusEl.textContent = `Impossibile caricare il README (${error.message}). Controlla repository, branch e percorso, e che il repository sia pubblico.`;
     }
   };
 

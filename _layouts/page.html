@@ -1,27 +1,12 @@
 ---
 layout: default
 ---
-<!-- Page Header -->
-<header class="masthead {{ page.hero_class }}"{% unless page.hero_class %} style="background-image: url('{{ page.image }}')"{% endunless %}>
-    <div class="container position-relative px-4 px-lg-5">
-        <div class="row gx-4 gx-lg-5 justify-content-center">
-            <div class="col-md-10 col-lg-8 col-xl-7">
-                <div class="page-heading">
-                    <h1>{{ page.heading | default: page.title }}</h1>
-                    {% if page.subheading %}<span class="subheading">{{ page.subheading }}</span>{% endif %}
-                </div>
-            </div>
-        </div>
-    </div>
-</header>
-
-<!-- Page Content -->
-<main class="mb-4">
-    <div class="container px-4 px-lg-5">
-        <div class="row gx-4 gx-lg-5 justify-content-center">
-            <div class="col-md-10 col-lg-8 col-xl-7 page-content-body">
-                {{ content }}
-            </div>
-        </div>
-    </div>
-</main>
+<div class="container">
+  <header class="page-head">
+    <h1 class="page-title">{{ page.heading | default: page.title }}</h1>
+    {% if page.subheading %}<p class="dek">{{ page.subheading }}</p>{% endif %}
+  </header>
+  <div class="prose page-body">
+    {{ content }}
+  </div>
+</div>

@@ -1,0 +1,8 @@
+{%- case include.status -%}
+{%- when "in_corso" -%}
+<span class="chip chip--active"><span class="chip__dot" aria-hidden="true"></span>In corso</span>
+{%- when "completato" -%}
+<span class="chip chip--done"><svg aria-hidden="true" viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>Completato</span>
+{%- else -%}
+<span class="chip chip--archive">Archivio</span>
+{%- endcase -%}

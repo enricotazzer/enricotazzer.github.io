@@ -1,46 +1,50 @@
 ---
-layout: page
-title: Projects
-subheading: "Here you can find all the projects I've worked on"
-hero_class: page-hero hero-projects
+layout: default
+title: Progetti
+description: Quaderno di laboratorio dei progetti di Enrico Tazzer, con stato e risultati.
+permalink: /projects/
 ---
-<div class="post-item">
-    <div class="post-preview">
-        <div class="post-preview-body">
-            <a href="/oracle/">
-                <h2 class="post-title">ORACLE — Project Overview</h2>
-                <h3 class="post-subtitle">Progetto personale dedicato all'analisi di tumori al cervello, modellizzazione ed evoluzione</h3>
-            </a>
-        </div>
+{%- comment -%} Everything here comes from _data/projects.yml. {%- endcomment -%}
+{%- assign ongoing = site.data.projects | where: "status", "in_corso" -%}
+{%- assign done = site.data.projects | where: "status", "completato" -%}
+{%- assign archive = site.data.projects | where: "status", "archivio" -%}
+<div class="container">
+  <header class="page-head">
+    <h1 class="page-title">Progetti</h1>
+    <p class="dek">Quaderno di laboratorio: cosa sto costruendo, a che punto è e cosa ha funzionato. I risultati negativi sono riportati come quelli positivi.</p>
+  </header>
+
+  {% if ongoing.size > 0 %}
+  <section class="project-group" aria-labelledby="ongoing-title">
+    <div class="section-head">
+      <h2 id="ongoing-title">In corso</h2>
+      <span class="section-head__meta">{{ ongoing.size }} {% if ongoing.size == 1 %}progetto{% else %}progetti{% endif %}</span>
     </div>
-</div>
-<div class="post-item">
-    <div class="post-preview">
-        <div class="post-preview-body">
-            <a href="https://github.com/enricotazzer/nba_analysis" target="_blank">
-                <h2 class="post-title">NBA Analysis</h2>
-                <h3 class="post-subtitle">Progetto di analisi delle principali statistiche del basket americano per l'esame di Data Science</h3>
-            </a>
-        </div>
+    {% for p in ongoing %}{% include project-entry.html project=p %}{% endfor %}
+  </section>
+  {% endif %}
+
+  {% if done.size > 0 %}
+  <section class="project-group" aria-labelledby="done-title">
+    <div class="section-head">
+      <h2 id="done-title">Completati</h2>
     </div>
-</div>
-<div class="post-item">
-    <div class="post-preview">
-        <div class="post-preview-body">
-            <a href="https://github.com/enricotazzer/italian-medical-reports-encoding" target="_blank">
-                <h2 class="post-title">Italian Medical Reports Encoding</h2>
-                <h3 class="post-subtitle">Progetto di tesi triennale riguardo la codifica di referti medici utilizzando modelli NLP</h3>
-            </a>
-        </div>
+    {% for p in done %}{% include project-entry.html project=p %}{% endfor %}
+  </section>
+  {% endif %}
+
+  {% if archive.size > 0 %}
+  <section class="project-group" aria-labelledby="archive-title">
+    <div class="section-head">
+      <h2 id="archive-title">Archivio</h2>
     </div>
-</div>
-<div class="post-item">
-    <div class="post-preview">
-        <div class="post-preview-body">
-            <a href="https://github.com/enricotazzer/brain_tumor_classifier" target="_blank">
-                <h2 class="post-title">Brain Tumor Classifier</h2>
-                <h3 class="post-subtitle">Semplice classificatore di tumori cerebrali</h3>
-            </a>
-        </div>
-    </div>
+    {% for p in archive %}
+    <article class="archive-row" id="{{ p.id }}">
+      <h3 class="archive-row__title">{{ p.title }}</h3>
+      <p class="archive-row__line">{{ p.summary }}</p>
+      {% if p.repo %}<a class="archive-row__link" href="{{ p.repo }}">Repository ↗</a>{% endif %}
+    </article>
+    {% endfor %}
+  </section>
+  {% endif %}
 </div>

@@ -1,0 +1,136 @@
+# Projects shown on /projects/, on the home page and on each project page.
+#
+# status:     in_corso | completato | archivio
+# since/until: shown as "since – until"; an empty until reads "oggi".
+# short:      one line for the home page; summary is the longer text.
+# phase:      the meter: done and active (hatched) segments out of total.
+#             label is shown everywhere, detail only on /projects/ and the
+#             project page.
+# key_result: one figure copied from the project's own README or docs, with
+#             where it comes from. Never a demo or synthetic number: when the
+#             real value doesn't exist yet, say so.
+# repo/page/demo/article: links; an empty repo reads "Repository: in
+#             pubblicazione", an empty article "Articolo: in preparazione".
+
+- id: tacticalgraph
+  title: TacticalGraph
+  status: in_corso
+  since: ago 2026
+  short: Analisi tattica del calcio su dati evento con GNN, modelli sequenziali e reinforcement learning.
+  summary: >-
+    Analisi tattica del calcio su dati evento, con reti neurali su grafo, modelli sequenziali e
+    reinforcement learning. Ogni modulo è confrontato con una baseline esplicita e validato
+    quantitativamente, e tutto è dimensionato per allenarsi nel tier gratuito di Kaggle.
+  phase:
+    done: 7
+    active: 0
+    total: 7
+    label: 7 moduli su 7 completati
+  stack: PyTorch Geometric · Transformer · RL · Streamlit · dati StatsBomb e Wyscout
+  key_result:
+    value: "3 su 5"
+    text: risultati principali sono negativi, e il README li riporta con lo stesso rilievo di quelli positivi.
+    source: README, tabella dei risultati
+  repo: https://github.com/enricotazzer/TacticalGraph
+  page: /projects/tacticalgraph/
+
+- id: wastewise
+  title: WasteWise
+  status: in_corso
+  since: ago 2026
+  short: Meno spreco alimentare in casa, misurato su acquisti e consumi reali.
+  summary: >-
+    Ridurre lo spreco alimentare domestico e ottimizzare la spesa usando dati reali di acquisto e
+    consumo: scansione dei prodotti dal telefono, Open Food Facts, una bacheca delle urgenze e
+    ricette che recuperano ciò che sta per scadere.
+  phase:
+    done: 5
+    active: 0
+    total: 5
+    label: 5 fasi su 5 costruite
+    detail: 378 test, in attesa di dati reali
+  stack: FastAPI · PostgreSQL/pgvector · React · Open Food Facts · LLM in tier gratuito
+  key_result:
+    value: "n.d."
+    text: "Euro sprecati: non ancora disponibile. Nel database non c'è ancora un registro reale, e i dati demo sono esclusi da ogni cifra."
+    source: README, «What is measured, and what is not»
+  repo: https://github.com/enricotazzer/WasteWise
+  page: /projects/wastewise/
+
+- id: sleepwatch
+  title: sleepwatch
+  status: in_corso
+  since: set 2026
+  short: Staging del sonno personalizzato da Apple Watch, con un agente LLM di follow-up.
+  summary: >-
+    Staging del sonno personalizzato e rilevazione di anomalie da frequenza cardiaca e
+    accelerometro dell'Apple Watch. Dopo una notte insolita, un agente LLM fa domande aperte sulla
+    giornata. Prototipo di ricerca, non un dispositivo medico.
+  phase:
+    done: 4
+    active: 0
+    total: 8
+    label: 4 fasi su 8 completate
+  stack: Apple Watch · GRU bidirezionale · gradient boosting · FastAPI · LLM locali
+  key_result:
+    value: "κ 0,510"
+    text: >-
+      Kappa a 5 classi della GRU bidirezionale (IC 95% 0,482–0,537; 47 soggetti, 253 notti).
+      Usare le notti precedenti della stessa persona non ha migliorato lo staging.
+    source: README, risultati della fase 2
+  repo:
+
+- id: medgraph
+  title: medgraph
+  status: in_corso
+  since: ott 2026
+  short: Dalla cartella clinica a un knowledge graph con segnalazioni di follow-up verificabili.
+  summary: >-
+    Trasforma la cartella clinica di una persona in un knowledge graph con timeline e solleva
+    segnalazioni di follow-up basate sulle evidenze, ognuna collegata ai valori, alle date e alle
+    fonti che la giustificano. Prototipo di ricerca, non un dispositivo medico.
+  phase:
+    done: 1
+    active: 1
+    total: 8
+    label: Fase 1 di 8 in corso
+    detail: ingestione FHIR e normalizzazione completate
+  stack: FHIR · knowledge graph · LLM locali (Ollama) · GNN su MIMIC-IV (pianificato)
+  key_result:
+    value: "1.000"
+    text: >-
+      Pazienti sintetici nella coorte di sviluppo Synthea. La generazione è riproducibile: il
+      pilota rigenerato in due fusi orari ha dato un output identico byte per byte.
+    source: README, Quickstart
+  repo: https://github.com/enricotazzer/medgraph
+  page: /projects/medgraph/
+
+- id: oracle
+  title: ORACLE
+  status: completato
+  summary: >-
+    Oncology Reconstruction And Clinical Learning Engine: classificazione, segmentazione,
+    ricostruzione 3D e previsione della crescita di tumori cerebrali da MRI multimodale, con un
+    visualizzatore 3D che si presenta da solo.
+  stack: PyTorch · GAN · PINN · Grad-CAM · WebGL
+  demo: https://enricotazzer.github.io/ORACLE/
+  repo: https://github.com/enricotazzer/ORACLE
+  page: /projects/oracle/
+
+- id: nba-analysis
+  title: NBA Analysis
+  status: archivio
+  summary: Analisi delle principali statistiche del basket americano, per l'esame di Data Science.
+  repo: https://github.com/enricotazzer/nba_analysis
+
+- id: italian-medical-reports-encoding
+  title: Italian Medical Reports Encoding
+  status: archivio
+  summary: "Tesi triennale: codifica di referti medici con modelli NLP."
+  repo: https://github.com/enricotazzer/italian-medical-reports-encoding
+
+- id: brain-tumor-classifier
+  title: Brain Tumor Classifier
+  status: archivio
+  summary: Semplice classificatore di tumori cerebrali.
+  repo: https://github.com/enricotazzer/brain_tumor_classifier

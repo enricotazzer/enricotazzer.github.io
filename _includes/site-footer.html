@@ -1,0 +1,13 @@
+<footer class="site-footer">
+  <div class="container site-footer__inner">
+    <div class="site-footer__brand">
+      <span class="brand brand--small">{{ site.title }}</span>
+      <span>&copy; {{ site.time | date: '%Y' }} {{ site.author }} · Costruito con Jekyll, ospitato su GitHub Pages</span>
+    </div>
+    <nav class="site-footer__links" aria-label="Altrove">
+      <a href="{{ '/feed.xml' | relative_url }}">RSS</a>
+      <a href="https://github.com/enricotazzer">GitHub ↗</a>
+      <a href="https://www.linkedin.com/in/enrico-tazzer-a43483340/">LinkedIn ↗</a>
+    </nav>
+  </div>
+</footer>

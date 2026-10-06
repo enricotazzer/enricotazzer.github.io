@@ -1,0 +1,23 @@
+{%- comment -%}
+  One article in a list (home page and /posts/).
+  Params: post, date_style ("iso" | "short"), tag_links (true links tags to /posts/#tag).
+  data-tags drives the tag filter in js/scripts.js.
+{%- endcomment -%}
+{%- assign p = include.post -%}
+{%- assign words = p.content | number_of_words -%}
+<article class="entry" data-tags="{{ p.tags | join: ',' | downcase }}">
+  <time class="entry__date" datetime="{{ p.date | date: '%Y-%m-%d' }}">{% include date.html date=p.date style=include.date_style %}</time>
+  <div class="entry__body">
+    <h3 class="entry__title"><a href="{{ p.url | relative_url }}">{{ p.title }}</a></h3>
+    {% if p.subtitle %}<p class="entry__dek">{{ p.subtitle }}</p>{% endif %}
+    <div class="entry__meta">
+      <span>{{ words | divided_by: 200 | plus: 1 }} min di lettura</span>
+      {%- if p.tags.size > 0 %}
+      <span aria-hidden="true">·</span>
+      {%- for tag in p.tags %}
+      {% if include.tag_links %}<a class="tag" href="{{ '/posts/' | relative_url }}#{{ tag | downcase }}">{{ tag }}</a>{% else %}<span class="tag">{{ tag }}</span>{% endif %}
+      {%- endfor %}
+      {%- endif %}
+    </div>
+  </div>
+</article>

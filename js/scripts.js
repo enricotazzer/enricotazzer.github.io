@@ -1,179 +1,167 @@
-/*!
-* Start Bootstrap - Clean Blog v6.0.9 (https://startbootstrap.com/theme/clean-blog)
-* Copyright 2013-2023 Start Bootstrap
-* Licensed under MIT (https://github.com/StartBootstrap/startbootstrap-clean-blog/blob/master/LICENSE)
-*/
+/* BrainNotBraining: site behaviour.
+ * Theme toggle, reading progress, back-to-top, the article table of contents,
+ * and the tag filter on /posts/. Every part checks for its elements first, so
+ * the one file runs on every page.
+ */
+(function () {
+  'use strict';
 
-window.addEventListener('DOMContentLoaded', () => {
+  var root = document.documentElement;
+  var reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
 
-    // ── Navbar scroll behaviour ──────────────────────────────────────────────
-    let scrollPos = 0;
-    const mainNav = document.getElementById('mainNav');
-    const headerHeight = mainNav.clientHeight;
-
-    window.addEventListener('scroll', function () {
-        const currentTop = document.body.getBoundingClientRect().top * -1;
-        if (currentTop < scrollPos) {
-            // Scrolling Up
-            if (currentTop > 0 && mainNav.classList.contains('is-fixed')) {
-                mainNav.classList.add('is-visible');
-            } else {
-                mainNav.classList.remove('is-visible', 'is-fixed');
-            }
-        } else {
-            // Scrolling Down
-            mainNav.classList.remove('is-visible');
-            if (currentTop > headerHeight && !mainNav.classList.contains('is-fixed')) {
-                mainNav.classList.add('is-fixed');
-            }
-        }
-        scrollPos = currentTop;
+  // ── Theme toggle ───────────────────────────────────────────
+  // The inline script in _includes/head.html applies the saved (or OS)
+  // theme before first paint; this keeps the button in sync and saves changes.
+  var toggle = document.getElementById('theme-toggle');
+  if (toggle) {
+    var syncToggle = function () {
+      toggle.setAttribute('aria-pressed', root.classList.contains('dark-mode') ? 'true' : 'false');
+    };
+    syncToggle();
+    toggle.addEventListener('click', function () {
+      var dark = !root.classList.contains('dark-mode');
+      root.classList.toggle('dark-mode', dark);
+      syncToggle();
+      try {
+        localStorage.setItem('darkMode', dark ? 'on' : 'off');
+      } catch (e) {
+        // Storage can be blocked (private mode); the toggle still works for this page.
+      }
     });
+  }
 
-    // ── Reading progress bar ─────────────────────────────────────────────────
-    const progressBar = document.getElementById('reading-progress');
-    if (progressBar) {
-        const updateProgress = () => {
-            const scrollTop  = document.documentElement.scrollTop || document.body.scrollTop;
-            const docHeight  = document.documentElement.scrollHeight - document.documentElement.clientHeight;
-            const pct        = docHeight > 0 ? (scrollTop / docHeight) * 100 : 0;
-            progressBar.style.width = pct + '%';
-        };
-        window.addEventListener('scroll', updateProgress, { passive: true });
-        updateProgress();
-    }
+  // ── Reading progress (posts only) ──────────────────────────
+  var progress = document.getElementById('reading-progress');
+  if (progress) {
+    var updateProgress = function () {
+      var max = root.scrollHeight - root.clientHeight;
+      progress.style.width = (max > 0 ? (root.scrollTop / max) * 100 : 0) + '%';
+    };
+    window.addEventListener('scroll', updateProgress, { passive: true });
+    window.addEventListener('resize', updateProgress);
+    updateProgress();
+  }
 
-    // ── Scroll-reveal — Apple-style ────────────────────────────────────────────
-    // Tag each post card (.post-item) so the whole card animates in as a unit
-    document.querySelectorAll('.post-item').forEach(el => el.classList.add('reveal'));
-    // Tag paragraphs and headings in page-content bodies (about, article pages)
-    document.querySelectorAll('.page-content-body > p, .page-content-body > h2, .page-content-body > h3').forEach(el => el.classList.add('reveal'));
+  // ── Back to top ────────────────────────────────────────────
+  var backToTop = document.getElementById('back-to-top');
+  if (backToTop) {
+    var updateBackToTop = function () {
+      backToTop.classList.toggle('is-visible', window.scrollY > 400);
+    };
+    window.addEventListener('scroll', updateBackToTop, { passive: true });
+    updateBackToTop();
+    backToTop.addEventListener('click', function () {
+      window.scrollTo({ top: 0, behavior: reduceMotion.matches ? 'auto' : 'smooth' });
+    });
+  }
 
-    const revealEls = document.querySelectorAll('.reveal');
-    if (revealEls.length > 0) {
-        const observer = new IntersectionObserver((entries) => {
-            // ── Entering viewport (scroll down) ─────────────────────────────
-            const visible = entries.filter(e => e.isIntersecting);
-            visible.forEach((entry, i) => {
-                // Apple-style stagger when multiple items enter at once
-                const delay = visible.length > 1 ? i * 130 : 0;
-                setTimeout(() => {
-                    entry.target.classList.add('is-visible');
-                }, delay);
-            });
+  // ── Table of contents (articles with 3+ sections) ──────────
+  var body = document.querySelector('.post-body');
+  var toc = document.getElementById('toc');
+  if (body && toc) {
+    var heads = Array.prototype.filter.call(body.children, function (el) {
+      return el.tagName === 'H2' && el.id;
+    });
+    if (heads.length >= 3) {
+      body.classList.add('has-toc');
+      var list = toc.querySelector('.toc__list');
+      var links = heads.map(function (head, i) {
+        var item = document.createElement('li');
+        var link = document.createElement('a');
+        var num = document.createElement('span');
+        var label = document.createElement('span');
+        link.href = '#' + head.id;
+        num.className = 'toc__num';
+        num.textContent = (i < 9 ? '0' : '') + (i + 1);
+        label.textContent = head.textContent;
+        link.appendChild(num);
+        link.appendChild(label);
+        item.appendChild(link);
+        list.appendChild(item);
+        return link;
+      });
+      toc.hidden = false;
 
-            // ── Leaving viewport (scroll up) ─────────────────────────────────
-            // Only hide elements that exit from the BOTTOM (i.e. you scrolled
-            // back up past them). Elements that have scrolled ABOVE the viewport
-            // stay visible so reading long pages feels natural.
-            entries
-                .filter(e => !e.isIntersecting && e.boundingClientRect.top > 0)
-                .forEach(entry => entry.target.classList.remove('is-visible'));
-        }, { threshold: 0.07, rootMargin: '0px 0px -48px 0px' });
-
-        revealEls.forEach(el => observer.observe(el));
-    }
-
-    // ── Dark mode toggle ─────────────────────────────────────────────────────
-    const toggle = document.getElementById('dark-mode-toggle');
-    const html   = document.documentElement;
-
-    const applyDark = (on) => {
-        if (on) {
-            html.classList.add('dark-mode');
-            if (toggle) toggle.textContent = '☀ Light';
-        } else {
-            html.classList.remove('dark-mode');
-            if (toggle) toggle.textContent = '◑ Dark';
+      // The current section is the last heading above the top third of the viewport.
+      var current = -1;
+      var ticking = false;
+      var markCurrent = function () {
+        ticking = false;
+        var line = window.innerHeight / 3;
+        var index = 0;
+        heads.forEach(function (head, i) {
+          if (head.getBoundingClientRect().top < line) index = i;
+        });
+        if (index === current) return;
+        current = index;
+        links.forEach(function (link, i) {
+          if (i === index) link.setAttribute('aria-current', 'true');
+          else link.removeAttribute('aria-current');
+        });
+      };
+      window.addEventListener('scroll', function () {
+        if (!ticking) {
+          ticking = true;
+          window.requestAnimationFrame(markCurrent);
         }
+      }, { passive: true });
+      markCurrent();
+    }
+  }
+
+  // ── Tag filter (/posts/) ───────────────────────────────────
+  var filterButtons = document.querySelectorAll('.filter-btn');
+  if (filterButtons.length > 0) {
+    var entries = document.querySelectorAll('.entry[data-tags]');
+    var groups = document.querySelectorAll('.year-group');
+    var status = document.getElementById('filter-status');
+    var plural = function (n) {
+      return n === 1 ? '1 articolo' : n + ' articoli';
     };
 
-    // Restore saved preference (also respect OS preference on first visit)
-    const saved = localStorage.getItem('darkMode');
-    if (saved === 'on') {
-        applyDark(true);
-    } else if (saved === null && window.matchMedia('(prefers-color-scheme: dark)').matches) {
-        applyDark(true);
-    } else {
-        applyDark(false);
-    }
+    var applyFilter = function (filter) {
+      var shown = 0;
+      var label = 'Tutti';
+      entries.forEach(function (entry) {
+        var tags = entry.dataset.tags ? entry.dataset.tags.split(',') : [];
+        var match = filter === 'all' || tags.indexOf(filter) !== -1;
+        entry.classList.toggle('is-hidden', !match);
+        if (match) shown += 1;
+      });
+      groups.forEach(function (group) {
+        var visible = group.querySelectorAll('.entry:not(.is-hidden)').length;
+        group.hidden = visible === 0;
+        var count = group.querySelector('.year-group__count');
+        if (count) count.textContent = plural(visible);
+      });
+      filterButtons.forEach(function (button) {
+        var on = button.dataset.filter === filter;
+        button.setAttribute('aria-pressed', on ? 'true' : 'false');
+        if (on) label = button.dataset.label;
+      });
+      if (status) {
+        status.textContent = filter === 'all' ? plural(shown) : plural(shown) + ' con argomento ' + label;
+      }
+    };
 
-    if (toggle) {
-        toggle.addEventListener('click', () => {
-            const isDark = html.classList.contains('dark-mode');
-            applyDark(!isDark);
-            localStorage.setItem('darkMode', !isDark ? 'on' : 'off');
-        });
-    }
-
-    // ── Smooth page-exit transition ───────────────────────────────────────────
-    // Intercept all same-origin internal links and fade out before navigating
-    document.querySelectorAll('a[href]').forEach(link => {
-        const href = link.getAttribute('href');
-        if (
-            !href ||
-            href.startsWith('#') ||
-            href.startsWith('mailto:') ||
-            href.startsWith('javascript:') ||
-            link.hasAttribute('target') ||        // opens in new tab
-            link.origin !== location.origin        // external link
-        ) return;
-
-        link.addEventListener('click', e => {
-            e.preventDefault();
-            const dest = link.href;
-            document.body.classList.add('page-leaving');
-            setTimeout(() => { location.href = dest; }, 185);
-        });
+    filterButtons.forEach(function (button) {
+      button.addEventListener('click', function () {
+        var filter = button.dataset.filter;
+        applyFilter(filter);
+        // Keep the filter in the URL so it can be shared; replaceState fires no hashchange.
+        history.replaceState(null, '', filter === 'all' ? location.pathname : '#' + filter);
+      });
     });
 
-    // ── Back to top ───────────────────────────────────────────────────────────
-    const backToTop = document.getElementById('back-to-top');
-    if (backToTop) {
-        window.addEventListener('scroll', () => {
-            backToTop.classList.toggle('visible', window.scrollY > 400);
-        }, { passive: true });
-        backToTop.addEventListener('click', () => {
-            window.scrollTo({ top: 0, behavior: 'smooth' });
-        });
-    }
-
-    // ── Tag filtering (posts.html) ────────────────────────────────────────────
-    const tagFilterBtns = document.querySelectorAll('.tag-filter-btn');
-    if (tagFilterBtns.length > 0) {
-        const filterPosts = (filter) => {
-            document.querySelectorAll('.post-item[data-tags]').forEach(item => {
-                if (filter === 'all') {
-                    item.classList.remove('hidden');
-                } else {
-                    const tags = item.dataset.tags.split(',').map(t => t.trim());
-                    item.classList.toggle('hidden', !tags.includes(filter));
-                }
-            });
-            // Hide HRs adjacent to hidden items
-            document.querySelectorAll('hr.my-4').forEach(hr => {
-                const prev = hr.previousElementSibling;
-                const next = hr.nextElementSibling;
-                const prevHidden = prev && prev.classList.contains('post-item') && prev.classList.contains('hidden');
-                const nextHidden = next && next.classList.contains('post-item') && next.classList.contains('hidden');
-                hr.style.display = (prevHidden || nextHidden) ? 'none' : '';
-            });
-        };
-
-        tagFilterBtns.forEach(btn => {
-            btn.addEventListener('click', () => {
-                tagFilterBtns.forEach(b => b.classList.remove('active'));
-                btn.classList.add('active');
-                filterPosts(btn.dataset.filter);
-            });
-        });
-
-        // Auto-activate filter from URL hash (e.g. /posts.html#ai)
-        const hash = window.location.hash.replace('#', '').toLowerCase();
-        if (hash) {
-            const target = document.querySelector(`.tag-filter-btn[data-filter="${hash}"]`);
-            if (target) target.click();
-        }
-    }
-
-});
+    // Tag links elsewhere point to /posts/#<tag>.
+    var filterFromHash = function () {
+      var hash = decodeURIComponent(location.hash.slice(1)).toLowerCase();
+      var known = Array.prototype.some.call(filterButtons, function (button) {
+        return button.dataset.filter === hash;
+      });
+      if (hash && known) applyFilter(hash);
+    };
+    filterFromHash();
+    window.addEventListener('hashchange', filterFromHash);
+  }
+})();
