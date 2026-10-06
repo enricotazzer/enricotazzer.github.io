@@ -622,6 +622,53 @@ html.dark-mode .post-preview-body .post-subtitle {
   transform: translateX(3px);
 }
 
+/* ── Home latest-posts CTA ───────────────────────────────── */
+.home-posts-cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  padding: 0.58rem 1.05rem;
+  border-radius: 999px;
+  border: 1.5px solid rgba(0, 133, 161, 0.45);
+  background: rgba(0, 133, 161, 0.08);
+  color: #006b80;
+  font-size: 0.76rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  text-decoration: none;
+  transition: transform 0.2s ease, background 0.2s ease, border-color 0.2s ease;
+}
+
+.home-posts-cta:hover {
+  transform: translateY(-2px);
+  background: rgba(0, 133, 161, 0.16);
+  border-color: #0085A1;
+  color: #005565;
+  text-decoration: none;
+}
+
+.home-posts-cta i {
+  font-size: 0.72rem;
+  transition: transform 0.2s ease;
+}
+
+.home-posts-cta:hover i {
+  transform: translateX(3px);
+}
+
+html.dark-mode .home-posts-cta {
+  border-color: rgba(0, 200, 232, 0.45);
+  background: rgba(0, 200, 232, 0.12);
+  color: #8de6f6;
+}
+
+html.dark-mode .home-posts-cta:hover {
+  background: rgba(0, 200, 232, 0.2);
+  border-color: #00c8e8;
+  color: #baf1fb;
+}
+
 /* ── Footer redesign ──────────────────────────────────────── */
 footer.site-footer {
   background: #f7f9fa;
