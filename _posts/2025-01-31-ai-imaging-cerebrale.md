@@ -1,5 +1,6 @@
 ---
 layout: post
+redirect_from: /AIBrainImaging1.html
 title: "AI nel campo del Imaging cerebrale"
 subtitle: "Analisi di un articolo del National Center for Biotechnology Information"
 date: 2025-01-31

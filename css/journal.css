@@ -261,6 +261,12 @@ html.dark-mode .theme-toggle .icon-moon { display: none; }
   border-bottom: 1px solid var(--rule);
 }
 
+.page-head__links {
+  margin: 20px 0 0;
+  font-family: var(--sans);
+  font-size: 0.9375rem;
+}
+
 .page-title {
   margin: 0 0 16px;
   font-size: clamp(2.5rem, 5.5vw, 4rem);

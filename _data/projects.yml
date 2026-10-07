@@ -9,8 +9,17 @@
 # key_result: one figure copied from the project's own README or docs, with
 #             where it comes from. Never a demo or synthetic number: when the
 #             real value doesn't exist yet, say so.
-# repo/page/demo/article: links; an empty repo reads "Repository: in
-#             pubblicazione", an empty article "Articolo: in preparazione".
+# repo/page/demo: links. With no repo, repo_pending: true shows
+#             "Repository: in pubblicazione"; otherwise nothing is shown.
+# article:    a post URL, or "pending" to show "Articolo: in preparazione".
+
+- id: tesi-magistrale
+  title: "Tesi magistrale: MLLM per reperti opportunistici"
+  status: in_corso
+  short: Modelli linguistici multimodali per individuare reperti opportunistici in referti e immagini radiologiche.
+  summary: >-
+    Ricerca su modelli linguistici multimodali (MLLM) per individuare reperti opportunistici, cioè
+    segnali incidentali ma clinicamente rilevanti, in referti e immagini radiologiche.
 
 - id: tacticalgraph
   title: TacticalGraph
@@ -33,6 +42,7 @@
     source: README, tabella dei risultati
   repo: https://github.com/enricotazzer/TacticalGraph
   page: /projects/tacticalgraph/
+  article: pending
 
 - id: wastewise
   title: WasteWise
@@ -48,7 +58,7 @@
     active: 0
     total: 5
     label: 5 fasi su 5 costruite
-    detail: 378 test, in attesa di dati reali
+    detail: 378 test, in revisione; in attesa di dati reali
   stack: FastAPI · PostgreSQL/pgvector · React · Open Food Facts · LLM in tier gratuito
   key_result:
     value: "n.d."
@@ -56,6 +66,7 @@
     source: README, «What is measured, and what is not»
   repo: https://github.com/enricotazzer/WasteWise
   page: /projects/wastewise/
+  article: pending
 
 - id: sleepwatch
   title: sleepwatch
@@ -78,7 +89,8 @@
       Kappa a 5 classi della GRU bidirezionale (IC 95% 0,482–0,537; 47 soggetti, 253 notti).
       Usare le notti precedenti della stessa persona non ha migliorato lo staging.
     source: README, risultati della fase 2
-  repo:
+  repo_pending: true
+  article: pending
 
 - id: medgraph
   title: medgraph
@@ -104,6 +116,7 @@
     source: README, Quickstart
   repo: https://github.com/enricotazzer/medgraph
   page: /projects/medgraph/
+  article: pending
 
 - id: oracle
   title: ORACLE
@@ -113,9 +126,58 @@
     ricostruzione 3D e previsione della crescita di tumori cerebrali da MRI multimodale, con un
     visualizzatore 3D che si presenta da solo.
   stack: PyTorch · GAN · PINN · Grad-CAM · WebGL
+  key_result:
+    value: "≈ 0,84"
+    text: Dice di segmentazione sul test (≈ 0,80 IoU), su un singolo fold, con EMA, TTA e post-processing.
+    source: README, valutazione della segmentazione
   demo: https://enricotazzer.github.io/ORACLE/
   repo: https://github.com/enricotazzer/ORACLE
   page: /projects/oracle/
+
+- id: chest-xray-triage
+  title: Chest X-Ray Triage Assistant
+  status: completato
+  summary: >-
+    Classificatore multi-etichetta di radiografie del torace con una spiegazione Grad-CAM per ogni
+    decisione, pensato per dare priorità ai casi urgenti nella coda di refertazione. Prototipo di
+    ricerca, non un dispositivo medico.
+  stack: PyTorch · DenseNet-121 · Grad-CAM · ChestX-ray14
+  key_result:
+    value: "−54%"
+    text: >-
+      Attesa media dei casi urgenti nella simulazione della coda. Il costo, riportato accanto:
+      l'attesa più lunga del reparto passa da 117 minuti a 20 ore.
+    source: README, simulazione della coda
+  repo: https://github.com/enricotazzer/ChestX-rayAssistant
+
+- id: skin-lesion-multitask
+  title: Multi-Task Skin Lesion Analysis
+  status: completato
+  summary: >-
+    Studio comparativo di due approcci alla segmentazione e classificazione congiunta di lesioni
+    cutanee dermoscopiche (ISIC 2018): una CNN multitask con Cross-Fusion e una pipeline
+    neuro-simbolica basata sulle regole cliniche ABCD. Con Demien Propedo ed Emanuele Pagnutti.
+  stack: CNN multitask · ragionamento neuro-simbolico · ISIC 2018
+  key_result:
+    value: "0,9186"
+    text: >-
+      Dice della rete multitask in segmentazione, contro 0,9023 di DeepLabV3 (+1,6 pp). In
+      classificazione costa invece 2,9 punti di accuratezza rispetto a ResNet-50.
+    source: README, «TL;DR — what we found»
+  repo: https://github.com/enricotazzer/multi-task-learning-for-classification-and-segmentation-of-skin-lesions
+
+- id: lung-tumor-segmentation
+  title: Lung Tumor Segmentation Benchmark
+  status: completato
+  summary: >-
+    Confronto di 12 architetture di segmentazione per tumori polmonari su TC, misurate su Dice,
+    IoU, sensibilità, specificità e costo di inferenza.
+  stack: PyTorch · segmentation-models-pytorch · nnU-Net / U-Mamba
+  key_result:
+    value: "0,8183"
+    text: Dice di UNet++, il migliore dei 12 modelli confrontati.
+    source: README, «Best Performing Models»
+  repo: https://github.com/enricotazzer/Lung-Tumor-Segmentation-Benchmark
 
 - id: nba-analysis
   title: NBA Analysis
@@ -134,3 +196,9 @@
   status: archivio
   summary: Semplice classificatore di tumori cerebrali.
   repo: https://github.com/enricotazzer/brain_tumor_classifier
+
+- id: hospital-room-assignment
+  title: Hospital Room Assignment (PDDL)
+  status: archivio
+  summary: Dominio di pianificazione classica in PDDL per l'assegnazione delle stanze ospedaliere, con requisiti di attrezzatura e azioni reversibili.
+  repo: https://github.com/enricotazzer/Hospital-Room-Assignment-PDDL-planning

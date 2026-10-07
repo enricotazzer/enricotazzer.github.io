@@ -1,5 +1,6 @@
 ---
 layout: post
+redirect_from: /introductionToAiMedicine.html
 title: "Introduzione all'AI nella medicina"
 subtitle: "Alla scoperta di questo vasto campo applicativo e le sue potenzialità"
 date: 2025-01-28

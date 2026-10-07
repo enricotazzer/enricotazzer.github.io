@@ -3,6 +3,8 @@ layout: default
 title: Progetti
 description: Quaderno di laboratorio dei progetti di Enrico Tazzer, con stato e risultati.
 permalink: /projects/
+redirect_from:
+  - /projects.html
 ---
 {%- comment -%} Everything here comes from _data/projects.yml. {%- endcomment -%}
 {%- assign ongoing = site.data.projects | where: "status", "in_corso" -%}
@@ -12,6 +14,7 @@ permalink: /projects/
   <header class="page-head">
     <h1 class="page-title">Progetti</h1>
     <p class="dek">Quaderno di laboratorio: cosa sto costruendo, a che punto è e cosa ha funzionato. I risultati negativi sono riportati come quelli positivi.</p>
+    <p class="page-head__links"><a href="{{ '/assets/CV_Tazzer.pdf' | relative_url }}">Scarica il CV (PDF)</a></p>
   </header>
 
   {% if ongoing.size > 0 %}

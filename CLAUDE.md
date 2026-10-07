@@ -50,7 +50,13 @@ To add a project:
 
 **Permalinks.** `_config.yml` sets `permalink: /posts/:title/`, so a post's URL comes from its **filename** slug, case included: `2026-03-23-MRI-Recon.md` is served at `/posts/MRI-Recon/`.
 
-`posts.html` and `projects.html` set explicit permalinks (`/posts/`, `/projects/`). Project pages live at `/projects/<id>/`. `/oracle/` redirects to `/projects/oracle/` via `jekyll-redirect-from`.
+`posts.html` and `projects.html` set explicit permalinks (`/posts/`, `/projects/`). Project pages live at `/projects/<id>/`.
+
+Old URLs redirect through `jekyll-redirect-from` (`redirect_from` in front matter), so links to them keep working:
+
+- `/oracle/` goes to `/projects/oracle/`.
+- The August 2026 static site's pages still redirect: `risks.html`, `AIBrainImaging1.html` and the other article pages go to their posts. `posts.html`, `projects.html` and `about.html` go to the clean URLs.
+- Keep these redirects when renaming or moving a post.
 
 **Posts.** Files in `_posts/` must be named `YYYY-MM-DD-slug.md`; without the `.md` extension Jekyll silently skips the file. Front matter: `layout: post`, `title`, `subtitle`, `date`, `image` (under `/assets/img/`), `tags` (a list).
 
@@ -82,6 +88,19 @@ One file loaded with `defer` on every page. Each part checks that its elements e
 - the tag filter on `/posts/`, which keeps the filter in the URL hash
 
 There is no scroll-reveal and no page-exit fade any more. Links behave natively, so cmd/ctrl-click works.
+
+## History
+
+The Jekyll site was archived in August 2026 as the `jekyll-archive-march2026` branch. For a while, `main` served a hand-written static dark portfolio instead. The October 2026 journal redesign merged that version back into `main`.
+
+The static version's content was carried over:
+
+- the CV at `assets/CV_Tazzer.pdf`, linked from the footer, About and Projects
+- its extra projects, now in `_data/projects.yml`
+
+Its pages and `css/site.css` were removed. They remain in git history (commit `4e88588`).
+
+Before planning changes, run `git fetch` and compare with `origin/main`.
 
 ## Repo hygiene
 

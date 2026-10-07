@@ -1,5 +1,6 @@
 ---
 layout: post
+redirect_from: /introductionCognitiveAI.html
 title: "Introduzione alla Cognitive AI"
 subtitle: "E se i computer pensassero?"
 date: 2025-03-07
