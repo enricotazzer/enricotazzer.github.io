@@ -1,0 +1,12 @@
+---
+layout: default
+---
+<div class="container">
+  <header class="page-head">
+    <h1 class="page-title">{{ page.heading | default: page.title }}</h1>
+    {% if page.subheading %}<p class="dek">{{ page.subheading }}</p>{% endif %}
+  </header>
+  <div class="prose page-body">
+    {{ content }}
+  </div>
+</div>

@@ -1,0 +1,171 @@
+---
+layout: default
+---
+{%- comment -%}
+  A project page whose body is the repo's README, fetched in the browser.
+  Front matter: github_repo, github_branch, github_readme_path, permalink,
+  and project_id to pull the header (status, period, meter, stack) from
+  _data/projects.yml.
+{%- endcomment -%}
+{%- assign project = site.data.projects | where: "id", page.project_id | first -%}
+{%- assign heading = project.title | default: page.heading | default: page.title -%}
+<div class="container">
+  <header class="page-head">
+    <nav class="breadcrumb" aria-label="Percorso">
+      <a href="{{ '/projects/' | relative_url }}">Progetti</a>
+      <span aria-hidden="true">/</span>
+      <span>{{ heading }}</span>
+    </nav>
+    <div class="project-heading">
+      <h1 class="page-title">{{ heading }}</h1>
+      {% if project %}{% include status-chip.html status=project.status %}{% endif %}
+    </div>
+    {%- assign dek = project.summary | default: page.subheading -%}
+    {% if dek %}<p class="dek">{{ dek }}</p>{% endif %}
+
+    {% if project %}
+    <dl class="facts">
+      {% if project.since %}<div><dt>Periodo</dt><dd class="mono">{{ project.since }} – {{ project.until | default: "oggi" }}</dd></div>{% endif %}
+      {% if project.phase %}<div class="facts__wide"><dt>Stato</dt><dd>{% include meter.html phase=project.phase %}</dd></div>{% endif %}
+      {% if project.stack %}<div class="facts__stack"><dt>Stack</dt><dd>{{ project.stack }}</dd></div>{% endif %}
+      {% if project.demo %}<div><dt>Demo</dt><dd><a href="{{ project.demo }}">Apri la demo ↗</a></dd></div>{% endif %}
+      <div><dt>Repository</dt><dd><a href="https://github.com/{{ page.github_repo }}">{{ page.github_repo }} ↗</a></dd></div>
+    </dl>
+    {% endif %}
+  </header>
+
+  <div class="section-head">
+    <h2>README</h2>
+    <p class="section-head__meta">letto in tempo reale da GitHub · {{ page.github_branch | default: "main" }} / {{ page.github_readme_path | default: "README.md" }}</p>
+  </div>
+  <div id="readme-status" class="readme-status" role="status"></div>
+  <article id="readme-content" class="prose readme" lang="en"></article>
+  <p class="readme-cta">
+    <a id="readme-repo-link" class="btn" href="https://github.com/{{ page.github_repo }}">Apri il repository su GitHub ↗</a>
+  </p>
+</div>
+
+<div
+  id="readme-config"
+  data-default-repo="{{ page.github_repo | default: 'enricotazzer/enricotazzer.github.io' | escape }}"
+  data-default-branch="{{ page.github_branch | default: 'main' | escape }}"
+  data-default-path="{{ page.github_readme_path | default: 'README.md' | escape }}"
+  hidden
+></div>
+
+<script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/dompurify@3.1.7/dist/purify.min.js"></script>
+<script>
+(function () {
+  const configEl = document.getElementById('readme-config');
+  const defaultRepo = (configEl?.dataset.defaultRepo || 'enricotazzer/enricotazzer.github.io').trim();
+  const defaultBranch = (configEl?.dataset.defaultBranch || 'main').trim();
+  const defaultPath = (configEl?.dataset.defaultPath || 'README.md').trim();
+
+  const statusEl = document.getElementById('readme-status');
+  const contentEl = document.getElementById('readme-content');
+  const repoLinkEl = document.getElementById('readme-repo-link');
+
+  if (repoLinkEl) {
+    repoLinkEl.href = `https://github.com/${defaultRepo}`;
+  }
+
+  const encodePath = (value) => value.split('/').map(encodeURIComponent).join('/');
+
+  const toRawUrl = (repoValue, branchValue, pathValue) =>
+    `https://raw.githubusercontent.com/${repoValue}/${encodeURIComponent(branchValue)}/${encodePath(pathValue)}`;
+
+  const toBlobBase = (repoValue, branchValue) =>
+    `https://github.com/${repoValue}/blob/${encodeURIComponent(branchValue)}/`;
+
+  const toRawBase = (repoValue, branchValue) =>
+    `https://raw.githubusercontent.com/${repoValue}/${encodeURIComponent(branchValue)}/`;
+
+  const unique = (arr) => [...new Set(arr.filter(Boolean))];
+
+  const dirname = (pathValue) => {
+    const idx = pathValue.lastIndexOf('/');
+    return idx === -1 ? '' : pathValue.slice(0, idx + 1);
+  };
+
+  const resolveRepoPath = (relativePath, baseDir) => {
+    if (!relativePath) return '';
+    if (relativePath.startsWith('/')) return relativePath.replace(/^\//, '');
+    const base = `https://example.local/${baseDir}`;
+    return new URL(relativePath, base).pathname.replace(/^\//, '');
+  };
+
+  const absolutizeGithubLinks = (root, repoValue, branchValue, pathValue) => {
+    const blobBase = toBlobBase(repoValue, branchValue);
+    const rawBase = toRawBase(repoValue, branchValue);
+    const baseDir = dirname(pathValue);
+
+    root.querySelectorAll('a[href]').forEach((link) => {
+      const href = link.getAttribute('href') || '';
+      if (!href || href.startsWith('#') || /^https?:\/\//i.test(href) || href.startsWith('mailto:')) return;
+
+      const [pathPart, hashPart = ''] = href.split('#');
+      const resolvedPath = resolveRepoPath(pathPart, baseDir);
+      if (!resolvedPath) return;
+
+      link.href = `${blobBase}${resolvedPath}${hashPart ? `#${hashPart}` : ''}`;
+      link.target = '_blank';
+      link.rel = 'noopener noreferrer';
+    });
+
+    root.querySelectorAll('img[src]').forEach((img) => {
+      const src = img.getAttribute('src') || '';
+      if (!src || /^https?:\/\//i.test(src) || src.startsWith('data:')) return;
+      const resolvedPath = resolveRepoPath(src, baseDir);
+      if (!resolvedPath) return;
+      img.src = rawBase + resolvedPath;
+      img.loading = 'lazy';
+    });
+  };
+
+  const fetchReadmeWithFallback = async (repoValue, preferredBranch, preferredPath) => {
+    const branches = unique([preferredBranch, 'main', 'master']);
+    const paths = unique([preferredPath, 'README.md', 'readme.md']);
+
+    let lastError = null;
+    for (const branch of branches) {
+      for (const path of paths) {
+        const url = toRawUrl(repoValue, branch, path);
+        try {
+          const response = await fetch(url);
+          if (!response.ok) {
+            lastError = new Error(`GitHub responded with ${response.status}`);
+            continue;
+          }
+
+          const markdown = await response.text();
+          return { markdown, branch, path };
+        } catch (error) {
+          lastError = error;
+        }
+      }
+    }
+
+    throw lastError || new Error('Unable to load README');
+  };
+
+  const renderReadme = async (repoValue, branchValue, pathValue) => {
+    statusEl.textContent = 'Caricamento del README…';
+    contentEl.innerHTML = '';
+
+    try {
+      const { markdown, branch, path } = await fetchReadmeWithFallback(repoValue, branchValue, pathValue);
+      const html = marked.parse(markdown, { gfm: true, breaks: false });
+      const clean = DOMPurify.sanitize(html);
+      contentEl.innerHTML = clean;
+      absolutizeGithubLinks(contentEl, repoValue, branch, path);
+
+      statusEl.textContent = '';
+    } catch (error) {
+      statusEl.textContent = `Impossibile caricare il README (${error.message}). Controlla repository, branch e percorso, e che il repository sia pubblico.`;
+    }
+  };
+
+  renderReadme(defaultRepo, defaultBranch, defaultPath);
+})();
+</script>

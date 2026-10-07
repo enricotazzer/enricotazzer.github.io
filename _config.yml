@@ -1,5 +1,33 @@
+title: BrainNotBraining
+description: Appunti su AI, medicina e la tecnologia che sta arrivando.
+author: Enrico Tazzer
+url: "https://enricotazzer.github.io"
+baseurl: ""
+lang: it
+locale: it_IT
+
+# Build
+markdown: kramdown
+permalink: /posts/:title/
+
+# All four are on the GitHub Pages plugin whitelist.
 plugins:
   - jekyll-feed
-title: Enrico Tazzer Blog
-description: Blog news
-author: Enrico Tazzer
+  - jekyll-seo-tag
+  - jekyll-sitemap
+  - jekyll-redirect-from
+
+# Used by jekyll-seo-tag for the JSON-LD "sameAs" links.
+social:
+  name: Enrico Tazzer
+  links:
+    - https://github.com/enricotazzer
+    - https://www.linkedin.com/in/enrico-tazzer-a43483340/
+
+exclude:
+  - CLAUDE.md
+  - README.md
+  - Gemfile
+  - Gemfile.lock
+  - vendor
+  - node_modules

@@ -1,206 +1,35 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="description" content="Enrico Tazzer — AI & Cybersecurity student. Blog and portfolio." />
-    <meta name="author" content="Enrico Tazzer" />
-    <title>BrainNotBraining — Enrico Tazzer</title>
-    <link rel="canonical" href="https://enricotazzer.github.io/" />
-    <meta property="og:type" content="website" />
-    <meta property="og:site_name" content="BrainNotBraining" />
-    <meta property="og:title" content="BrainNotBraining — Enrico Tazzer" />
-    <meta property="og:description" content="Enrico Tazzer — AI & Cybersecurity student. Blog and portfolio." />
-    <meta property="og:url" content="https://enricotazzer.github.io/" />
-    <meta property="og:image" content="https://enricotazzer.github.io/assets/img/AI-in-Medicine.png" />
-    <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content="BrainNotBraining — Enrico Tazzer" />
-    <meta name="twitter:description" content="Enrico Tazzer — AI & Cybersecurity student. Blog and portfolio." />
-    <meta name="twitter:image" content="https://enricotazzer.github.io/assets/img/AI-in-Medicine.png" />
-    <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
-    <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet" />
-    <link href="css/site.css" rel="stylesheet" />
-    <link rel="alternate" type="application/atom+xml" title="Enrico Tazzer Blog" href="/feed.xml">
-</head>
-<body>
-    <header class="site-nav" id="siteNav">
-        <div class="container nav-inner">
-            <a class="nav-logo" href="index.html">BrainNotBraining</a>
-            <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="navMenu" aria-label="Toggle navigation"><i class="fas fa-bars"></i></button>
-            <nav class="nav-menu" id="navMenu">
-                <a class="nav-link" aria-current="page" href="index.html">Home</a>
-                <a class="nav-link" href="posts.html">Articles</a>
-                <a class="nav-link" href="projects.html">Portfolio</a>
-                <a class="nav-link" href="about.html">About</a>
-                <a class="btn btn-primary btn-sm" href="#contact">Contact me</a>
-            </nav>
-        </div>
-    </header>
-    <main>
-        <section class="hero">
-            <div class="hero-glow"></div>
-            <div class="container">
-                <div class="hero-tags reveal">
-                    <span class="tech-tag">AI &amp; Cybersecurity</span>
-                    <span class="tech-tag">Medical AI</span>
-                    <span class="tech-tag">MSc Student</span>
-                </div>
-                <h1 class="hero-title reveal reveal-delay-1">Building AI that matters &mdash; in medicine and beyond.</h1>
-                <p class="hero-sub reveal reveal-delay-2">I'm Enrico Tazzer, a double-degree MSc student in Artificial Intelligence and Cybersecurity (University of Udine &amp; Alpen-Adria-Universit&auml;t Klagenfurt). Here you'll find my projects and my writing on AI, computer science and whatever else catches my curiosity.</p>
-                <div class="hero-ctas reveal reveal-delay-3">
-                    <a class="btn btn-primary" href="projects.html">View my work</a>
-                    <a class="btn btn-ghost" href="posts.html">Read the blog</a>
-                </div>
-            </div>
-        </section>
-        <section class="section">
-            <div class="container">
-                <div class="now-panel reveal">
-                    <div class="now-panel-label">Currently Working On</div>
-                    <h2 class="now-panel-title">Master's Thesis — MLLM for Opportunistic Findings</h2>
-                    <p class="now-panel-desc">Researching multimodal large language models to detect opportunistic findings (incidental but clinically relevant signals) in radiology reports and imaging.</p>
-                    <span class="status-badge status-badge--progress">In Progress</span>
-                    <h2 class="now-panel-title" style="margin-top: 1.5rem;">TacticalGraph</h2>
-                    <p class="now-panel-desc">Football tactical analysis on Serie A event data combining graph neural networks, sequence models, and reinforcement learning.</p>
-                    <span class="status-badge status-badge--progress">In Progress</span>
-                    <h2 class="now-panel-title" style="margin-top: 1.5rem;">WasteWise</h2>
-                    <p class="now-panel-desc">All five phases are built and tested — currently under self-review before calling it final.</p>
-                    <span class="status-badge status-badge--progress">Under Review</span>
-                </div>
-            </div>
-        </section>
-        <section class="section">
-            <div class="container">
-                <div class="section-head reveal">
-                    <div>
-                        <p class="section-eyebrow">Portfolio</p>
-                        <h2 class="section-heading">Featured Projects</h2>
-                    </div>
-                    <a class="section-link" href="projects.html">All projects &rarr;</a>
-                </div>
-                <div class="card-grid">
-                    <article class="card reveal">
-                        <img class="card-img" src="https://opengraph.githubassets.com/1/enricotazzer/ORACLE" alt="ORACLE — Oncology Reconstruction And Clinical Learning Engine" loading="lazy" />
-                        <div class="card-body">
-                            <h3 class="card-title">ORACLE</h3>
-                            <p class="card-desc">End-to-end brain tumor pipeline: MRI segmentation, GAN-based 3D reconstruction, and physics-informed growth prediction. 0.84 Dice score, with a live interactive 3D viewer.</p>
-                            <div class="card-tags">
-                                <span class="tech-tag">PyTorch</span>
-                                <span class="tech-tag">GANs</span>
-                                <span class="tech-tag">Medical Imaging</span>
-                            </div>
-                            <div class="card-footer">
-                                <span class="status-badge status-badge--completed">Completed</span>
-                                <a class="card-link" href="https://github.com/enricotazzer/ORACLE" target="_blank" rel="noopener">View on GitHub &rarr;</a>
-                            </div>
-                        </div>
-                    </article>
-                    <article class="card reveal reveal-delay-1">
-                        <img class="card-img" src="https://opengraph.githubassets.com/1/enricotazzer/ChestX-rayAssistant" alt="Chest X-Ray Triage Assistant with Explainability" loading="lazy" />
-                        <div class="card-body">
-                            <h3 class="card-title">Chest X-Ray Triage Assistant</h3>
-                            <p class="card-desc">Multi-label chest X-ray classifier with Grad-CAM explainability, cutting urgent-case wait time 54% in queue simulation across 112,120 images.</p>
-                            <div class="card-tags">
-                                <span class="tech-tag">PyTorch</span>
-                                <span class="tech-tag">Explainable AI</span>
-                                <span class="tech-tag">Medical Imaging</span>
-                            </div>
-                            <div class="card-footer">
-                                <span class="status-badge status-badge--completed">v1 Complete</span>
-                                <a class="card-link" href="https://github.com/enricotazzer/ChestX-rayAssistant" target="_blank" rel="noopener">View on GitHub &rarr;</a>
-                            </div>
-                        </div>
-                    </article>
-                    <article class="card reveal reveal-delay-2">
-                        <img class="card-img" src="https://opengraph.githubassets.com/1/enricotazzer/WasteWise" alt="WasteWise" loading="lazy" />
-                        <div class="card-body">
-                            <h3 class="card-title">WasteWise</h3>
-                            <p class="card-desc">Full-stack app reducing household food waste via computer-vision receipt scanning, consumption tracking, and recipe recommendations. 378 tests, zero paid APIs.</p>
-                            <div class="card-tags">
-                                <span class="tech-tag">Python</span>
-                                <span class="tech-tag">Computer Vision</span>
-                                <span class="tech-tag">Full-Stack</span>
-                            </div>
-                            <div class="card-footer">
-                                <span class="status-badge status-badge--progress">Under Review</span>
-                                <a class="card-link" href="https://github.com/enricotazzer/WasteWise" target="_blank" rel="noopener">View on GitHub &rarr;</a>
-                            </div>
-                        </div>
-                    </article>
-                </div>
-            </div>
-        </section>
-        <section class="section">
-            <div class="container">
-                <div class="section-head reveal">
-                    <div>
-                        <p class="section-eyebrow">Blog</p>
-                        <h2 class="section-heading">Latest Articles</h2>
-                    </div>
-                    <a class="section-link" href="posts.html">All articles &rarr;</a>
-                </div>
-                <div class="post-list">
-                    <a class="post-item reveal" href="introductionCognitiveAI.html">
-                        <h3 class="post-item-title">Introduzione alla Cognitive AI</h3>
-                        <p class="post-item-sub">E se i computer pensassero?</p>
-                        <p class="post-item-meta">Posted by Enrico Tazzer &middot; 7 Marzo 2025 &middot; 4 min read</p>
-                        <div class="card-tags">
-                            <span class="tech-tag">AI</span>
-                            <span class="tech-tag">Cognitive Science</span>
-                        </div>
-                    </a>
-                    <a class="post-item reveal" href="risks.html">
-                        <h3 class="post-item-title">Rischi dell'AI nell'ambito sanitario</h3>
-                        <p class="post-item-sub">Illsutrazione e discussione delle problematiche e dei rischi di tali strumenti.</p>
-                        <p class="post-item-meta">Posted by Enrico Tazzer &middot; 5 Marzo 2025 &middot; 8 min read</p>
-                        <div class="card-tags">
-                            <span class="tech-tag">AI</span>
-                            <span class="tech-tag">Healthcare</span>
-                            <span class="tech-tag">Ethics</span>
-                        </div>
-                    </a>
-                    <a class="post-item reveal" href="AIBrainImaging1.html">
-                        <h3 class="post-item-title">AI nel campo del Imaging cerberale</h3>
-                        <p class="post-item-sub">Analisi di un articolo del National Center for Biotechnology Information</p>
-                        <p class="post-item-meta">Posted by Enrico Tazzer &middot; 31 Gennaio 2025 &middot; 5 min read</p>
-                        <div class="card-tags">
-                            <span class="tech-tag">AI</span>
-                            <span class="tech-tag">Medical Imaging</span>
-                        </div>
-                    </a>
-                    <a class="post-item reveal" href="introductionToAiMedicine.html">
-                        <h3 class="post-item-title">Introduzione all'AI nella medicina</h3>
-                        <p class="post-item-sub">Alla scoperta di questo vasto campo applicativo e le sue potenizalit&agrave;</p>
-                        <p class="post-item-meta">Posted by Enrico Tazzer &middot; Gennaio 28, 2025 &middot; 3 min read</p>
-                        <div class="card-tags">
-                            <span class="tech-tag">AI</span>
-                            <span class="tech-tag">Medicine</span>
-                        </div>
-                    </a>
-                </div>
-            </div>
-        </section>
-        <section class="section">
-            <div class="container">
-                <p class="section-eyebrow reveal">About</p>
-                <h2 class="section-heading reveal">Who am I?</h2>
-                <p class="page-sub reveal">Studente della doppia laurea magistrale in Artificial Intelligence and Cybersecurity, con un interesse particolare per l'applicazione dell'AI in ambito medico.</p>
-                <p class="reveal"><a class="btn btn-ghost" href="about.html">More about me &rarr;</a></p>
-            </div>
-        </section>
-    </main>
-    <footer class="site-footer" id="contact">
-        <div class="container">
-            <p class="footer-tagline">Let's build something that matters.</p>
-            <ul class="footer-socials">
-                <li><a href="https://www.linkedin.com/in/enrico-tazzer-a43483340/" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a></li>
-                <li><a href="https://github.com/enricotazzer" aria-label="GitHub"><i class="fab fa-github"></i></a></li>
-                <li><a href="feed.xml" target="_blank" aria-label="RSS feed"><i class="fas fa-rss"></i></a></li>
-            </ul>
-            <p class="footer-copy">Copyright &copy; Enrico Tazzer 2024-2025</p>
-        </div>
-    </footer>
-    <script src="js/scripts.js"></script>
-</body>
-</html>
+---
+layout: default
+---
+{%- assign ongoing = site.data.projects | where: "status", "in_corso" -%}
+<div class="container">
+  <section class="intro">
+    <p class="kicker">Quaderno di ricerca · dal {{ site.posts.last.date | date: "%Y" }}</p>
+    <h1 class="intro__title">Appunti su AI, medicina e la tecnologia che sta arrivando.</h1>
+    <p class="dek">Scritti da Enrico Tazzer, studente della doppia laurea magistrale in Artificial Intelligence and Cybersecurity tra Udine e Klagenfurt. Qui trovi gli articoli e lo stato dei progetti, con i risultati, anche quando sono negativi.</p>
+  </section>
+
+  <div class="home-grid">
+    <section class="home-latest" aria-labelledby="latest-title">
+      <div class="section-head">
+        <h2 id="latest-title">Ultimi articoli</h2>
+        <a href="{{ '/posts/' | relative_url }}">Tutti gli articoli →</a>
+      </div>
+      {% for post in site.posts limit: 5 %}
+      {% include post-entry.html post=post date_style="iso" tag_links=true %}
+      {% endfor %}
+    </section>
+
+    {% if ongoing.size > 0 %}
+    <aside class="home-projects" aria-labelledby="ongoing-title">
+      <div class="section-head">
+        <h2 id="ongoing-title">Progetti in corso</h2>
+        <a href="{{ '/projects/' | relative_url }}">Tutti →</a>
+      </div>
+      {% for p in ongoing %}
+      {% include project-compact.html project=p %}
+      {% endfor %}
+    </aside>
+    {% endif %}
+  </div>
+</div>

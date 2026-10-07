@@ -1,302 +1,53 @@
-<!DOCTYPE html>
-<html lang="en">
-    <head>
-        <meta charset="utf-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <meta name="description" content="Portfolio of AI/ML projects by Enrico Tazzer — medical imaging, NLP, and applied engineering" />
-        <meta name="author" content="Enrico Tazzer" />
-        <title>Portfolio — BrainNotBraining</title>
-        <link rel="canonical" href="https://enricotazzer.github.io/projects.html" />
-        <meta property="og:type" content="website" />
-        <meta property="og:site_name" content="BrainNotBraining" />
-        <meta property="og:title" content="Portfolio — BrainNotBraining" />
-        <meta property="og:description" content="Portfolio of AI/ML projects by Enrico Tazzer — medical imaging, NLP, and applied engineering" />
-        <meta property="og:url" content="https://enricotazzer.github.io/projects.html" />
-        <meta property="og:image" content="https://opengraph.githubassets.com/1/enricotazzer/ORACLE" />
-        <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:title" content="Portfolio — BrainNotBraining" />
-        <meta name="twitter:description" content="Portfolio of AI/ML projects by Enrico Tazzer — medical imaging, NLP, and applied engineering" />
-        <meta name="twitter:image" content="https://opengraph.githubassets.com/1/enricotazzer/ORACLE" />
-        <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
-        <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
-        <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet" />
-        <link href="css/site.css" rel="stylesheet" />
-        <link rel="alternate" type="application/atom+xml" title="Enrico Tazzer Blog" href="/feed.xml">
-    </head>
-    <body>
-        <header class="site-nav" id="siteNav">
-            <div class="container nav-inner">
-                <a class="nav-logo" href="index.html">BrainNotBraining</a>
-                <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="navMenu" aria-label="Toggle navigation"><i class="fas fa-bars"></i></button>
-                <nav class="nav-menu" id="navMenu">
-                    <a class="nav-link" href="index.html">Home</a>
-                    <a class="nav-link" href="posts.html">Articles</a>
-                    <a class="nav-link" href="projects.html" aria-current="page">Portfolio</a>
-                    <a class="nav-link" href="about.html">About</a>
-                    <a class="btn btn-primary btn-sm" href="#contact">Contact me</a>
-                </nav>
-            </div>
-        </header>
-        <section class="page-header">
-            <div class="hero-glow"></div>
-            <div class="container">
-                <h1 class="page-title reveal">Portfolio</h1>
-                <p class="page-sub reveal reveal-delay-1">AI/ML projects spanning medical imaging, NLP, and applied engineering — built by a Master's student in AI &amp; Cybersecurity.</p>
-                <a class="btn btn-primary reveal reveal-delay-2" href="assets/Enrico_Tazzer_CV.pdf" download>Download CV</a>
-            </div>
-        </section>
-        <section class="section">
-            <div class="container">
-                <div class="now-panel reveal">
-                    <div class="now-panel-label">Currently Working On</div>
-                    <h2 class="now-panel-title">Master's Thesis — MLLM for Opportunistic Findings</h2>
-                    <p class="now-panel-desc">Researching multimodal large language models to detect opportunistic findings (incidental but clinically relevant signals) in radiology reports and imaging.</p>
-                    <span class="status-badge status-badge--progress">In Progress</span>
-                    <h2 class="now-panel-title" style="margin-top: 1.5rem;">TacticalGraph</h2>
-                    <p class="now-panel-desc">Football tactical analysis on Serie A event data combining graph neural networks, sequence models, and reinforcement learning.</p>
-                    <span class="status-badge status-badge--progress">In Progress</span>
-                    <h2 class="now-panel-title" style="margin-top: 1.5rem;">WasteWise</h2>
-                    <p class="now-panel-desc">All five phases are built and tested — currently under self-review before calling it final.</p>
-                    <span class="status-badge status-badge--progress">Under Review</span>
-                </div>
+---
+layout: default
+title: Progetti
+description: Quaderno di laboratorio dei progetti di Enrico Tazzer, con stato e risultati.
+permalink: /projects/
+redirect_from:
+  - /projects.html
+---
+{%- comment -%} Everything here comes from _data/projects.yml. {%- endcomment -%}
+{%- assign ongoing = site.data.projects | where: "status", "in_corso" -%}
+{%- assign done = site.data.projects | where: "status", "completato" -%}
+{%- assign archive = site.data.projects | where: "status", "archivio" -%}
+<div class="container">
+  <header class="page-head">
+    <h1 class="page-title">Progetti</h1>
+    <p class="dek">Quaderno di laboratorio: cosa sto costruendo, a che punto è e cosa ha funzionato. I risultati negativi sono riportati come quelli positivi.</p>
+    <p class="page-head__links"><a href="{{ '/assets/CV_Tazzer.pdf' | relative_url }}">Scarica il CV (PDF)</a></p>
+  </header>
 
-                <div class="skills-row reveal">
-                    <span class="tech-tag">Python</span>
-                    <span class="tech-tag">PyTorch</span>
-                    <span class="tech-tag">Computer Vision</span>
-                    <span class="tech-tag">Medical Imaging</span>
-                    <span class="tech-tag">NLP / Transformers</span>
-                    <span class="tech-tag">GANs</span>
-                    <span class="tech-tag">Physics-Informed Neural Networks</span>
-                    <span class="tech-tag">Graph Neural Networks</span>
-                    <span class="tech-tag">PDDL Planning</span>
-                    <span class="tech-tag">Streamlit</span>
-                    <span class="tech-tag">pytest</span>
-                </div>
+  {% if ongoing.size > 0 %}
+  <section class="project-group" aria-labelledby="ongoing-title">
+    <div class="section-head">
+      <h2 id="ongoing-title">In corso</h2>
+      <span class="section-head__meta">{{ ongoing.size }} {% if ongoing.size == 1 %}progetto{% else %}progetti{% endif %}</span>
+    </div>
+    {% for p in ongoing %}{% include project-entry.html project=p %}{% endfor %}
+  </section>
+  {% endif %}
 
-                <h2 class="section-heading reveal">Flagship Work</h2>
-                <div class="case-study-list">
-                    <div class="case-study reveal">
-                        <div class="case-study-media">
-                            <img class="case-study-img" src="https://opengraph.githubassets.com/1/enricotazzer/ORACLE" alt="ORACLE — Oncology Reconstruction And Clinical Learning Engine" loading="lazy" />
-                        </div>
-                        <div class="case-study-body">
-                            <div class="case-study-eyebrow">Medical AI · Complete</div>
-                            <h3 class="case-study-title">ORACLE — Oncology Reconstruction And Clinical Learning Engine</h3>
-                            <p class="case-study-desc">An end-to-end deep learning pipeline for brain tumor analysis: segment tumors in multimodal MRI, reconstruct full 3D brain volumes from sparse slice observations via GAN-based generation, then predict tumor growth with a Physics-Informed Neural Network — complete with uncertainty quantification (MC-Dropout, Deep Ensemble, Laplace posterior).</p>
-                            <div class="case-study-stats">
-                                <div class="stat"><span class="stat-value">0.84</span><span class="stat-label">Dice score (segmentation)</span></div>
-                                <div class="stat"><span class="stat-value">3</span><span class="stat-label">stage pipeline: segment → reconstruct → predict</span></div>
-                                <div class="stat"><span class="stat-value">Live</span><span class="stat-label">interactive 3D brain viewer</span></div>
-                            </div>
-                            <div class="case-study-tags card-tags">
-                                <span class="tech-tag">Python</span>
-                                <span class="tech-tag">PyTorch</span>
-                                <span class="tech-tag">GANs</span>
-                                <span class="tech-tag">PINNs</span>
-                                <span class="tech-tag">Three.js</span>
-                            </div>
-                            <div class="case-study-links">
-                                <a class="card-link" href="https://github.com/enricotazzer/ORACLE" target="_blank" rel="noopener">View on GitHub &rarr;</a>
-                                <a class="btn btn-ghost" href="https://enricotazzer.github.io/ORACLE/brain-viewer/" target="_blank" rel="noopener">Live 3D Demo</a>
-                            </div>
-                        </div>
-                    </div>
+  {% if done.size > 0 %}
+  <section class="project-group" aria-labelledby="done-title">
+    <div class="section-head">
+      <h2 id="done-title">Completati</h2>
+    </div>
+    {% for p in done %}{% include project-entry.html project=p %}{% endfor %}
+  </section>
+  {% endif %}
 
-                    <div class="case-study case-study--reverse reveal">
-                        <div class="case-study-media">
-                            <img class="case-study-img" src="https://opengraph.githubassets.com/1/enricotazzer/ChestX-rayAssistant" alt="Chest X-Ray Triage Assistant with Explainability" loading="lazy" />
-                        </div>
-                        <div class="case-study-body">
-                            <div class="case-study-eyebrow">Medical AI · v1 Complete</div>
-                            <h3 class="case-study-title">Chest X-Ray Triage Assistant with Explainability</h3>
-                            <p class="case-study-desc">A multi-label classifier that estimates clinical urgency from chest X-rays and produces a Grad-CAM visual explanation for every decision, built to re-prioritize a radiology reading queue so urgent cases surface first. Includes a self-critical audit of a known dataset spurious-correlation risk and a subgroup fairness analysis.</p>
-                            <div class="case-study-stats">
-                                <div class="stat"><span class="stat-value">112,120</span><span class="stat-label">X-rays across 14 findings</span></div>
-                                <div class="stat"><span class="stat-value">-54%</span><span class="stat-label">urgent-case mean wait time</span></div>
-                                <div class="stat"><span class="stat-value">Audited</span><span class="stat-label">for spurious correlation &amp; fairness</span></div>
-                            </div>
-                            <div class="case-study-tags card-tags">
-                                <span class="tech-tag">Python</span>
-                                <span class="tech-tag">PyTorch</span>
-                                <span class="tech-tag">DenseNet</span>
-                                <span class="tech-tag">Grad-CAM</span>
-                                <span class="tech-tag">Streamlit</span>
-                            </div>
-                            <div class="case-study-links">
-                                <a class="card-link" href="https://github.com/enricotazzer/ChestX-rayAssistant" target="_blank" rel="noopener">View on GitHub &rarr;</a>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="case-study reveal">
-                        <div class="case-study-media">
-                            <img class="case-study-img" src="https://opengraph.githubassets.com/1/enricotazzer/WasteWise" alt="WasteWise" loading="lazy" />
-                        </div>
-                        <div class="case-study-body">
-                            <div class="case-study-eyebrow">Applied Engineering · Under Review</div>
-                            <h3 class="case-study-title">WasteWise</h3>
-                            <p class="case-study-desc">A full-stack app that reduces household food waste and grocery overspend: scan groceries with a phone camera, resolve products against Open Food Facts, track what gets eaten or binned, and surface recipes that rescue food about to expire — all backed by a tested, zero-paid-API stack.</p>
-                            <div class="case-study-stats">
-                                <div class="stat"><span class="stat-value">5/5</span><span class="stat-label">phases shipped</span></div>
-                                <div class="stat"><span class="stat-value">378</span><span class="stat-label">tests</span></div>
-                                <div class="stat"><span class="stat-value">$0</span><span class="stat-label">paid APIs — free-tier only</span></div>
-                            </div>
-                            <div class="case-study-tags card-tags">
-                                <span class="tech-tag">Python</span>
-                                <span class="tech-tag">Computer Vision</span>
-                                <span class="tech-tag">REST APIs</span>
-                                <span class="tech-tag">Open Food Facts API</span>
-                                <span class="tech-tag">pytest</span>
-                            </div>
-                            <div class="case-study-links">
-                                <a class="card-link" href="https://github.com/enricotazzer/WasteWise" target="_blank" rel="noopener">View on GitHub &rarr;</a>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="case-study case-study--reverse reveal">
-                        <div class="case-study-media">
-                            <img class="case-study-img" src="https://opengraph.githubassets.com/1/enricotazzer/italian-medical-reports-encoding" alt="Italian Medical Reports Encoding" loading="lazy" />
-                        </div>
-                        <div class="case-study-body">
-                            <div class="case-study-eyebrow">Medical AI · Bachelor's Thesis</div>
-                            <h3 class="case-study-title">Italian Medical Reports Encoding</h3>
-                            <p class="case-study-desc">Bachelor's thesis project on NLP-based encoding of real Italian clinical reports, applying transformer models to structure unstructured medical text.</p>
-                            <div class="case-study-stats">
-                                <div class="stat"><span class="stat-value">BSc</span><span class="stat-label">thesis project</span></div>
-                                <div class="stat"><span class="stat-value">IT</span><span class="stat-label">real Italian clinical reports</span></div>
-                            </div>
-                            <div class="case-study-tags card-tags">
-                                <span class="tech-tag">Python</span>
-                                <span class="tech-tag">NLP</span>
-                                <span class="tech-tag">Transformers</span>
-                            </div>
-                            <div class="case-study-links">
-                                <a class="card-link" href="https://github.com/enricotazzer/italian-medical-reports-encoding" target="_blank" rel="noopener">View on GitHub &rarr;</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <h2 class="section-heading reveal">More Projects</h2>
-                <div class="filter-tabs reveal">
-                    <button class="filter-tab is-active" data-filter="all">All</button>
-                    <button class="filter-tab" data-filter="medical-ai">Medical AI</button>
-                    <button class="filter-tab" data-filter="applied-engineering">Applied Engineering &amp; Analytics</button>
-                </div>
-                <div class="card-grid filterable-grid">
-                    <div class="card reveal" data-category="medical-ai">
-                        <img class="card-img" src="https://opengraph.githubassets.com/1/enricotazzer/Lung-Tumor-Segmentation-Benchmark" alt="Lung Tumor Segmentation Benchmark" loading="lazy" />
-                        <div class="card-body">
-                            <h3 class="card-title">Lung Tumor Segmentation Benchmark</h3>
-                            <p class="card-desc">Comparison of 12 deep learning segmentation architectures for lung tumor detection on CT scans, benchmarked on Dice, IoU, sensitivity, and inference efficiency.</p>
-                            <div class="card-tags">
-                                <span class="tech-tag">Python</span>
-                                <span class="tech-tag">PyTorch</span>
-                                <span class="tech-tag">Segmentation</span>
-                            </div>
-                            <div class="card-footer">
-                                <span class="status-badge status-badge--completed">Completed</span>
-                                <a class="card-link" href="https://github.com/enricotazzer/Lung-Tumor-Segmentation-Benchmark" target="_blank" rel="noopener">View on GitHub &rarr;</a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="card reveal reveal-delay-1" data-category="medical-ai">
-                        <img class="card-img" src="https://opengraph.githubassets.com/1/enricotazzer/multi-task-learning-for-classification-and-segmentation-of-skin-lesions" alt="Multi-Task Skin Lesion Analysis" loading="lazy" />
-                        <div class="card-body">
-                            <h3 class="card-title">Multi-Task Skin Lesion Analysis</h3>
-                            <p class="card-desc">Multi-task deep learning model for joint classification and segmentation of skin lesions.</p>
-                            <div class="card-tags">
-                                <span class="tech-tag">Python</span>
-                                <span class="tech-tag">Multi-Task Learning</span>
-                                <span class="tech-tag">Computer Vision</span>
-                            </div>
-                            <div class="card-footer">
-                                <span class="status-badge status-badge--completed">Completed</span>
-                                <a class="card-link" href="https://github.com/enricotazzer/multi-task-learning-for-classification-and-segmentation-of-skin-lesions" target="_blank" rel="noopener">View on GitHub &rarr;</a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="card reveal reveal-delay-2" data-category="medical-ai">
-                        <img class="card-img" src="https://opengraph.githubassets.com/1/enricotazzer/brain_tumor_classifier" alt="Brain Tumor Classifier" loading="lazy" />
-                        <div class="card-body">
-                            <h3 class="card-title">Brain Tumor Classifier</h3>
-                            <p class="card-desc">Semplice classificatore di tumori cerebrali</p>
-                            <div class="card-tags">
-                                <span class="tech-tag">Python</span>
-                                <span class="tech-tag">CNN</span>
-                                <span class="tech-tag">PyTorch</span>
-                            </div>
-                            <div class="card-footer">
-                                <span class="status-badge status-badge--completed">Completed</span>
-                                <a class="card-link" href="https://github.com/enricotazzer/brain_tumor_classifier" target="_blank" rel="noopener">View on GitHub &rarr;</a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="card reveal" data-category="applied-engineering">
-                        <img class="card-img" src="https://opengraph.githubassets.com/1/enricotazzer/TacticalGraph" alt="TacticalGraph" loading="lazy" />
-                        <div class="card-body">
-                            <h3 class="card-title">TacticalGraph</h3>
-                            <p class="card-desc">Football tactical analysis on Serie A event data combining graph neural networks, sequence models, and reinforcement learning, with a live Streamlit demo.</p>
-                            <div class="card-tags">
-                                <span class="tech-tag">Python</span>
-                                <span class="tech-tag">Graph Neural Networks</span>
-                                <span class="tech-tag">Reinforcement Learning</span>
-                                <span class="tech-tag">Streamlit</span>
-                            </div>
-                            <div class="card-footer">
-                                <span class="status-badge status-badge--progress">In Progress</span>
-                                <a class="card-link" href="https://github.com/enricotazzer/TacticalGraph" target="_blank" rel="noopener">View on GitHub &rarr;</a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="card reveal reveal-delay-1" data-category="applied-engineering">
-                        <img class="card-img" src="https://opengraph.githubassets.com/1/enricotazzer/nba_analysis" alt="NBA Analysis" loading="lazy" />
-                        <div class="card-body">
-                            <h3 class="card-title">NBA Analysis</h3>
-                            <p class="card-desc">Progetto di analisi delle principali statistiche del basket americano per l'esame di Data Science</p>
-                            <div class="card-tags">
-                                <span class="tech-tag">Python</span>
-                                <span class="tech-tag">Pandas</span>
-                                <span class="tech-tag">Data Viz</span>
-                            </div>
-                            <div class="card-footer">
-                                <span class="status-badge status-badge--completed">Completed</span>
-                                <a class="card-link" href="https://github.com/enricotazzer/nba_analysis" target="_blank" rel="noopener">View on GitHub &rarr;</a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="card reveal reveal-delay-2" data-category="applied-engineering">
-                        <img class="card-img" src="https://opengraph.githubassets.com/1/enricotazzer/Hospital-Room-Assignment-PDDL-planning" alt="Hospital Room Assignment (PDDL Planning)" loading="lazy" />
-                        <div class="card-body">
-                            <h3 class="card-title">Hospital Room Assignment (PDDL Planning)</h3>
-                            <p class="card-desc">A PDDL classical-planning domain for hospital room assignment with equipment requirements and reversible actions — symbolic AI/planning outside the deep learning stack.</p>
-                            <div class="card-tags">
-                                <span class="tech-tag">PDDL</span>
-                                <span class="tech-tag">Classical Planning</span>
-                                <span class="tech-tag">AI Reasoning</span>
-                            </div>
-                            <div class="card-footer">
-                                <span class="status-badge status-badge--completed">Completed</span>
-                                <a class="card-link" href="https://github.com/enricotazzer/Hospital-Room-Assignment-PDDL-planning" target="_blank" rel="noopener">View on GitHub &rarr;</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-        <footer class="site-footer" id="contact">
-            <div class="container">
-                <p class="footer-tagline">Let's build something that matters.</p>
-                <ul class="footer-socials">
-                    <li><a href="https://www.linkedin.com/in/enrico-tazzer-a43483340/" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a></li>
-                    <li><a href="https://github.com/enricotazzer" aria-label="GitHub"><i class="fab fa-github"></i></a></li>
-                    <li><a href="feed.xml" target="_blank" aria-label="RSS feed"><i class="fas fa-rss"></i></a></li>
-                </ul>
-                <p class="footer-copy">Copyright &copy; Enrico Tazzer 2024-2025</p>
-            </div>
-        </footer>
-        <script src="js/scripts.js"></script>
-    </body>
-</html>
+  {% if archive.size > 0 %}
+  <section class="project-group" aria-labelledby="archive-title">
+    <div class="section-head">
+      <h2 id="archive-title">Archivio</h2>
+    </div>
+    {% for p in archive %}
+    <article class="archive-row" id="{{ p.id }}">
+      <h3 class="archive-row__title">{{ p.title }}</h3>
+      <p class="archive-row__line">{{ p.summary }}</p>
+      {% if p.repo %}<a class="archive-row__link" href="{{ p.repo }}">Repository ↗</a>{% endif %}
+    </article>
+    {% endfor %}
+  </section>
+  {% endif %}
+</div>

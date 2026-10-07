@@ -1,0 +1,7 @@
+{%- assign p = include.project -%}
+<ul class="link-list{% if include.stacked %} link-list--stacked{% endif %}">
+  {%- if p.demo %}<li><a href="{{ p.demo }}">Demo live ↗</a></li>{% endif %}
+  {%- if p.page %}<li><a href="{{ p.page | relative_url }}">Pagina del progetto</a></li>{% endif %}
+  {%- if p.repo %}<li><a href="{{ p.repo }}">Repository ↗</a></li>{% elsif p.repo_pending %}<li><span>Repository: in pubblicazione</span></li>{% endif %}
+  {%- if p.article == "pending" %}<li><span>Articolo: in preparazione</span></li>{% elsif p.article %}<li><a href="{{ p.article | relative_url }}">Articolo</a></li>{% endif %}
+</ul>

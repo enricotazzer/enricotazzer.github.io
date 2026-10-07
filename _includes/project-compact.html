@@ -1,0 +1,10 @@
+{%- assign p = include.project -%}
+{%- capture href -%}{% if p.page %}{{ p.page | relative_url }}{% else %}{{ '/projects/' | relative_url }}#{{ p.id }}{% endif %}{%- endcapture -%}
+<article class="mini-project">
+  <div class="mini-project__head">
+    <h3 class="mini-project__title"><a href="{{ href }}">{{ p.title }}</a></h3>
+    {% if p.since %}<span class="mini-project__period">{{ p.since }} –</span>{% endif %}
+  </div>
+  <p class="mini-project__line">{{ p.short | default: p.summary }}</p>
+  {% if p.phase %}{% include meter.html phase=p.phase compact=true %}{% endif %}
+</article>

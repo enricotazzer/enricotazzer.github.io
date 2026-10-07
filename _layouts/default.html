@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="{{ page.lang | default: site.lang | default: 'it' }}">
+<head>
+{% include head.html %}
+</head>
+<body>
+  <a class="skip-link" href="#main">Vai al contenuto</a>
+  {% if page.layout == "post" %}<div id="reading-progress" aria-hidden="true"></div>{% endif %}
+  {% include site-header.html %}
+  <main id="main">
+    {{ content }}
+  </main>
+  {% include site-footer.html %}
+  <button id="back-to-top" class="back-to-top" type="button" aria-label="Torna all'inizio della pagina">↑</button>
+  <script src="{{ '/js/scripts.js' | relative_url }}" defer></script>
+</body>
+</html>

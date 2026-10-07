@@ -1,0 +1,15 @@
+{%- comment -%}
+  Phase meter: one segment per phase. Params: phase (from _data/projects.yml),
+  compact (true on the home page: thinner bar, label without detail).
+  The bar is decorative; the label below carries the information.
+{%- endcomment -%}
+{%- assign ph = include.phase -%}
+{%- assign upto = ph.done | plus: ph.active -%}
+<div class="meter{% if include.compact %} meter--compact{% endif %}">
+  <div class="meter__bar" aria-hidden="true">
+    {%- for i in (1..ph.total) -%}
+    <span class="meter__seg{% if i <= ph.done %} is-done{% elsif i <= upto %} is-active{% endif %}"></span>
+    {%- endfor -%}
+  </div>
+  <p class="meter__label">{{ ph.label }}{% if ph.detail and include.compact != true %} · {{ ph.detail }}{% endif %}</p>
+</div>
