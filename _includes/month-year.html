@@ -1,0 +1,8 @@
+{%- comment -%}
+  A "YYYY-MM" value from _data/projects.yml (since/until) as "ago 2026",
+  "Aug 2026" or "aug 2026", depending on the page's language.
+{%- endcomment -%}
+{%- assign t = site.data.i18n[page.lang] -%}
+{%- assign ym = include.value | split: "-" -%}
+{%- assign m = ym[1] | plus: 0 | minus: 1 -%}
+{{- t.months_short[m] }} {{ ym[0] -}}

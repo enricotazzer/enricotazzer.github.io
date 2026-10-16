@@ -1,0 +1,45 @@
+---
+layout: default
+---
+{%- comment -%} The article index with the tag filter (posts.html, en/posts.html, nl/posts.html). {%- endcomment -%}
+{%- assign t = site.data.i18n[page.lang] -%}
+{%- include lang-posts.html -%}
+{%- comment -%} Tags in order of first appearance, newest post first. {%- endcomment -%}
+{%- assign tag_names = "" | split: "" -%}
+{%- for post in lang_posts -%}
+  {%- for tag in post.tags -%}
+    {%- unless tag_names contains tag -%}{%- assign tag_names = tag_names | push: tag -%}{%- endunless -%}
+  {%- endfor -%}
+{%- endfor -%}
+{%- assign years = lang_posts | group_by_exp: "post", "post.date | date: '%Y'" -%}
+<div class="container">
+  <header class="page-head page-head--ruled">
+    <h1 class="page-title">{{ t.posts_title }}</h1>
+    <p class="dek">{{ t.posts_dek }}</p>
+  </header>
+
+  {% if tag_names.size > 0 %}
+  <div class="filter-bar" role="group" aria-labelledby="filter-label">
+    <span class="filter-bar__label" id="filter-label">{{ t.filter_label }}</span>
+    <button class="filter-btn" type="button" data-filter="all" data-label="{{ t.filter_all }}" aria-pressed="true">{{ t.filter_all }} <span class="filter-btn__count">{{ lang_posts.size }}</span></button>
+    {% for tag in tag_names %}
+    {%- capture label %}{% include tag-label.html tag=tag %}{% endcapture -%}
+    {%- assign tagged = lang_posts | where_exp: "item", "item.tags contains tag" -%}
+    <button class="filter-btn" type="button" data-filter="{{ tag | downcase }}" data-label="{{ label }}" aria-pressed="false">{{ label }} <span class="filter-btn__count">{{ tagged.size }}</span></button>
+    {% endfor %}
+  </div>
+  <p class="filter-status" id="filter-status" aria-live="polite" data-one="{{ t.article_one }}" data-many="{{ t.article_many }}" data-topic="{{ t.with_topic }}">{{ lang_posts.size }} {{ t.article_many }}</p>
+  {% endif %}
+
+  {% for year in years %}
+  <section class="year-group" aria-labelledby="year-{{ year.name }}">
+    <h2 class="year-group__title" id="year-{{ year.name }}">
+      <span>{{ year.name }}</span>
+      <span class="year-group__count">{% if year.items.size == 1 %}1 {{ t.article_one }}{% else %}{{ year.items.size }} {{ t.article_many }}{% endif %}</span>
+    </h2>
+    {% for post in year.items %}
+    {% include post-entry.html post=post date_style="short" %}
+    {% endfor %}
+  </section>
+  {% endfor %}
+</div>

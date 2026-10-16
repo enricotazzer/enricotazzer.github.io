@@ -1,0 +1,14 @@
+{%- comment -%}
+  IT / EN / NL. Each link goes to this page in that language, or to that
+  language's home page when there is no translation.
+{%- endcomment -%}
+{%- include translations.html -%}
+{%- assign t = site.data.i18n[page.lang] -%}
+<nav class="lang-switch" aria-label="{{ t.lang_label }}">
+  {%- for code in site.languages -%}
+  {%- assign l = site.data.i18n[code] -%}
+  {%- assign alt = translations | where: "lang", code | first -%}
+  {%- if alt -%}{%- assign href = alt.url -%}{%- else -%}{%- assign href = l.prefix | append: "/" -%}{%- endif %}
+  <a href="{{ href | relative_url }}" lang="{{ code }}" hreflang="{{ code }}"{% if code == page.lang %} aria-current="true"{% endif %}>{{ l.code }}<span class="sr-only"> {{ l.name }}</span></a>
+  {%- endfor %}
+</nav>

@@ -1,27 +1,30 @@
 {%- comment -%}
   A project on /projects/. With a key_result the aside shows it and the links
-  sit under the summary; without one the links take the aside.
+  sit under the summary; without one the links take the aside. Text fields
+  come from the project's block for the page's language (tx) when it has one.
 {%- endcomment -%}
+{%- assign t = site.data.i18n[page.lang] -%}
 {%- assign p = include.project -%}
+{%- assign tx = p[page.lang] -%}
 <article class="project project--{{ p.status }}" id="{{ p.id }}">
   <div class="project__main">
     <div class="project__head">
-      <h3 class="project__title">{{ p.title }}</h3>
+      <h3 class="project__title">{{ tx.title | default: p.title }}</h3>
       {% include status-chip.html status=p.status %}
-      {% if p.since %}<span class="project__period">{{ p.since }} – {{ p.until | default: "oggi" }}</span>{% endif %}
+      {% if p.since %}<span class="project__period">{% include month-year.html value=p.since %} – {% if p.until %}{% include month-year.html value=p.until %}{% else %}{{ t.today }}{% endif %}</span>{% endif %}
     </div>
-    <p class="project__summary">{{ p.summary }}</p>
-    {% if p.phase %}{% include meter.html phase=p.phase %}{% endif %}
-    {% if p.stack %}<p class="project__stack">{{ p.stack }}</p>{% endif %}
+    <p class="project__summary">{{ tx.summary | default: p.summary }}</p>
+    {% if p.phase %}{% include meter.html phase=p.phase tx=tx %}{% endif %}
+    {% if p.stack %}<p class="project__stack">{{ tx.stack | default: p.stack }}</p>{% endif %}
     {% if p.key_result %}{% include project-links.html project=p %}{% endif %}
   </div>
   <div class="project__aside">
     {%- if p.key_result %}
     <div class="key-result">
-      <p class="key-result__label">Risultato chiave</p>
-      <p class="key-result__value">{{ p.key_result.value }}</p>
-      <p class="key-result__text">{{ p.key_result.text }}</p>
-      <p class="key-result__source">Fonte: {{ p.key_result.source }}</p>
+      <p class="key-result__label">{{ t.key_result }}</p>
+      <p class="key-result__value">{{ tx.key_value | default: p.key_result.value }}</p>
+      <p class="key-result__text">{{ tx.key_text | default: p.key_result.text }}</p>
+      <p class="key-result__source">{{ t.source }}: {{ tx.key_source | default: p.key_result.source }}</p>
     </div>
     {%- else %}
     {% include project-links.html project=p stacked=true %}

@@ -6,13 +6,18 @@ baseurl: ""
 lang: it
 locale: it_IT
 
+# Italian is the source language and lives at /. English and Dutch
+# translations live under /en/ and /nl/ (see _data/i18n.yml for the
+# interface strings, and CLAUDE.md for how translations are linked).
+languages: [it, en, nl]
+
 # Build
 markdown: kramdown
 permalink: /posts/:title/
 
-# All four are on the GitHub Pages plugin whitelist.
+# All three are on the GitHub Pages plugin whitelist. The Atom feeds are
+# written by hand (feed.xml, en/feed.xml, nl/feed.xml), one per language.
 plugins:
-  - jekyll-feed
   - jekyll-seo-tag
   - jekyll-sitemap
   - jekyll-redirect-from
@@ -23,6 +28,19 @@ social:
   links:
     - https://github.com/enricotazzer
     - https://www.linkedin.com/in/enrico-tazzer-a43483340/
+
+# The longer path wins, so files under en/ and nl/ override the Italian default.
+defaults:
+  - scope: { path: "" }
+    values: { lang: it }
+  - scope: { path: "en" }
+    values: { lang: en, locale: en_US }
+  - scope: { path: "nl" }
+    values: { lang: nl, locale: nl_NL }
+  - scope: { path: "en", type: posts }
+    values: { permalink: "/en/posts/:title/" }
+  - scope: { path: "nl", type: posts }
+    values: { permalink: "/nl/posts/:title/" }
 
 exclude:
   - CLAUDE.md

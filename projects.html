@@ -1,53 +1,9 @@
 ---
-layout: default
+layout: projects-index
 title: Progetti
 description: Quaderno di laboratorio dei progetti di Enrico Tazzer, con stato e risultati.
 permalink: /projects/
+ref: projects
 redirect_from:
   - /projects.html
 ---
-{%- comment -%} Everything here comes from _data/projects.yml. {%- endcomment -%}
-{%- assign ongoing = site.data.projects | where: "status", "in_corso" -%}
-{%- assign done = site.data.projects | where: "status", "completato" -%}
-{%- assign archive = site.data.projects | where: "status", "archivio" -%}
-<div class="container">
-  <header class="page-head">
-    <h1 class="page-title">Progetti</h1>
-    <p class="dek">Quaderno di laboratorio: cosa sto costruendo, a che punto è e cosa ha funzionato. I risultati negativi sono riportati come quelli positivi.</p>
-    <p class="page-head__links"><a href="{{ '/assets/CV_Tazzer.pdf' | relative_url }}">Scarica il CV (PDF)</a></p>
-  </header>
-
-  {% if ongoing.size > 0 %}
-  <section class="project-group" aria-labelledby="ongoing-title">
-    <div class="section-head">
-      <h2 id="ongoing-title">In corso</h2>
-      <span class="section-head__meta">{{ ongoing.size }} {% if ongoing.size == 1 %}progetto{% else %}progetti{% endif %}</span>
-    </div>
-    {% for p in ongoing %}{% include project-entry.html project=p %}{% endfor %}
-  </section>
-  {% endif %}
-
-  {% if done.size > 0 %}
-  <section class="project-group" aria-labelledby="done-title">
-    <div class="section-head">
-      <h2 id="done-title">Completati</h2>
-    </div>
-    {% for p in done %}{% include project-entry.html project=p %}{% endfor %}
-  </section>
-  {% endif %}
-
-  {% if archive.size > 0 %}
-  <section class="project-group" aria-labelledby="archive-title">
-    <div class="section-head">
-      <h2 id="archive-title">Archivio</h2>
-    </div>
-    {% for p in archive %}
-    <article class="archive-row" id="{{ p.id }}">
-      <h3 class="archive-row__title">{{ p.title }}</h3>
-      <p class="archive-row__line">{{ p.summary }}</p>
-      {% if p.repo %}<a class="archive-row__link" href="{{ p.repo }}">Repository ↗</a>{% endif %}
-    </article>
-    {% endfor %}
-  </section>
-  {% endif %}
-</div>

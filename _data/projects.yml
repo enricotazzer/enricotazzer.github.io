@@ -1,7 +1,9 @@
-# Projects shown on /projects/, on the home page and on each project page.
+# Projects shown on /projects/, on the home page and on each project page,
+# in every language.
 #
 # status:     in_corso | completato | archivio
-# since/until: shown as "since – until"; an empty until reads "oggi".
+# since/until: "YYYY-MM", shown as "ago 2026 – oggi" in the page's language;
+#             an empty until reads "oggi" / "today" / "nu".
 # short:      one line for the home page; summary is the longer text.
 # phase:      the meter: done and active (hatched) segments out of total.
 #             label is shown everywhere, detail only on /projects/ and the
@@ -11,7 +13,14 @@
 #             real value doesn't exist yet, say so.
 # repo/page/demo: links. With no repo, repo_pending: true shows
 #             "Repository: in pubblicazione"; otherwise nothing is shown.
+#             page is the Italian URL; the other languages prefix it (/en/...).
 # article:    a post URL, or "pending" to show "Articolo: in preparazione".
+#
+# en / nl:    the project's text in English and Dutch. Each key overrides one
+#             Italian field, and anything left out falls back to Italian:
+#             title, short, summary, stack, phase_label, phase_detail,
+#             key_value, key_text, key_source. Numbers stay the same; only
+#             their format changes (0,510 in Italian and Dutch, 0.510 in English).
 
 - id: tesi-magistrale
   title: "Tesi magistrale: MLLM per reperti opportunistici"
@@ -20,11 +29,23 @@
   summary: >-
     Ricerca su modelli linguistici multimodali (MLLM) per individuare reperti opportunistici, cioè
     segnali incidentali ma clinicamente rilevanti, in referti e immagini radiologiche.
+  en:
+    title: "Master's thesis: MLLMs for opportunistic findings"
+    short: Multimodal language models for spotting opportunistic findings in radiology reports and images.
+    summary: >-
+      Research on multimodal language models (MLLMs) for spotting opportunistic findings, that is,
+      incidental but clinically relevant signs, in radiology reports and images.
+  nl:
+    title: "Masterscriptie: MLLM's voor opportunistische bevindingen"
+    short: Multimodale taalmodellen om opportunistische bevindingen op te sporen in radiologieverslagen en -beelden.
+    summary: >-
+      Onderzoek naar multimodale taalmodellen (MLLM's) om opportunistische bevindingen op te sporen,
+      dus toevallige maar klinisch relevante signalen, in radiologieverslagen en -beelden.
 
 - id: tacticalgraph
   title: TacticalGraph
   status: in_corso
-  since: ago 2026
+  since: "2026-08"
   short: Analisi tattica del calcio su dati evento con GNN, modelli sequenziali e reinforcement learning.
   summary: >-
     Analisi tattica del calcio su dati evento, con reti neurali su grafo, modelli sequenziali e
@@ -43,11 +64,33 @@
   repo: https://github.com/enricotazzer/TacticalGraph
   page: /projects/tacticalgraph/
   article: pending
+  en:
+    short: Tactical football analysis on event data with GNNs, sequence models and reinforcement learning.
+    summary: >-
+      Tactical football analysis on event data, with graph neural networks, sequence models and
+      reinforcement learning. Every module is compared against an explicit baseline and validated
+      quantitatively, and everything is sized to train on Kaggle's free tier.
+    stack: PyTorch Geometric · Transformer · RL · Streamlit · StatsBomb and Wyscout data
+    phase_label: 7 of 7 modules complete
+    key_value: "3 of 5"
+    key_text: headline results are negative, and the README reports them as prominently as the positive ones.
+    key_source: README, results table
+  nl:
+    short: Tactische voetbalanalyse op eventdata met GNN's, sequentiemodellen en reinforcement learning.
+    summary: >-
+      Tactische voetbalanalyse op eventdata, met graph neural networks, sequentiemodellen en
+      reinforcement learning. Elke module wordt vergeleken met een expliciete baseline en
+      kwantitatief gevalideerd, en alles is zo opgezet dat het in de gratis tier van Kaggle traint.
+    stack: PyTorch Geometric · Transformer · RL · Streamlit · data van StatsBomb en Wyscout
+    phase_label: 7 van 7 modules afgerond
+    key_value: "3 van 5"
+    key_text: hoofdresultaten zijn negatief, en de README brengt ze even prominent als de positieve.
+    key_source: README, resultatentabel
 
 - id: wastewise
   title: WasteWise
   status: in_corso
-  since: ago 2026
+  since: "2026-08"
   short: Meno spreco alimentare in casa, misurato su acquisti e consumi reali.
   summary: >-
     Ridurre lo spreco alimentare domestico e ottimizzare la spesa usando dati reali di acquisto e
@@ -67,11 +110,35 @@
   repo: https://github.com/enricotazzer/WasteWise
   page: /projects/wastewise/
   article: pending
+  en:
+    short: Less household food waste, measured on real purchases and consumption.
+    summary: >-
+      Cutting household food waste and optimizing grocery shopping with real purchase and
+      consumption data: product scanning from the phone, Open Food Facts, an urgency board, and
+      recipes that use up what's about to expire.
+    stack: FastAPI · PostgreSQL/pgvector · React · Open Food Facts · free-tier LLMs
+    phase_label: 5 of 5 phases built
+    phase_detail: 378 tests, under review; waiting for real data
+    key_value: "n/a"
+    key_text: "Euros wasted: not available yet. There is no real log in the database so far, and demo data is excluded from every figure."
+    key_source: README, “What is measured, and what is not”
+  nl:
+    short: Minder voedselverspilling thuis, gemeten aan echte aankopen en echt verbruik.
+    summary: >-
+      Voedselverspilling in huis terugdringen en boodschappen optimaliseren met echte aankoop- en
+      verbruiksgegevens: producten scannen met de telefoon, Open Food Facts, een urgentiebord en
+      recepten die opmaken wat bijna over de datum is.
+    stack: FastAPI · PostgreSQL/pgvector · React · Open Food Facts · LLM's in de gratis tier
+    phase_label: 5 van 5 fasen gebouwd
+    phase_detail: 378 tests, in review; wacht op echte data
+    key_value: "n.b."
+    key_text: "Verspilde euro's: nog niet beschikbaar. Er staat nog geen echt logboek in de database, en demodata telt in geen enkel cijfer mee."
+    key_source: README, “What is measured, and what is not”
 
 - id: sleepwatch
   title: sleepwatch
   status: in_corso
-  since: set 2026
+  since: "2026-09"
   short: Staging del sonno personalizzato da Apple Watch, con un agente LLM di follow-up.
   summary: >-
     Staging del sonno personalizzato e rilevazione di anomalie da frequenza cardiaca e
@@ -91,11 +158,37 @@
     source: README, risultati della fase 2
   repo_pending: true
   article: pending
+  en:
+    short: Personalized sleep staging from the Apple Watch, with a follow-up LLM agent.
+    summary: >-
+      Personalized sleep staging and anomaly detection from Apple Watch heart rate and accelerometer
+      data. After an unusual night, an LLM agent asks open questions about the day. A research
+      prototype, not a medical device.
+    stack: Apple Watch · bidirectional GRU · gradient boosting · FastAPI · local LLMs
+    phase_label: 4 of 8 phases complete
+    key_value: "κ 0.510"
+    key_text: >-
+      5-class kappa of the bidirectional GRU (95% CI 0.482–0.537; 47 subjects, 253 nights).
+      Using the same person's earlier nights did not improve staging.
+    key_source: README, phase 2 results
+  nl:
+    short: Gepersonaliseerde slaapstadiëring met de Apple Watch, met een LLM-agent voor de opvolging.
+    summary: >-
+      Gepersonaliseerde slaapstadiëring en detectie van afwijkingen op basis van hartslag- en
+      accelerometerdata van de Apple Watch. Na een ongewone nacht stelt een LLM-agent open vragen
+      over de dag. Een onderzoeksprototype, geen medisch hulpmiddel.
+    stack: Apple Watch · bidirectionele GRU · gradient boosting · FastAPI · lokale LLM's
+    phase_label: 4 van 8 fasen afgerond
+    key_value: "κ 0,510"
+    key_text: >-
+      Kappa over 5 klassen van de bidirectionele GRU (95%-BI 0,482–0,537; 47 proefpersonen,
+      253 nachten). Eerdere nachten van dezelfde persoon meenemen verbeterde de stadiëring niet.
+    key_source: README, resultaten van fase 2
 
 - id: medgraph
   title: medgraph
   status: in_corso
-  since: ott 2026
+  since: "2026-10"
   short: Dalla cartella clinica a un knowledge graph con segnalazioni di follow-up verificabili.
   summary: >-
     Trasforma la cartella clinica di una persona in un knowledge graph con timeline e solleva
@@ -117,6 +210,34 @@
   repo: https://github.com/enricotazzer/medgraph
   page: /projects/medgraph/
   article: pending
+  en:
+    short: From the medical record to a knowledge graph with verifiable follow-up flags.
+    summary: >-
+      Turns a person's medical record into a knowledge graph with a timeline and raises
+      evidence-based follow-up flags, each linked to the values, dates and sources that justify
+      it. A research prototype, not a medical device.
+    stack: FHIR · knowledge graph · local LLMs (Ollama) · GNN on MIMIC-IV (planned)
+    phase_label: Phase 1 of 8 in progress
+    phase_detail: FHIR ingestion and normalization complete
+    key_value: "1,000"
+    key_text: >-
+      Synthetic patients in the Synthea development cohort. Generation is reproducible: the pilot,
+      regenerated in two time zones, gave byte-for-byte identical output.
+    key_source: README, Quickstart
+  nl:
+    short: Van medisch dossier naar een knowledge graph met controleerbare signaleringen voor follow-up.
+    summary: >-
+      Zet iemands medisch dossier om in een knowledge graph met een tijdlijn en geeft op bewijs
+      gebaseerde signaleringen voor follow-up, elk gekoppeld aan de waarden, datums en bronnen die
+      ze onderbouwen. Een onderzoeksprototype, geen medisch hulpmiddel.
+    stack: FHIR · knowledge graph · lokale LLM's (Ollama) · GNN op MIMIC-IV (gepland)
+    phase_label: Fase 1 van 8 bezig
+    phase_detail: FHIR-ingestie en normalisatie afgerond
+    key_value: "1.000"
+    key_text: >-
+      Synthetische patiënten in het Synthea-ontwikkelcohort. De generatie is reproduceerbaar: de
+      pilot, opnieuw gegenereerd in twee tijdzones, gaf byte voor byte dezelfde output.
+    key_source: README, Quickstart
 
 - id: oracle
   title: ORACLE
@@ -133,6 +254,22 @@
   demo: https://enricotazzer.github.io/ORACLE/
   repo: https://github.com/enricotazzer/ORACLE
   page: /projects/oracle/
+  en:
+    summary: >-
+      Oncology Reconstruction And Clinical Learning Engine: classification, segmentation, 3D
+      reconstruction and growth prediction of brain tumors from multimodal MRI, with a 3D viewer
+      that presents itself.
+    key_value: "≈ 0.84"
+    key_text: Test segmentation Dice (≈ 0.80 IoU), on a single fold, with EMA, TTA and post-processing.
+    key_source: README, segmentation evaluation
+  nl:
+    summary: >-
+      Oncology Reconstruction And Clinical Learning Engine: classificatie, segmentatie,
+      3D-reconstructie en groeivoorspelling van hersentumoren uit multimodale MRI, met een
+      3D-viewer die zichzelf presenteert.
+    key_value: "≈ 0,84"
+    key_text: Segmentatie-Dice op de testset (≈ 0,80 IoU), op één fold, met EMA, TTA en nabewerking.
+    key_source: README, evaluatie van de segmentatie
 
 - id: chest-xray-triage
   title: Chest X-Ray Triage Assistant
@@ -149,6 +286,23 @@
       l'attesa più lunga del reparto passa da 117 minuti a 20 ore.
     source: README, simulazione della coda
   repo: https://github.com/enricotazzer/ChestX-rayAssistant
+  en:
+    summary: >-
+      Multi-label chest X-ray classifier with a Grad-CAM explanation for every decision, built to
+      prioritize urgent cases in the reporting queue. A research prototype, not a medical device.
+    key_text: >-
+      Mean wait for urgent cases in the queue simulation. The cost, reported alongside it: the
+      department's longest wait goes from 117 minutes to 20 hours.
+    key_source: README, queue simulation
+  nl:
+    summary: >-
+      Multi-label classificatie van thoraxfoto's met een Grad-CAM-verklaring bij elke beslissing,
+      bedoeld om urgente gevallen voorrang te geven in de wachtrij voor verslaglegging. Een
+      onderzoeksprototype, geen medisch hulpmiddel.
+    key_text: >-
+      Gemiddelde wachttijd van urgente gevallen in de wachtrijsimulatie. De prijs staat ernaast:
+      de langste wachttijd van de afdeling gaat van 117 minuten naar 20 uur.
+    key_source: README, wachtrijsimulatie
 
 - id: skin-lesion-multitask
   title: Multi-Task Skin Lesion Analysis
@@ -165,6 +319,29 @@
       classificazione costa invece 2,9 punti di accuratezza rispetto a ResNet-50.
     source: README, «TL;DR — what we found»
   repo: https://github.com/enricotazzer/multi-task-learning-for-classification-and-segmentation-of-skin-lesions
+  en:
+    summary: >-
+      Comparative study of two approaches to joint segmentation and classification of dermoscopic
+      skin lesions (ISIC 2018): a multi-task CNN with Cross-Fusion and a neuro-symbolic pipeline
+      based on the clinical ABCD rules. With Demien Propedo and Emanuele Pagnutti.
+    stack: multi-task CNN · neuro-symbolic reasoning · ISIC 2018
+    key_value: "0.9186"
+    key_text: >-
+      Segmentation Dice of the multi-task network, against 0.9023 for DeepLabV3 (+1.6 pp). In
+      classification, though, it costs 2.9 points of accuracy compared with ResNet-50.
+    key_source: README, “TL;DR — what we found”
+  nl:
+    summary: >-
+      Vergelijkende studie van twee benaderingen voor gecombineerde segmentatie en classificatie van
+      dermoscopische huidlaesies (ISIC 2018): een multitask-CNN met Cross-Fusion en een
+      neuro-symbolische pipeline op basis van de klinische ABCD-regels. Samen met Demien Propedo en
+      Emanuele Pagnutti.
+    stack: multitask-CNN · neuro-symbolisch redeneren · ISIC 2018
+    key_value: "0,9186"
+    key_text: >-
+      Segmentatie-Dice van het multitasknetwerk, tegenover 0,9023 voor DeepLabV3 (+1,6 pp). Bij
+      classificatie kost het daarentegen 2,9 procentpunt nauwkeurigheid ten opzichte van ResNet-50.
+    key_source: README, “TL;DR — what we found”
 
 - id: lung-tumor-segmentation
   title: Lung Tumor Segmentation Benchmark
@@ -178,27 +355,57 @@
     text: Dice di UNet++, il migliore dei 12 modelli confrontati.
     source: README, «Best Performing Models»
   repo: https://github.com/enricotazzer/Lung-Tumor-Segmentation-Benchmark
+  en:
+    summary: >-
+      Comparison of 12 segmentation architectures for lung tumors on CT, measured on Dice, IoU,
+      sensitivity, specificity and inference cost.
+    key_value: "0.8183"
+    key_text: Dice of UNet++, the best of the 12 models compared.
+    key_source: README, “Best Performing Models”
+  nl:
+    summary: >-
+      Vergelijking van 12 segmentatiearchitecturen voor longtumoren op CT, gemeten op Dice, IoU,
+      sensitiviteit, specificiteit en inferentiekosten.
+    key_value: "0,8183"
+    key_text: Dice van UNet++, de beste van de 12 vergeleken modellen.
+    key_source: README, “Best Performing Models”
 
 - id: nba-analysis
   title: NBA Analysis
   status: archivio
   summary: Analisi delle principali statistiche del basket americano, per l'esame di Data Science.
   repo: https://github.com/enricotazzer/nba_analysis
+  en:
+    summary: Analysis of the main NBA statistics, for the Data Science exam.
+  nl:
+    summary: Analyse van de belangrijkste NBA-statistieken, voor het tentamen Data Science.
 
 - id: italian-medical-reports-encoding
   title: Italian Medical Reports Encoding
   status: archivio
   summary: "Tesi triennale: codifica di referti medici con modelli NLP."
   repo: https://github.com/enricotazzer/italian-medical-reports-encoding
+  en:
+    summary: "Bachelor's thesis: encoding medical reports with NLP models."
+  nl:
+    summary: "Bachelorscriptie: medische verslagen coderen met NLP-modellen."
 
 - id: brain-tumor-classifier
   title: Brain Tumor Classifier
   status: archivio
   summary: Semplice classificatore di tumori cerebrali.
   repo: https://github.com/enricotazzer/brain_tumor_classifier
+  en:
+    summary: A simple brain tumor classifier.
+  nl:
+    summary: Een eenvoudige classifier voor hersentumoren.
 
 - id: hospital-room-assignment
   title: Hospital Room Assignment (PDDL)
   status: archivio
   summary: Dominio di pianificazione classica in PDDL per l'assegnazione delle stanze ospedaliere, con requisiti di attrezzatura e azioni reversibili.
   repo: https://github.com/enricotazzer/Hospital-Room-Assignment-PDDL-planning
+  en:
+    summary: A classical planning domain in PDDL for assigning hospital rooms, with equipment requirements and reversible actions.
+  nl:
+    summary: Een klassiek planningsdomein in PDDL voor het toewijzen van ziekenhuiskamers, met eisen aan de uitrusting en omkeerbare acties.

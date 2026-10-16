@@ -1,10 +1,12 @@
+{%- assign t = site.data.i18n[page.lang] -%}
 {%- assign p = include.project -%}
-{%- capture href -%}{% if p.page %}{{ p.page | relative_url }}{% else %}{{ '/projects/' | relative_url }}#{{ p.id }}{% endif %}{%- endcapture -%}
+{%- assign tx = p[page.lang] -%}
+{%- capture href -%}{% if p.page %}{{ t.prefix | append: p.page | relative_url }}{% else %}{{ t.prefix | append: '/projects/' | relative_url }}#{{ p.id }}{% endif %}{%- endcapture -%}
 <article class="mini-project">
   <div class="mini-project__head">
-    <h3 class="mini-project__title"><a href="{{ href }}">{{ p.title }}</a></h3>
-    {% if p.since %}<span class="mini-project__period">{{ p.since }} –</span>{% endif %}
+    <h3 class="mini-project__title"><a href="{{ href }}">{{ tx.title | default: p.title }}</a></h3>
+    {% if p.since %}<span class="mini-project__period">{% include month-year.html value=p.since %} –</span>{% endif %}
   </div>
-  <p class="mini-project__line">{{ p.short | default: p.summary }}</p>
-  {% if p.phase %}{% include meter.html phase=p.phase compact=true %}{% endif %}
+  <p class="mini-project__line">{{ tx.short | default: p.short | default: tx.summary | default: p.summary }}</p>
+  {% if p.phase %}{% include meter.html phase=p.phase tx=tx compact=true %}{% endif %}
 </article>

@@ -1,17 +1,35 @@
 ---
 layout: default
 ---
+{%- assign t = site.data.i18n[page.lang] -%}
 {%- assign words = content | number_of_words -%}
+{%- assign posts_url = t.prefix | append: "/posts/" -%}
+{%- comment -%} Previous/next stay within the article's language. site.posts is newest first. {%- endcomment -%}
+{%- assign same_lang = site.posts | where: "lang", page.lang -%}
+{%- assign older = nil -%}{%- assign newer = nil -%}
+{%- for item in same_lang -%}
+  {%- if item.url == page.url -%}
+    {%- assign i_newer = forloop.index0 | minus: 1 -%}
+    {%- assign i_older = forloop.index -%}
+    {%- unless forloop.first -%}{%- assign newer = same_lang[i_newer] -%}{%- endunless -%}
+    {%- unless forloop.last -%}{%- assign older = same_lang[i_older] -%}{%- endunless -%}
+  {%- endif -%}
+{%- endfor -%}
+{%- if page.lang != site.lang and page.ref -%}
+  {%- assign original = site.posts | where: "ref", page.ref | where: "lang", site.lang | first -%}
+{%- else -%}
+  {%- assign original = nil -%}
+{%- endif -%}
 <div class="container">
   <header class="post-head">
-    <nav class="breadcrumb" aria-label="Percorso">
-      <a href="{{ '/posts/' | relative_url }}">Articoli</a>
+    <nav class="breadcrumb" aria-label="{{ t.breadcrumb }}">
+      <a href="{{ posts_url | relative_url }}">{{ t.nav_posts }}</a>
       {%- if page.tags.size > 0 %}
       <span aria-hidden="true">/</span>
-      <span>{{ page.tags | last }}</span>
+      <span>{% include tag-label.html tag=page.tags.last %}</span>
       {%- endif %}
     </nav>
-    {% if page.tags.size > 0 %}<p class="kicker kicker--accent">{{ page.tags | join: " · " }}</p>{% endif %}
+    {% if page.tags.size > 0 %}<p class="kicker kicker--accent">{% for tag in page.tags %}{% include tag-label.html tag=tag %}{% unless forloop.last %} · {% endunless %}{% endfor %}</p>{% endif %}
     <h1 class="post-title">{{ page.title }}</h1>
     {% if page.subtitle %}<p class="dek dek--italic">{{ page.subtitle }}</p>{% endif %}
     <p class="post-meta">
@@ -19,8 +37,9 @@ layout: default
       <span aria-hidden="true">·</span>
       <time datetime="{{ page.date | date_to_xmlschema }}">{% include date.html date=page.date %}</time>
       <span aria-hidden="true">·</span>
-      <span>{{ words | divided_by: 200 | plus: 1 }} min di lettura</span>
+      <span>{{ words | divided_by: 200 | plus: 1 }} {{ t.read_time }}</span>
     </p>
+    {% if original %}<p class="post-translation">{{ t.translated }} <a href="{{ original.url | relative_url }}" hreflang="{{ site.lang }}">{{ t.read_original }}</a></p>{% endif %}
   </header>
 
   {% if page.image %}
@@ -33,7 +52,7 @@ layout: default
   <div class="article-grid">
     <!-- Filled by js/scripts.js when the article has three or more sections. -->
     <nav class="toc" id="toc" aria-labelledby="toc-title" hidden>
-      <h2 class="toc__title" id="toc-title">Indice</h2>
+      <h2 class="toc__title" id="toc-title">{{ t.toc }}</h2>
       <ol class="toc__list"></ol>
     </nav>
 
@@ -42,34 +61,34 @@ layout: default
 
       {% if page.source_url %}
       <aside class="source-box" aria-labelledby="source-title">
-        <h2 class="source-box__title" id="source-title">Fonte</h2>
+        <h2 class="source-box__title" id="source-title">{{ t.source }}</h2>
         <p><a href="{{ page.source_url }}">{{ page.source_label | default: page.source_url }} ↗</a></p>
       </aside>
       {% endif %}
 
       {% if page.tags.size > 0 %}
       <div class="post-tags">
-        <span>Argomenti</span>
-        {% for tag in page.tags %}<a class="tag" href="{{ '/posts/' | relative_url }}#{{ tag | downcase }}">{{ tag }}</a>{% endfor %}
+        <span>{{ t.topics }}</span>
+        {% for tag in page.tags %}<a class="tag" href="{{ posts_url | relative_url }}#{{ tag | downcase }}">{% include tag-label.html tag=tag %}</a>{% endfor %}
       </div>
       {% endif %}
 
-      <nav class="post-nav" aria-label="Altri articoli">
-        {% if page.previous.url %}
-        <a class="post-nav__item" href="{{ page.previous.url | relative_url }}">
-          <span class="post-nav__label">← Precedente</span>
-          <span class="post-nav__title">{{ page.previous.title }}</span>
+      <nav class="post-nav" aria-label="{{ t.more_posts }}">
+        {% if older %}
+        <a class="post-nav__item" href="{{ older.url | relative_url }}">
+          <span class="post-nav__label">{{ t.previous }}</span>
+          <span class="post-nav__title">{{ older.title }}</span>
         </a>
         {% else %}<span class="post-nav__item"></span>{% endif %}
-        {% if page.next.url %}
-        <a class="post-nav__item post-nav__item--next" href="{{ page.next.url | relative_url }}">
-          <span class="post-nav__label">Successivo →</span>
-          <span class="post-nav__title">{{ page.next.title }}</span>
+        {% if newer %}
+        <a class="post-nav__item post-nav__item--next" href="{{ newer.url | relative_url }}">
+          <span class="post-nav__label">{{ t.next }}</span>
+          <span class="post-nav__title">{{ newer.title }}</span>
         </a>
         {% else %}
         <div class="post-nav__item post-nav__item--next is-empty">
-          <span class="post-nav__label">Successivo</span>
-          <span class="post-nav__title">Questo è l'articolo più recente</span>
+          <span class="post-nav__label">{{ t.next_plain }}</span>
+          <span class="post-nav__title">{{ t.latest_note }}</span>
         </div>
         {% endif %}
       </nav>

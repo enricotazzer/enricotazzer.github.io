@@ -1,0 +1,38 @@
+---
+layout: default
+---
+{%- comment -%} The home page, in the page's language (index.html, en/index.html, nl/index.html). {%- endcomment -%}
+{%- assign t = site.data.i18n[page.lang] -%}
+{%- include lang-posts.html -%}
+{%- assign ongoing = site.data.projects | where: "status", "in_corso" -%}
+<div class="container">
+  <section class="intro">
+    <p class="kicker">{{ t.home_kicker }} {{ site.posts.last.date | date: "%Y" }}</p>
+    <h1 class="intro__title">{{ t.description }}</h1>
+    <p class="dek">{{ t.home_dek }}</p>
+  </section>
+
+  <div class="home-grid">
+    <section class="home-latest" aria-labelledby="latest-title">
+      <div class="section-head">
+        <h2 id="latest-title">{{ t.home_latest }}</h2>
+        <a href="{{ t.prefix | append: '/posts/' | relative_url }}">{{ t.home_all_posts }}</a>
+      </div>
+      {% for post in lang_posts limit: 5 %}
+      {% include post-entry.html post=post date_style="iso" tag_links=true %}
+      {% endfor %}
+    </section>
+
+    {% if ongoing.size > 0 %}
+    <aside class="home-projects" aria-labelledby="ongoing-title">
+      <div class="section-head">
+        <h2 id="ongoing-title">{{ t.home_ongoing }}</h2>
+        <a href="{{ t.prefix | append: '/projects/' | relative_url }}">{{ t.home_all }}</a>
+      </div>
+      {% for p in ongoing %}
+      {% include project-compact.html project=p %}
+      {% endfor %}
+    </aside>
+    {% endif %}
+  </div>
+</div>

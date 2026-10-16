@@ -1,7 +1,16 @@
+{%- assign t = site.data.i18n[page.lang] -%}
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 {% seo %}
-{% feed_meta %}
+{%- include translations.html %}
+{%- for alt in translations %}
+<link rel="alternate" hreflang="{{ alt.lang }}" href="{{ alt.url | absolute_url }}">
+{%- endfor %}
+{%- assign original = translations | where: "lang", site.lang | first %}
+{%- if original %}
+<link rel="alternate" hreflang="x-default" href="{{ original.url | absolute_url }}">
+{%- endif %}
+<link rel="alternate" type="application/atom+xml" href="{{ t.prefix | append: '/feed.xml' | absolute_url }}" title="{{ site.title }} ({{ t.name }})">
 <link rel="icon" type="image/x-icon" href="{{ '/assets/favicon.ico' | relative_url }}">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>

@@ -1,5 +1,6 @@
 ---
 layout: post
+ref: rischi-ai-sanitario
 redirect_from: /risks.html
 title: "Rischi dell'AI nell'ambito sanitario"
 subtitle: "Illustrazione e discussione delle problematiche e dei rischi di tali strumenti"

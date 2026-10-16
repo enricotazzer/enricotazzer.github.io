@@ -1,0 +1,53 @@
+---
+layout: default
+---
+{%- comment -%}
+  The projects page (projects.html, en/projects.html, nl/projects.html).
+  Everything here comes from _data/projects.yml.
+{%- endcomment -%}
+{%- assign t = site.data.i18n[page.lang] -%}
+{%- assign ongoing = site.data.projects | where: "status", "in_corso" -%}
+{%- assign done = site.data.projects | where: "status", "completato" -%}
+{%- assign archive = site.data.projects | where: "status", "archivio" -%}
+<div class="container">
+  <header class="page-head">
+    <h1 class="page-title">{{ t.projects_title }}</h1>
+    <p class="dek">{{ t.projects_dek }}</p>
+    <p class="page-head__links"><a href="{{ '/assets/CV_Tazzer.pdf' | relative_url }}">{{ t.cv_download }}</a></p>
+  </header>
+
+  {% if ongoing.size > 0 %}
+  <section class="project-group" aria-labelledby="ongoing-title">
+    <div class="section-head">
+      <h2 id="ongoing-title">{{ t.group_ongoing }}</h2>
+      <span class="section-head__meta">{{ ongoing.size }} {% if ongoing.size == 1 %}{{ t.project_one }}{% else %}{{ t.project_many }}{% endif %}</span>
+    </div>
+    {% for p in ongoing %}{% include project-entry.html project=p %}{% endfor %}
+  </section>
+  {% endif %}
+
+  {% if done.size > 0 %}
+  <section class="project-group" aria-labelledby="done-title">
+    <div class="section-head">
+      <h2 id="done-title">{{ t.group_done }}</h2>
+    </div>
+    {% for p in done %}{% include project-entry.html project=p %}{% endfor %}
+  </section>
+  {% endif %}
+
+  {% if archive.size > 0 %}
+  <section class="project-group" aria-labelledby="archive-title">
+    <div class="section-head">
+      <h2 id="archive-title">{{ t.group_archive }}</h2>
+    </div>
+    {% for p in archive %}
+    {%- assign tx = p[page.lang] %}
+    <article class="archive-row" id="{{ p.id }}">
+      <h3 class="archive-row__title">{{ tx.title | default: p.title }}</h3>
+      <p class="archive-row__line">{{ tx.summary | default: p.summary }}</p>
+      {% if p.repo %}<a class="archive-row__link" href="{{ p.repo }}">Repository ↗</a>{% endif %}
+    </article>
+    {% endfor %}
+  </section>
+  {% endif %}
+</div>

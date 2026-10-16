@@ -1,0 +1,264 @@
+# Interface strings, one block per language. Layouts and includes read them as
+# t = site.data.i18n[page.lang]; page.lang comes from the defaults in
+# _config.yml (Italian everywhere, en/ and nl/ for the translations).
+#
+# prefix:   prepended to every internal link ("" for Italian, the source language).
+# tags:     display names for post tags. The tag itself stays the key, so
+#           filter links (/posts/#medicine) are the same in every language.
+# Strings with {error} are filled in by JavaScript.
+
+it:
+  name: Italiano
+  code: IT
+  prefix: ""
+  description: Appunti su AI, medicina e la tecnologia che sta arrivando.
+  months: [gennaio, febbraio, marzo, aprile, maggio, giugno, luglio, agosto, settembre, ottobre, novembre, dicembre]
+  months_short: [gen, feb, mar, apr, mag, giu, lug, ago, set, ott, nov, dic]
+  today: oggi
+  tags: {}
+
+  skip_link: Vai al contenuto
+  back_to_top: Torna all'inizio della pagina
+  nav_label: Principale
+  nav_posts: Articoli
+  nav_projects: Progetti
+  nav_about: Chi sono
+  lang_label: Lingua
+  theme: Tema scuro
+  footer_label: Altrove
+  footer_built: Costruito con Jekyll, ospitato su GitHub Pages
+  cv: CV (PDF)
+  cv_download: Scarica il CV (PDF)
+
+  home_kicker: Quaderno di ricerca · dal
+  home_dek: >-
+    Scritti da Enrico Tazzer, studente della doppia laurea magistrale in Artificial Intelligence and
+    Cybersecurity tra Udine e Klagenfurt. Qui trovi gli articoli e lo stato dei progetti, con i
+    risultati, anche quando sono negativi.
+  home_latest: Ultimi articoli
+  home_all_posts: Tutti gli articoli →
+  home_ongoing: Progetti in corso
+  home_all: Tutti →
+
+  posts_title: Articoli
+  posts_dek: Approfondimenti su intelligenza artificiale, medicina e imaging, dal più recente.
+  filter_label: Filtra per argomento
+  filter_all: Tutti
+  article_one: articolo
+  article_many: articoli
+  with_topic: con argomento
+  read_time: min di lettura
+  in_original: In italiano
+
+  breadcrumb: Percorso
+  toc: Indice
+  source: Fonte
+  topics: Argomenti
+  more_posts: Altri articoli
+  previous: ← Precedente
+  next: Successivo →
+  next_plain: Successivo
+  latest_note: Questo è l'articolo più recente
+  translated: ""
+  read_original: ""
+
+  projects_title: Progetti
+  projects_dek: >-
+    Quaderno di laboratorio: cosa sto costruendo, a che punto è e cosa ha funzionato. I risultati
+    negativi sono riportati come quelli positivi.
+  project_one: progetto
+  project_many: progetti
+  group_ongoing: In corso
+  group_done: Completati
+  group_archive: Archivio
+  status_ongoing: In corso
+  status_done: Completato
+  status_archive: Archivio
+  key_result: Risultato chiave
+  live_demo: Demo live ↗
+  project_page: Pagina del progetto
+  repo_pending: "Repository: in pubblicazione"
+  article_pending: "Articolo: in preparazione"
+  article: Articolo
+
+  period: Periodo
+  status: Stato
+  open_demo: Apri la demo ↗
+  readme_meta: letto in tempo reale da GitHub
+  readme_open: Apri il repository su GitHub ↗
+  readme_loading: Caricamento del README…
+  readme_error: >-
+    Impossibile caricare il README ({error}). Controlla repository, branch e percorso, e che il
+    repository sia pubblico.
+
+en:
+  name: English
+  code: EN
+  prefix: /en
+  description: Notes on AI, medicine and the technology that's on its way.
+  months: [January, February, March, April, May, June, July, August, September, October, November, December]
+  months_short: [Jan, Feb, Mar, Apr, May, Jun, Jul, Aug, Sep, Oct, Nov, Dec]
+  today: today
+  tags: {}
+
+  skip_link: Skip to content
+  back_to_top: Back to the top of the page
+  nav_label: Main
+  nav_posts: Articles
+  nav_projects: Projects
+  nav_about: About
+  lang_label: Language
+  theme: Dark theme
+  footer_label: Elsewhere
+  footer_built: Built with Jekyll, hosted on GitHub Pages
+  cv: CV (PDF)
+  cv_download: Download the CV (PDF)
+
+  home_kicker: Research notebook · since
+  home_dek: >-
+    Written by Enrico Tazzer, a student on the double master's degree in Artificial Intelligence
+    and Cybersecurity between Udine and Klagenfurt. Here you'll find the articles and where each
+    project stands, with its results, negative ones included.
+  home_latest: Latest articles
+  home_all_posts: All articles →
+  home_ongoing: Ongoing projects
+  home_all: All →
+
+  posts_title: Articles
+  posts_dek: In-depth pieces on artificial intelligence, medicine and imaging, newest first.
+  filter_label: Filter by topic
+  filter_all: All
+  article_one: article
+  article_many: articles
+  with_topic: tagged
+  read_time: min read
+  in_original: In Italian
+
+  breadcrumb: Breadcrumb
+  toc: Contents
+  source: Source
+  topics: Topics
+  more_posts: More articles
+  previous: ← Previous
+  next: Next →
+  next_plain: Next
+  latest_note: This is the latest article
+  translated: Translated from Italian.
+  read_original: Read the original
+
+  projects_title: Projects
+  projects_dek: >-
+    Lab notebook: what I'm building, where it stands and what worked. Negative results are reported
+    just like positive ones.
+  project_one: project
+  project_many: projects
+  group_ongoing: Ongoing
+  group_done: Completed
+  group_archive: Archive
+  status_ongoing: Ongoing
+  status_done: Completed
+  status_archive: Archived
+  key_result: Key result
+  live_demo: Live demo ↗
+  project_page: Project page
+  repo_pending: "Repository: being published"
+  article_pending: "Article: in preparation"
+  article: Article
+
+  period: Period
+  status: Status
+  open_demo: Open the demo ↗
+  readme_meta: read live from GitHub
+  readme_open: Open the repository on GitHub ↗
+  readme_loading: Loading the README…
+  readme_error: >-
+    Couldn't load the README ({error}). Check the repository, branch and path, and that the
+    repository is public.
+
+nl:
+  name: Nederlands
+  code: NL
+  prefix: /nl
+  description: Notities over AI, geneeskunde en de technologie die eraan komt.
+  months: [januari, februari, maart, april, mei, juni, juli, augustus, september, oktober, november, december]
+  months_short: [jan, feb, mrt, apr, mei, jun, jul, aug, sep, okt, nov, dec]
+  today: nu
+  tags:
+    Medicine: Geneeskunde
+    Imaging: Beeldvorming
+    Ethics: Ethiek
+    Cognitive: Cognitief
+
+  skip_link: Naar de inhoud
+  back_to_top: Terug naar boven
+  nav_label: Hoofdmenu
+  nav_posts: Artikelen
+  nav_projects: Projecten
+  nav_about: Over mij
+  lang_label: Taal
+  theme: Donker thema
+  footer_label: Elders
+  footer_built: Gebouwd met Jekyll, gehost op GitHub Pages
+  cv: Cv (pdf)
+  cv_download: Download het cv (pdf)
+
+  home_kicker: Onderzoeksnotitieboek · sinds
+  home_dek: >-
+    Geschreven door Enrico Tazzer, student in de dubbele master Artificial Intelligence and
+    Cybersecurity tussen Udine en Klagenfurt. Hier vind je de artikelen en de stand van elk project,
+    met de resultaten, ook als die negatief zijn.
+  home_latest: Nieuwste artikelen
+  home_all_posts: Alle artikelen →
+  home_ongoing: Lopende projecten
+  home_all: Alle →
+
+  posts_title: Artikelen
+  posts_dek: Verdiepende stukken over kunstmatige intelligentie, geneeskunde en beeldvorming, nieuwste eerst.
+  filter_label: Filter op onderwerp
+  filter_all: Alle
+  article_one: artikel
+  article_many: artikelen
+  with_topic: met onderwerp
+  read_time: min leestijd
+  in_original: In het Italiaans
+
+  breadcrumb: Kruimelpad
+  toc: Inhoud
+  source: Bron
+  topics: Onderwerpen
+  more_posts: Meer artikelen
+  previous: ← Vorige
+  next: Volgende →
+  next_plain: Volgende
+  latest_note: Dit is het nieuwste artikel
+  translated: Vertaald uit het Italiaans.
+  read_original: Lees het origineel
+
+  projects_title: Projecten
+  projects_dek: >-
+    Labjournaal: wat ik bouw, hoe ver het is en wat werkte. Negatieve resultaten staan er net zo
+    goed in als positieve.
+  project_one: project
+  project_many: projecten
+  group_ongoing: Lopend
+  group_done: Afgerond
+  group_archive: Archief
+  status_ongoing: Lopend
+  status_done: Afgerond
+  status_archive: Gearchiveerd
+  key_result: Belangrijkste resultaat
+  live_demo: Live demo ↗
+  project_page: Projectpagina
+  repo_pending: "Repository: wordt gepubliceerd"
+  article_pending: "Artikel: in voorbereiding"
+  article: Artikel
+
+  period: Periode
+  status: Status
+  open_demo: Open de demo ↗
+  readme_meta: live gelezen van GitHub
+  readme_open: Open de repository op GitHub ↗
+  readme_loading: README wordt geladen…
+  readme_error: >-
+    De README kon niet worden geladen ({error}). Controleer repository, branch en pad, en of de
+    repository openbaar is.

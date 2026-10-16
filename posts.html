@@ -1,8 +1,9 @@
 ---
-layout: default
+layout: posts-index
 title: Articoli
 description: Approfondimenti su intelligenza artificiale, medicina e imaging.
 permalink: /posts/
+ref: posts
 # Old static-site URLs: the index and three empty article stubs.
 redirect_from:
   - /posts.html
@@ -10,40 +11,3 @@ redirect_from:
   - /moraleAI.html
   - /introductiontoQuantumComputing.html
 ---
-{%- comment -%} Tags in order of first appearance, newest post first. {%- endcomment -%}
-{%- assign tag_names = "" | split: "" -%}
-{%- for post in site.posts -%}
-  {%- for tag in post.tags -%}
-    {%- unless tag_names contains tag -%}{%- assign tag_names = tag_names | push: tag -%}{%- endunless -%}
-  {%- endfor -%}
-{%- endfor -%}
-{%- assign years = site.posts | group_by_exp: "post", "post.date | date: '%Y'" -%}
-<div class="container">
-  <header class="page-head page-head--ruled">
-    <h1 class="page-title">Articoli</h1>
-    <p class="dek">Approfondimenti su intelligenza artificiale, medicina e imaging, dal più recente.</p>
-  </header>
-
-  {% if tag_names.size > 0 %}
-  <div class="filter-bar" role="group" aria-labelledby="filter-label">
-    <span class="filter-bar__label" id="filter-label">Filtra per argomento</span>
-    <button class="filter-btn" type="button" data-filter="all" data-label="Tutti" aria-pressed="true">Tutti <span class="filter-btn__count">{{ site.posts.size }}</span></button>
-    {% for tag in tag_names %}
-    <button class="filter-btn" type="button" data-filter="{{ tag | downcase }}" data-label="{{ tag }}" aria-pressed="false">{{ tag }} <span class="filter-btn__count">{{ site.tags[tag].size }}</span></button>
-    {% endfor %}
-  </div>
-  <p class="filter-status" id="filter-status" aria-live="polite">{{ site.posts.size }} articoli</p>
-  {% endif %}
-
-  {% for year in years %}
-  <section class="year-group" aria-labelledby="year-{{ year.name }}">
-    <h2 class="year-group__title" id="year-{{ year.name }}">
-      <span>{{ year.name }}</span>
-      <span class="year-group__count">{% if year.items.size == 1 %}1 articolo{% else %}{{ year.items.size }} articoli{% endif %}</span>
-    </h2>
-    {% for post in year.items %}
-    {% include post-entry.html post=post date_style="short" %}
-    {% endfor %}
-  </section>
-  {% endfor %}
-</div>

@@ -1,5 +1,6 @@
 ---
 layout: post
+ref: ai-imaging-cerebrale
 redirect_from: /AIBrainImaging1.html
 title: "AI nel campo del Imaging cerebrale"
 subtitle: "Analisi di un articolo del National Center for Biotechnology Information"

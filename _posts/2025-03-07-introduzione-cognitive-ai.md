@@ -1,5 +1,6 @@
 ---
 layout: post
+ref: introduzione-cognitive-ai
 redirect_from: /introductionCognitiveAI.html
 title: "Introduzione alla Cognitive AI"
 subtitle: "E se i computer pensassero?"

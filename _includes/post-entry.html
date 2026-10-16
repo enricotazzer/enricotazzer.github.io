@@ -1,21 +1,29 @@
 {%- comment -%}
   One article in a list (home page and /posts/).
   Params: post, date_style ("iso" | "short"), tag_links (true links tags to /posts/#tag).
-  data-tags drives the tag filter in js/scripts.js.
+  data-tags drives the tag filter in js/scripts.js. A post in another language
+  than the page (an untranslated Italian original) carries that language's
+  lang and a label saying so.
 {%- endcomment -%}
+{%- assign t = site.data.i18n[page.lang] -%}
 {%- assign p = include.post -%}
 {%- assign words = p.content | number_of_words -%}
+{%- assign foreign = false -%}{%- if p.lang != page.lang -%}{%- assign foreign = true -%}{%- endif -%}
 <article class="entry" data-tags="{{ p.tags | join: ',' | downcase }}">
   <time class="entry__date" datetime="{{ p.date | date: '%Y-%m-%d' }}">{% include date.html date=p.date style=include.date_style %}</time>
-  <div class="entry__body">
-    <h3 class="entry__title"><a href="{{ p.url | relative_url }}">{{ p.title }}</a></h3>
+  <div class="entry__body"{% if foreign %} lang="{{ p.lang }}"{% endif %}>
+    <h3 class="entry__title"><a href="{{ p.url | relative_url }}"{% if foreign %} hreflang="{{ p.lang }}"{% endif %}>{{ p.title }}</a></h3>
     {% if p.subtitle %}<p class="entry__dek">{{ p.subtitle }}</p>{% endif %}
-    <div class="entry__meta">
-      <span>{{ words | divided_by: 200 | plus: 1 }} min di lettura</span>
+    <div class="entry__meta"{% if foreign %} lang="{{ page.lang }}"{% endif %}>
+      {%- if foreign %}
+      <span class="entry__lang">{{ t.in_original }}</span>
+      {%- endif %}
+      <span>{{ words | divided_by: 200 | plus: 1 }} {{ t.read_time }}</span>
       {%- if p.tags.size > 0 %}
       <span aria-hidden="true">·</span>
       {%- for tag in p.tags %}
-      {% if include.tag_links %}<a class="tag" href="{{ '/posts/' | relative_url }}#{{ tag | downcase }}">{{ tag }}</a>{% else %}<span class="tag">{{ tag }}</span>{% endif %}
+      {% capture label %}{% include tag-label.html tag=tag %}{% endcapture %}
+      {% if include.tag_links %}<a class="tag" href="{{ t.prefix | append: '/posts/' | relative_url }}#{{ tag | downcase }}">{{ label }}</a>{% else %}<span class="tag">{{ label }}</span>{% endif %}
       {%- endfor %}
       {%- endif %}
     </div>

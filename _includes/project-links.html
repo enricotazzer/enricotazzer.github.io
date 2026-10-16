@@ -1,7 +1,20 @@
+{%- comment -%}
+  A project's links. The project page and the article point to their version
+  in the page's language when there is one.
+{%- endcomment -%}
+{%- assign t = site.data.i18n[page.lang] -%}
 {%- assign p = include.project -%}
+{%- if p.article and p.article != "pending" -%}
+  {%- assign art = site.posts | where: "url", p.article | first -%}
+  {%- if art.ref -%}
+    {%- assign art_tr = site.posts | where: "ref", art.ref | where: "lang", page.lang | first -%}
+    {%- if art_tr -%}{%- assign art = art_tr -%}{%- endif -%}
+  {%- endif -%}
+  {%- assign art_url = art.url | default: p.article -%}
+{%- endif -%}
 <ul class="link-list{% if include.stacked %} link-list--stacked{% endif %}">
-  {%- if p.demo %}<li><a href="{{ p.demo }}">Demo live ↗</a></li>{% endif %}
-  {%- if p.page %}<li><a href="{{ p.page | relative_url }}">Pagina del progetto</a></li>{% endif %}
-  {%- if p.repo %}<li><a href="{{ p.repo }}">Repository ↗</a></li>{% elsif p.repo_pending %}<li><span>Repository: in pubblicazione</span></li>{% endif %}
-  {%- if p.article == "pending" %}<li><span>Articolo: in preparazione</span></li>{% elsif p.article %}<li><a href="{{ p.article | relative_url }}">Articolo</a></li>{% endif %}
+  {%- if p.demo %}<li><a href="{{ p.demo }}">{{ t.live_demo }}</a></li>{% endif %}
+  {%- if p.page %}<li><a href="{{ t.prefix | append: p.page | relative_url }}">{{ t.project_page }}</a></li>{% endif %}
+  {%- if p.repo %}<li><a href="{{ p.repo }}">Repository ↗</a></li>{% elsif p.repo_pending %}<li><span>{{ t.repo_pending }}</span></li>{% endif %}
+  {%- if p.article == "pending" %}<li><span>{{ t.article_pending }}</span></li>{% elsif p.article %}<li><a href="{{ art_url | relative_url }}">{{ t.article }}</a></li>{% endif %}
 </ul>

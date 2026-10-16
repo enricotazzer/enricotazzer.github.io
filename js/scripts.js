@@ -1,7 +1,7 @@
 /* BrainNotBraining: site behaviour.
  * Theme toggle, reading progress, back-to-top, the article table of contents,
- * and the tag filter on /posts/. Every part checks for its elements first, so
- * the one file runs on every page.
+ * and the tag filter on the article index. Every part checks for its elements
+ * first, so the one file runs on every page, in every language.
  */
 (function () {
   'use strict';
@@ -109,14 +109,16 @@
     }
   }
 
-  // ── Tag filter (/posts/) ───────────────────────────────────
+  // ── Tag filter (/posts/, /en/posts/, /nl/posts/) ───────────
   var filterButtons = document.querySelectorAll('.filter-btn');
   if (filterButtons.length > 0) {
     var entries = document.querySelectorAll('.entry[data-tags]');
     var groups = document.querySelectorAll('.year-group');
     var status = document.getElementById('filter-status');
+    // The words come from _data/i18n.yml through data attributes on the status line.
+    var words = status ? status.dataset : {};
     var plural = function (n) {
-      return n === 1 ? '1 articolo' : n + ' articoli';
+      return n === 1 ? '1 ' + (words.one || 'articolo') : n + ' ' + (words.many || 'articoli');
     };
 
     var applyFilter = function (filter) {
@@ -140,7 +142,7 @@
         if (on) label = button.dataset.label;
       });
       if (status) {
-        status.textContent = filter === 'all' ? plural(shown) : plural(shown) + ' con argomento ' + label;
+        status.textContent = filter === 'all' ? plural(shown) : plural(shown) + ' ' + (words.topic || 'con argomento') + ' ' + label;
       }
     };
 

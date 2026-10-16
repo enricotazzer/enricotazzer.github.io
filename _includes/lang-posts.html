@@ -1,0 +1,15 @@
+{%- comment -%}
+  Sets `lang_posts` to the posts listed in the page's language, newest first:
+  the posts written in it, plus the Italian originals that have no
+  translation in it yet (post-entry.html marks those as Italian).
+{%- endcomment -%}
+{%- assign lang_posts = "" | split: "" -%}
+{%- for item in site.posts -%}
+  {%- if item.lang == page.lang -%}
+    {%- assign lang_posts = lang_posts | push: item -%}
+  {%- elsif item.lang == site.lang -%}
+    {%- assign translated = nil -%}
+    {%- if item.ref -%}{%- assign translated = site.posts | where: "ref", item.ref | where: "lang", page.lang | first -%}{%- endif -%}
+    {%- unless translated -%}{%- assign lang_posts = lang_posts | push: item -%}{%- endunless -%}
+  {%- endif -%}
+{%- endfor -%}

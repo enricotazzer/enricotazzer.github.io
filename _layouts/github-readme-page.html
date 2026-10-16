@@ -4,15 +4,18 @@ layout: default
 {%- comment -%}
   A project page whose body is the repo's README, fetched in the browser.
   Front matter: github_repo, github_branch, github_readme_path, permalink,
-  and project_id to pull the header (status, period, meter, stack) from
-  _data/projects.yml.
+  ref (shared by the page's translations), and project_id to pull the header
+  (status, period, meter, stack) from _data/projects.yml, in the page's
+  language when the project has a block for it.
 {%- endcomment -%}
+{%- assign t = site.data.i18n[page.lang] -%}
 {%- assign project = site.data.projects | where: "id", page.project_id | first -%}
-{%- assign heading = project.title | default: page.heading | default: page.title -%}
+{%- assign tx = project[page.lang] -%}
+{%- assign heading = tx.title | default: project.title | default: page.heading | default: page.title -%}
 <div class="container">
   <header class="page-head">
-    <nav class="breadcrumb" aria-label="Percorso">
-      <a href="{{ '/projects/' | relative_url }}">Progetti</a>
+    <nav class="breadcrumb" aria-label="{{ t.breadcrumb }}">
+      <a href="{{ t.prefix | append: '/projects/' | relative_url }}">{{ t.nav_projects }}</a>
       <span aria-hidden="true">/</span>
       <span>{{ heading }}</span>
     </nav>
@@ -20,15 +23,15 @@ layout: default
       <h1 class="page-title">{{ heading }}</h1>
       {% if project %}{% include status-chip.html status=project.status %}{% endif %}
     </div>
-    {%- assign dek = project.summary | default: page.subheading -%}
+    {%- assign dek = tx.summary | default: project.summary | default: page.subheading -%}
     {% if dek %}<p class="dek">{{ dek }}</p>{% endif %}
 
     {% if project %}
     <dl class="facts">
-      {% if project.since %}<div><dt>Periodo</dt><dd class="mono">{{ project.since }} – {{ project.until | default: "oggi" }}</dd></div>{% endif %}
-      {% if project.phase %}<div class="facts__wide"><dt>Stato</dt><dd>{% include meter.html phase=project.phase %}</dd></div>{% endif %}
-      {% if project.stack %}<div class="facts__stack"><dt>Stack</dt><dd>{{ project.stack }}</dd></div>{% endif %}
-      {% if project.demo %}<div><dt>Demo</dt><dd><a href="{{ project.demo }}">Apri la demo ↗</a></dd></div>{% endif %}
+      {% if project.since %}<div><dt>{{ t.period }}</dt><dd class="mono">{% include month-year.html value=project.since %} – {% if project.until %}{% include month-year.html value=project.until %}{% else %}{{ t.today }}{% endif %}</dd></div>{% endif %}
+      {% if project.phase %}<div class="facts__wide"><dt>{{ t.status }}</dt><dd>{% include meter.html phase=project.phase tx=tx %}</dd></div>{% endif %}
+      {% if project.stack %}<div class="facts__stack"><dt>Stack</dt><dd>{{ tx.stack | default: project.stack }}</dd></div>{% endif %}
+      {% if project.demo %}<div><dt>Demo</dt><dd><a href="{{ project.demo }}">{{ t.open_demo }}</a></dd></div>{% endif %}
       <div><dt>Repository</dt><dd><a href="https://github.com/{{ page.github_repo }}">{{ page.github_repo }} ↗</a></dd></div>
     </dl>
     {% endif %}
@@ -36,12 +39,12 @@ layout: default
 
   <div class="section-head">
     <h2>README</h2>
-    <p class="section-head__meta">letto in tempo reale da GitHub · {{ page.github_branch | default: "main" }} / {{ page.github_readme_path | default: "README.md" }}</p>
+    <p class="section-head__meta">{{ t.readme_meta }} · {{ page.github_branch | default: "main" }} / {{ page.github_readme_path | default: "README.md" }}</p>
   </div>
   <div id="readme-status" class="readme-status" role="status"></div>
   <article id="readme-content" class="prose readme" lang="en"></article>
   <p class="readme-cta">
-    <a id="readme-repo-link" class="btn" href="https://github.com/{{ page.github_repo }}">Apri il repository su GitHub ↗</a>
+    <a id="readme-repo-link" class="btn" href="https://github.com/{{ page.github_repo }}">{{ t.readme_open }}</a>
   </p>
 </div>
 
@@ -50,6 +53,8 @@ layout: default
   data-default-repo="{{ page.github_repo | default: 'enricotazzer/enricotazzer.github.io' | escape }}"
   data-default-branch="{{ page.github_branch | default: 'main' | escape }}"
   data-default-path="{{ page.github_readme_path | default: 'README.md' | escape }}"
+  data-msg-loading="{{ t.readme_loading | escape }}"
+  data-msg-error="{{ t.readme_error | escape }}"
   hidden
 ></div>
 
@@ -61,6 +66,8 @@ layout: default
   const defaultRepo = (configEl?.dataset.defaultRepo || 'enricotazzer/enricotazzer.github.io').trim();
   const defaultBranch = (configEl?.dataset.defaultBranch || 'main').trim();
   const defaultPath = (configEl?.dataset.defaultPath || 'README.md').trim();
+  const msgLoading = configEl?.dataset.msgLoading || 'Loading the README…';
+  const msgError = configEl?.dataset.msgError || 'Could not load the README ({error}).';
 
   const statusEl = document.getElementById('readme-status');
   const contentEl = document.getElementById('readme-content');
@@ -150,7 +157,7 @@ layout: default
   };
 
   const renderReadme = async (repoValue, branchValue, pathValue) => {
-    statusEl.textContent = 'Caricamento del README…';
+    statusEl.textContent = msgLoading;
     contentEl.innerHTML = '';
 
     try {
@@ -162,7 +169,7 @@ layout: default
 
       statusEl.textContent = '';
     } catch (error) {
-      statusEl.textContent = `Impossibile caricare il README (${error.message}). Controlla repository, branch e percorso, e che il repository sia pubblico.`;
+      statusEl.textContent = msgError.replace('{error}', error.message);
     }
   };
 

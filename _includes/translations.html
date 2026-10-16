@@ -1,0 +1,10 @@
+{%- comment -%}
+  Sets `translations` to every version of this page, this one included:
+  pages and posts that share its `ref`. Empty when the page has no ref.
+  Used by the language switcher and the hreflang links in head.html.
+{%- endcomment -%}
+{%- if page.ref -%}
+  {%- assign translations = site.pages | concat: site.posts | where: "ref", page.ref -%}
+{%- else -%}
+  {%- assign translations = "" | split: "" -%}
+{%- endif -%}

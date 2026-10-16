@@ -1,5 +1,6 @@
 ---
 layout: post
+ref: introduzione-ai-medicina
 redirect_from: /introductionToAiMedicine.html
 title: "Introduzione all'AI nella medicina"
 subtitle: "Alla scoperta di questo vasto campo applicativo e le sue potenzialità"
